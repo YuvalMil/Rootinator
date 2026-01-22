@@ -11,14 +11,12 @@
             "id": "6cfc1b3cc1d71c05",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "index.md",
-                "mode": "source",
-                "source": false
+                "file": "assets/images/R-icon.png"
               },
-              "icon": "lucide-file",
-              "title": "index"
+              "icon": "lucide-image",
+              "title": "R-icon"
             }
           }
         ]
@@ -186,8 +184,8 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
-    "assets/images/{{.md",
     "index.md",
+    "assets/images/{{.md",
     "about.md",
     "README.md",
     "WRITEUP-GUIDE.md",
