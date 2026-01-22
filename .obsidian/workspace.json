@@ -184,8 +184,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "946d0dd1d966de4a",
+  "active": "980365d452640efe",
   "lastOpenFiles": [
+    "assets/css/obsidian-dividers.css",
+    "_writeups/divider-test.md",
+    "_includes/obsidian-dividers.css",
     "assets/writeups/templates/Writeup Template.md",
     "_writeups/Test.md",
     "_writeups/Test.md",
