@@ -296,12 +296,6 @@ flag{root_flag_here}
 - Technique 2 with brief explanation
 - Technique 3 with brief explanation
 
-### Things That Didn't Work
-
-> [!failure] Dead Ends
-> - Rabbit hole 1: Why it didn't work
-> - Rabbit hole 2: What I learned from it
-
 ---
 
 ## Tools Used
@@ -341,5 +335,5 @@ graph LR
 ---
 
 **Pwned on:** {{date:MMMM DD, YYYY}}  
-**Difficulty Rating:** ☭☭☭☭ (Personal rating)  
-**Fun Factor:** ☭☭☭☭☭☁(How enjoyable was it?)
+**Difficulty Rating:** ⭐⭐⭐⭐⭐ (Personal rating)  
+**Fun Factor:** ⭐⭐⭐⭐⭐(How enjoyable was it?)
