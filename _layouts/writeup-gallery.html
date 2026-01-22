@@ -16,11 +16,11 @@ layout: default
     <div class="filter-category">
       <div class="filter-category-label">Difficulty:</div>
       <div class="filter-buttons">
-        <button class="filter-btn difficulty-filter active" data-filter="all">All</button>
-        <button class="filter-btn difficulty-filter" data-filter="easy">Easy</button>
-        <button class="filter-btn difficulty-filter" data-filter="medium">Medium</button>
-        <button class="filter-btn difficulty-filter" data-filter="hard">Hard</button>
-        <button class="filter-btn difficulty-filter" data-filter="insane">Insane</button>
+        <button class="filter-btn difficulty-filter filter-all active" data-filter="all">All</button>
+        <button class="filter-btn difficulty-filter filter-easy" data-filter="easy">Easy</button>
+        <button class="filter-btn difficulty-filter filter-medium" data-filter="medium">Medium</button>
+        <button class="filter-btn difficulty-filter filter-hard" data-filter="hard">Hard</button>
+        <button class="filter-btn difficulty-filter filter-insane" data-filter="insane">Insane</button>
       </div>
     </div>
 
@@ -28,12 +28,12 @@ layout: default
     <div class="filter-category">
       <div class="filter-category-label">Platform:</div>
       <div class="filter-buttons">
-        <button class="filter-btn platform-filter active" data-filter="all">All</button>
+        <button class="filter-btn platform-filter filter-all active" data-filter="all">All</button>
         {% capture platforms_list %}{% for writeup in site.writeups %}{{ writeup.platform }}|||{% endfor %}{% endcapture %}
         {% assign platforms_array = platforms_list | split: '|||' | uniq | sort %}
         {% for platform in platforms_array %}
           {% if platform != "" %}
-          <button class="filter-btn platform-filter" data-filter="{{ platform | slugify }}">{{ platform }}</button>
+          <button class="filter-btn platform-filter filter-platform-{{ platform | slugify }}" data-filter="{{ platform | slugify }}">{{ platform }}</button>
           {% endif %}
         {% endfor %}
       </div>
@@ -43,27 +43,12 @@ layout: default
     <div class="filter-category">
       <div class="filter-category-label">OS:</div>
       <div class="filter-buttons">
-        <button class="filter-btn os-filter active" data-filter="all">All</button>
+        <button class="filter-btn os-filter filter-all active" data-filter="all">All</button>
         {% capture os_list %}{% for writeup in site.writeups %}{% if writeup.os %}{{ writeup.os }}|||{% endif %}{% endfor %}{% endcapture %}
         {% assign os_array = os_list | split: '|||' | uniq | sort %}
         {% for os in os_array %}
           {% if os != "" %}
-          <button class="filter-btn os-filter" data-filter="{{ os | slugify }}">{{ os }}</button>
-          {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-
-    <!-- Tag Filter -->
-    <div class="filter-category">
-      <div class="filter-category-label">Tag:</div>
-      <div class="filter-buttons">
-        <button class="filter-btn tag-filter active" data-filter="all">All</button>
-        {% capture tags_list %}{% for writeup in site.writeups %}{% for tag in writeup.tags %}{{ tag }}|||{% endfor %}{% endfor %}{% endcapture %}
-        {% assign tags_array = tags_list | split: '|||' | uniq | sort %}
-        {% for tag in tags_array %}
-          {% if tag != "" %}
-          <button class="filter-btn tag-filter" data-filter="{{ tag | slugify }}">{{ tag }}</button>
+          <button class="filter-btn os-filter filter-os" data-filter="{{ os | slugify }}">{{ os }}</button>
           {% endif %}
         {% endfor %}
       </div>
@@ -82,8 +67,7 @@ layout: default
        class="writeup-card" 
        data-difficulty="{{ writeup.difficulty | downcase }}"
        data-platform="{{ writeup.platform | slugify }}"
-       data-os="{{ writeup.os | slugify }}"
-       data-tags="{% for tag in writeup.tags %}{{ tag | slugify }} {% endfor %}">
+       data-os="{{ writeup.os | slugify }}">
       <div class="card-content">
         {% if writeup.box_icon %}
         <div class="card-icon">
@@ -133,8 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let activeFilters = {
     difficulty: 'all',
     platform: 'all',
-    os: 'all',
-    tag: 'all'
+    os: 'all'
   };
   
   function filterCards() {
@@ -144,7 +127,6 @@ document.addEventListener('DOMContentLoaded', function() {
       const cardDifficulty = card.getAttribute('data-difficulty');
       const cardPlatform = card.getAttribute('data-platform');
       const cardOS = card.getAttribute('data-os') || 'none';
-      const cardTags = card.getAttribute('data-tags') || '';
       
       let showCard = true;
       
@@ -160,10 +142,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (cardOS === 'none' || cardOS !== activeFilters.os) {
           showCard = false;
         }
-      }
-      
-      if (activeFilters.tag !== 'all' && !cardTags.includes(activeFilters.tag)) {
-        showCard = false;
       }
       
       if (showCard) {
@@ -204,21 +182,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
-  document.querySelectorAll('.tag-filter').forEach(button => {
-    button.addEventListener('click', function() {
-      document.querySelectorAll('.tag-filter').forEach(btn => btn.classList.remove('active'));
-      this.classList.add('active');
-      activeFilters.tag = this.getAttribute('data-filter');
-      filterCards();
-    });
-  });
-  
   clearFiltersBtn.addEventListener('click', function() {
     activeFilters = {
       difficulty: 'all',
       platform: 'all',
-      os: 'all',
-      tag: 'all'
+      os: 'all'
     };
     
     document.querySelectorAll('.filter-btn').forEach(btn => {

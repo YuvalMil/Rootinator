@@ -30,37 +30,150 @@
   gap: 0.5rem;
 }
 
+/* Base Filter Button */
 .filter-btn {
-  background-color: var(--bg-tertiary);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-color);
   padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 500;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .filter-btn:hover {
-  background-color: var(--bg-primary);
-  border-color: var(--text-link);
-  color: var(--text-link);
   transform: translateY(-2px);
+  opacity: 0.8;
 }
 
-.filter-btn.active {
-  background-color: var(--text-link);
+/* All Button - Blue Theme */
+.filter-all {
+  background-color: rgba(88, 166, 255, 0.15);
+  color: #58a6ff;
+  border: 1px solid #58a6ff;
+}
+
+.filter-all.active {
+  background-color: #58a6ff;
   color: #ffffff;
-  border-color: var(--text-link);
-  font-weight: 600;
 }
 
-.filter-btn.active:hover {
-  background-color: var(--text-link-hover);
-  border-color: var(--text-link-hover);
-  transform: translateY(-2px);
+/* Difficulty Filter Buttons */
+.filter-easy {
+  background-color: rgba(40, 167, 69, 0.2);
+  color: #28a745;
+  border: 1px solid #28a745;
+}
+
+.filter-easy.active {
+  background-color: #28a745;
+  color: #ffffff;
+}
+
+.filter-medium {
+  background-color: rgba(253, 126, 20, 0.2);
+  color: #fd7e14;
+  border: 1px solid #fd7e14;
+}
+
+.filter-medium.active {
+  background-color: #fd7e14;
+  color: #ffffff;
+}
+
+.filter-hard {
+  background-color: rgba(220, 53, 69, 0.2);
+  color: #dc3545;
+  border: 1px solid #dc3545;
+}
+
+.filter-hard.active {
+  background-color: #dc3545;
+  color: #ffffff;
+}
+
+.filter-insane {
+  background: linear-gradient(135deg, rgba(192, 192, 192, 0.25), rgba(169, 169, 169, 0.25));
+  color: #c0c0c0;
+  border: 1px solid #a9a9a9;
+  box-shadow: 0 0 8px rgba(192, 192, 192, 0.3);
+}
+
+.filter-insane.active {
+  background: linear-gradient(135deg, #c0c0c0, #a9a9a9);
+  color: #0d1117;
+  box-shadow: 0 0 12px rgba(192, 192, 192, 0.5);
+}
+
+/* Platform Filter Buttons */
+.filter-platform-hackthebox {
+  background-color: rgba(159, 239, 0, 0.15);
+  color: #9fef00;
+  border: 1px solid #9fef00;
+}
+
+.filter-platform-hackthebox.active {
+  background-color: #9fef00;
+  color: #0d1117;
+}
+
+.filter-platform-tryhackme {
+  background-color: rgba(33, 44, 66, 0.4);
+  color: #88cc14;
+  border: 1px solid #88cc14;
+}
+
+.filter-platform-tryhackme.active {
+  background-color: #88cc14;
+  color: #ffffff;
+}
+
+.filter-platform-proving-grounds {
+  background-color: rgba(147, 51, 234, 0.2);
+  color: #a855f7;
+  border: 1px solid #a855f7;
+}
+
+.filter-platform-proving-grounds.active {
+  background-color: #a855f7;
+  color: #ffffff;
+}
+
+.filter-platform-pwnable {
+  background-color: rgba(88, 166, 255, 0.15);
+  color: #58a6ff;
+  border: 1px solid #58a6ff;
+}
+
+.filter-platform-pwnable.active {
+  background-color: #58a6ff;
+  color: #ffffff;
+}
+
+.filter-platform-picoctf {
+  background-color: rgba(255, 123, 114, 0.15);
+  color: #ff7b72;
+  border: 1px solid #ff7b72;
+}
+
+.filter-platform-picoctf.active {
+  background-color: #ff7b72;
+  color: #ffffff;
+}
+
+/* OS Filter Buttons */
+.filter-os {
+  background-color: rgba(100, 116, 139, 0.2);
+  color: #94a3b8;
+  border: 1px solid #475569;
+}
+
+.filter-os.active {
+  background-color: #94a3b8;
+  color: #0d1117;
+  border-color: #94a3b8;
 }
 
 /* Filter Results Bar */
@@ -189,7 +302,7 @@
   .filter-btn,
   .filter-tag {
     padding: 0.4rem 0.8rem;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
   
   .filter-results {
