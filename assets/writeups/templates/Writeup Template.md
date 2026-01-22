@@ -300,6 +300,6 @@ graph LR
 
 ---
 
-**Pwned on:** {{date:MMMM DD, YYYY}}  
+**Pwned on:** [Date Here]  
 **Difficulty Rating:** ⭐⭐⭐⭐⭐ (Personal rating)  
-**Fun Factor:** ⭐⭐⭐⭐⭐(How enjoyable was it?)
+**Fun Factor:** ⭐⭐⭐⭐⭐ (How enjoyable was it?)
