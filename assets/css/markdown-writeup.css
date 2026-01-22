@@ -1,7 +1,7 @@
 /* Markdown Writeup Content Styles */
 
 .markdown-content {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
   background-color: var(--bg-secondary);
@@ -84,6 +84,7 @@
 .markdown-content code {
   font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
   font-size: 0.9em;
+  white-space: pre;
 }
 
 .markdown-content pre code {
@@ -91,6 +92,9 @@
   border: none;
   padding: 0;
   color: var(--text-primary);
+  white-space: pre;
+  word-break: normal;
+  word-wrap: normal;
 }
 
 .markdown-content p code,
@@ -100,6 +104,7 @@
   padding: 2px 6px;
   border-radius: 3px;
   color: #ff7b72;
+  white-space: nowrap;
 }
 
 /* Images */
@@ -143,8 +148,8 @@
   width: 100%;
   border-collapse: collapse;
   margin: 1.5rem 0;
+  display: table;
   overflow-x: auto;
-  display: block;
 }
 
 .markdown-content thead {
@@ -153,18 +158,39 @@
 
 .markdown-content th,
 .markdown-content td {
-  padding: 0.75rem;
+  padding: 0.75rem 1rem;
   text-align: left;
   border: 1px solid var(--border-color);
+  vertical-align: top;
 }
 
 .markdown-content th {
   font-weight: 600;
   color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.markdown-content td {
+  color: var(--text-primary);
 }
 
 .markdown-content tr:nth-child(even) {
   background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Table wrapper for horizontal scroll on mobile */
+.markdown-content table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.markdown-content table tbody,
+.markdown-content table thead,
+.markdown-content table tr {
+  display: table;
+  width: 100%;
+  table-layout: auto;
 }
 
 /* Horizontal Rules */
@@ -185,13 +211,6 @@
 .markdown-content a:hover {
   color: var(--text-link-hover);
   border-bottom-color: var(--text-link-hover);
-}
-
-/* Info Boxes (using blockquotes with emoji) */
-.markdown-content blockquote:has(p:first-child:contains("ℹ️")),
-.markdown-content blockquote:has(p:first-child:contains("💡")),
-.markdown-content blockquote:has(p:first-child:contains("⚠️")) {
-  border-left-color: #58a6ff;
 }
 
 /* Task Lists */
@@ -236,6 +255,7 @@
 @media (max-width: 768px) {
   .markdown-content {
     padding: 1rem;
+    max-width: 100%;
   }
   
   .markdown-content h1 {
