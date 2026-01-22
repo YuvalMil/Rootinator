@@ -1,9 +1,9 @@
 ---
 layout: writeup
-title: "{{title | lower}}"
+title: "{{ title | lower }}"
 platform: HackTheBox
 difficulty: Medium
-box_icon: /assets/images/{{title:lower}}-icon.png
+box_icon: /assets/images/{{ title | lower }}-icon.png
 date: 1990-12-12
 tags:
   - web
@@ -40,7 +40,7 @@ tags:
 
 **Initial scan:**
 ```bash
-nmap -sC -sV -oA nmap/{{title:lower}} 10.10.11.x
+nmap -sC -sV -oA nmap/{{ title | lower }} 10.10.11.x
 ```
 
 **Results:**
@@ -306,19 +306,6 @@ flag{root_flag_here}
 - [GTFOBins - Tool](https://gtfobins.github.io/)
 - [HackTricks - Technique](https://book.hacktricks.xyz/)
 - [OWASP - Vulnerability Type](https://owasp.org/)
-
----
-
-## Screenshots
-
-**Initial access:**
-![Initial shell](/assets/images/{{title:lower}}/initial-shell.png)
-
-**User flag:**
-![User flag](/assets/images/{{title:lower}}/user-flag.png)
-
-**Root flag:**
-![Root flag](/assets/images/{{title:lower}}/root-flag.png)
 
 ---
 
