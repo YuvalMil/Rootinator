@@ -1,8 +1,0 @@
-name = "rootinator"
-compatibility_date = "2026-01-22"
-
-[site]
-bucket = "./_site"
-
-# Cloudflare Pages configuration
-pages_build_output_dir = "_site"
