@@ -29,15 +29,12 @@ layout: default
       <div class="filter-category-label">Platform:</div>
       <div class="filter-buttons">
         <button class="filter-btn platform-filter active" data-filter="all">All</button>
-        {% assign platforms = "" | split: "" %}
-        {% for writeup in site.writeups %}
-          {% unless platforms contains writeup.platform %}
-            {% assign platforms = platforms | push: writeup.platform %}
-          {% endunless %}
-        {% endfor %}
-        {% assign sorted_platforms = platforms | sort %}
-        {% for platform in sorted_platforms %}
-        <button class="filter-btn platform-filter" data-filter="{{ platform | slugify }}">{{ platform }}</button>
+        {% capture platforms_list %}{% for writeup in site.writeups %}{{ writeup.platform }}|||{% endfor %}{% endcapture %}
+        {% assign platforms_array = platforms_list | split: '|||' | uniq | sort %}
+        {% for platform in platforms_array %}
+          {% if platform != "" %}
+          <button class="filter-btn platform-filter" data-filter="{{ platform | slugify }}">{{ platform }}</button>
+          {% endif %}
         {% endfor %}
       </div>
     </div>
@@ -47,17 +44,12 @@ layout: default
       <div class="filter-category-label">OS:</div>
       <div class="filter-buttons">
         <button class="filter-btn os-filter active" data-filter="all">All</button>
-        {% assign operating_systems = "" | split: "" %}
-        {% for writeup in site.writeups %}
-          {% if writeup.os %}
-            {% unless operating_systems contains writeup.os %}
-              {% assign operating_systems = operating_systems | push: writeup.os %}
-            {% endunless %}
+        {% capture os_list %}{% for writeup in site.writeups %}{% if writeup.os %}{{ writeup.os }}|||{% endif %}{% endfor %}{% endcapture %}
+        {% assign os_array = os_list | split: '|||' | uniq | sort %}
+        {% for os in os_array %}
+          {% if os != "" %}
+          <button class="filter-btn os-filter" data-filter="{{ os | slugify }}">{{ os }}</button>
           {% endif %}
-        {% endfor %}
-        {% assign sorted_os = operating_systems | sort %}
-        {% for os in sorted_os %}
-        <button class="filter-btn os-filter" data-filter="{{ os | slugify }}">{{ os }}</button>
         {% endfor %}
       </div>
     </div>
@@ -67,17 +59,12 @@ layout: default
       <div class="filter-category-label">Tag:</div>
       <div class="filter-buttons">
         <button class="filter-btn tag-filter active" data-filter="all">All</button>
-        {% assign all_tags = "" | split: "" %}
-        {% for writeup in site.writeups %}
-          {% for tag in writeup.tags %}
-            {% unless all_tags contains tag %}
-              {% assign all_tags = all_tags | push: tag %}
-            {% endunless %}
-          {% endfor %}
-        {% endfor %}
-        {% assign sorted_tags = all_tags | sort %}
-        {% for tag in sorted_tags %}
-        <button class="filter-btn tag-filter" data-filter="{{ tag | slugify }}">{{ tag }}</button>
+        {% capture tags_list %}{% for writeup in site.writeups %}{% for tag in writeup.tags %}{{ tag }}|||{% endfor %}{% endfor %}{% endcapture %}
+        {% assign tags_array = tags_list | split: '|||' | uniq | sort %}
+        {% for tag in tags_array %}
+          {% if tag != "" %}
+          <button class="filter-btn tag-filter" data-filter="{{ tag | slugify }}">{{ tag }}</button>
+          {% endif %}
         {% endfor %}
       </div>
     </div>
@@ -161,24 +148,20 @@ document.addEventListener('DOMContentLoaded', function() {
       
       let showCard = true;
       
-      // Check difficulty filter
       if (activeFilters.difficulty !== 'all' && cardDifficulty !== activeFilters.difficulty) {
         showCard = false;
       }
       
-      // Check platform filter
       if (activeFilters.platform !== 'all' && cardPlatform !== activeFilters.platform) {
         showCard = false;
       }
       
-      // Check OS filter
       if (activeFilters.os !== 'all') {
         if (cardOS === 'none' || cardOS !== activeFilters.os) {
           showCard = false;
         }
       }
       
-      // Check tag filter
       if (activeFilters.tag !== 'all' && !cardTags.includes(activeFilters.tag)) {
         showCard = false;
       }
@@ -191,11 +174,9 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
     
-    // Update results count
-    resultsCount.textContent = `Showing ${visibleCount} of ${cards.length} writeups`;
+    resultsCount.textContent = 'Showing ' + visibleCount + ' of ' + cards.length + ' writeups';
   }
   
-  // Difficulty filter
   document.querySelectorAll('.difficulty-filter').forEach(button => {
     button.addEventListener('click', function() {
       document.querySelectorAll('.difficulty-filter').forEach(btn => btn.classList.remove('active'));
@@ -205,7 +186,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
-  // Platform filter
   document.querySelectorAll('.platform-filter').forEach(button => {
     button.addEventListener('click', function() {
       document.querySelectorAll('.platform-filter').forEach(btn => btn.classList.remove('active'));
@@ -215,7 +195,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
-  // OS filter
   document.querySelectorAll('.os-filter').forEach(button => {
     button.addEventListener('click', function() {
       document.querySelectorAll('.os-filter').forEach(btn => btn.classList.remove('active'));
@@ -225,7 +204,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
-  // Tag filter
   document.querySelectorAll('.tag-filter').forEach(button => {
     button.addEventListener('click', function() {
       document.querySelectorAll('.tag-filter').forEach(btn => btn.classList.remove('active'));
@@ -235,7 +213,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
-  // Clear all filters
   clearFiltersBtn.addEventListener('click', function() {
     activeFilters = {
       difficulty: 'all',
@@ -254,7 +231,6 @@ document.addEventListener('DOMContentLoaded', function() {
     filterCards();
   });
   
-  // Initial count
   filterCards();
 });
 </script>
