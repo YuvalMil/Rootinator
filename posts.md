@@ -1,5 +1,5 @@
 ---
-layout: home
-title: Posts
-permalink: /posts/
+layout: post-gallery
+title: Blog Posts
+description: Latest security research, tutorials, and thoughts
 ---

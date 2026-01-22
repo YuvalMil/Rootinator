@@ -5,6 +5,7 @@ email:
 url: "https://rootinator.com"
 baseurl: ""
 repository: YuvalMil/rootinator
+logo: /assets/images/R-icon.png
 
 # Build settings
 theme: minima
