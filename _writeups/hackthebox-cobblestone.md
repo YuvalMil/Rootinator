@@ -28,7 +28,9 @@ this is a bunch of codethis is a bunch of codethis is a bunch of codethis is a b
 this is a bunch of codethis is a bunch of codethis is a bunch of code
 this is a bunch of codethis is a bunch of codethis is a bunch of codethis is a bunch of code
 ```
-[^1]
-[^1]: Bunch of code
 
 
+
+
+
+	
