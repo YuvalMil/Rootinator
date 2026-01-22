@@ -1,0 +1,66 @@
+/* Custom styles for Rootinator */
+
+/* Neon green site title */
+.site-title {
+  color: #39ff14 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px;
+}
+
+.site-title:hover {
+  color: #39ff14 !important;
+  text-shadow: 0 0 15px rgba(57, 255, 20, 0.8);
+  text-decoration: none !important;
+}
+
+/* Site logo */
+.site-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+/* Footer copyright section */
+.footer-copyright {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #424242;
+  text-align: center;
+}
+
+.footer-copyright p {
+  margin: 0.5rem 0;
+  color: #828282;
+  font-size: 0.9rem;
+}
+
+.footer-tagline {
+  font-size: 0.85rem !important;
+  color: #999 !important;
+  font-style: italic;
+}
+
+/* Improve footer styling */
+.site-footer {
+  background-color: #1a1a1a;
+  border-top: 2px solid #66bb6a;
+  padding: 2rem 0;
+}
+
+.footer-col-wrapper {
+  margin-bottom: 1rem;
+}
+
+/* Make footer links green themed */
+.site-footer a {
+  color: #66bb6a;
+}
+
+.site-footer a:hover {
+  color: #39ff14;
+  text-decoration: none;
+}
