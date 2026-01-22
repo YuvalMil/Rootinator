@@ -9,11 +9,9 @@ tags:
   - suid
 ---
 
-<link rel="stylesheet" href="{{ '/assets/css/obsidian-dividers.css' | relative_url }}">
-
 ## Overview
 
-This is a test writeup demonstrating the new Obsidian-style dividers that match the callout styling from Obsidian notes.
+This is a test writeup demonstrating the new Obsidian-style dividers that match the callout styling from Obsidian notes, plus Mermaid diagram support.
 
 ## Reconnaissance
 
@@ -78,6 +76,27 @@ password123
 - **User Flag**: `a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6`
 - **Root Flag**: `z9y8x7w6v5u4t3s2r1q0p9o8n7m6l5k4`
 
+## Timeline
+
+Here's a visual representation of the attack path:
+
+```mermaid
+graph LR
+    A[Nmap Scan] --> B[Web Enum]
+    B --> C[File Upload Vuln]
+    C --> D[Initial Shell]
+    D --> E[User Flag]
+    E --> F[SUID Enum]
+    F --> G[Root Shell]
+    G --> H[Root Flag]
+```
+
 ## Conclusion
 
-Machine pwned! The Obsidian-style dividers are working perfectly and match the styling from Obsidian notes.
+Machine pwned! The Obsidian-style dividers are working perfectly and the Mermaid timeline diagram renders beautifully on the site.
+
+---
+
+**Pwned on:** January 22, 2026  
+**Difficulty Rating:** ★★★★ (Personal rating)  
+**Fun Factor:** ★★★★★ (How enjoyable was it?)
