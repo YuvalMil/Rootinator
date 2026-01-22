@@ -1,0 +1,48 @@
+---
+layout: default
+---
+
+<div class="writeup-gallery-page">
+  <header class="gallery-header">
+    <h1>{{ page.title }}</h1>
+    {% if page.description %}
+    <p class="gallery-description">{{ page.description }}</p>
+    {% endif %}
+  </header>
+
+  <div class="writeup-grid">
+    {% assign sorted_writeups = site.writeups | sort: 'date' | reverse %}
+    {% for writeup in sorted_writeups %}
+    <a href="{{ writeup.url }}" class="writeup-card">
+      <div class="card-content">
+        {% if writeup.box_icon %}
+        <div class="card-icon">
+          <img src="{{ writeup.box_icon }}" alt="{{ writeup.title }} icon">
+        </div>
+        {% endif %}
+        
+        <h3 class="card-title">{{ writeup.title }}</h3>
+        
+        <div class="card-meta">
+          <span class="difficulty-badge difficulty-{{ writeup.difficulty | downcase }}">
+            {{ writeup.difficulty }}
+          </span>
+          <span class="platform-badge platform-{{ writeup.platform | downcase | replace: ' ', '-' }}">
+            {{ writeup.platform }}
+          </span>
+        </div>
+        
+        {% if writeup.tags %}
+        <div class="card-tags">
+          {% for tag in writeup.tags limit:3 %}
+          <span class="tag-small">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+
+  {{ content }}
+</div>
