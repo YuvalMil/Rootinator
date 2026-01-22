@@ -2,8 +2,14 @@
 layout: home
 title: Home
 ---
+Welcome to Rootinator, my new security research blog!
 
-Welcome to Rootinator - a collection of CTF writeups, bug bounty findings, and information security research.
+This site will host:
+
+- CTF writeups with detailed methodologies
+- Bug bounty vulnerability reports
+- Security tools and techniques
+- General infosec research
 
 ## Latest Posts
 
