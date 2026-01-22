@@ -1,0 +1,76 @@
+/* Tag Filter Styles */
+.tag-filter-section {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.filter-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.tag-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.filter-tag {
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.filter-tag:hover {
+  background-color: var(--bg-primary);
+  border-color: var(--text-link);
+  color: var(--text-link);
+  transform: translateY(-2px);
+}
+
+.filter-tag.active {
+  background-color: var(--text-link);
+  color: #ffffff;
+  border-color: var(--text-link);
+  font-weight: 600;
+}
+
+.filter-tag.active:hover {
+  background-color: var(--text-link-hover);
+  border-color: var(--text-link-hover);
+  transform: translateY(-2px);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .tag-filter-section {
+    padding: 1rem;
+  }
+  
+  .filter-label {
+    font-size: 0.9rem;
+  }
+  
+  .tag-filters {
+    gap: 0.4rem;
+  }
+  
+  .filter-tag {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+}

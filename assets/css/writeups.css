@@ -160,6 +160,12 @@
   border: 1px solid #88cc14;
 }
 
+.platform-proving-grounds {
+  background-color: rgba(147, 51, 234, 0.2);
+  color: #a855f7;
+  border: 1px solid #a855f7;
+}
+
 .platform-pwnable {
   background-color: rgba(88, 166, 255, 0.15);
   color: #58a6ff;

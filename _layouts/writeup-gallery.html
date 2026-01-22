@@ -10,10 +10,30 @@ layout: default
     {% endif %}
   </header>
 
-  <div class="writeup-grid">
+  <!-- Tag Filter Section -->
+  <div class="tag-filter-section">
+    <div class="filter-label">Filter by tag:</div>
+    <div class="tag-filters">
+      <button class="filter-tag active" data-tag="all">All</button>
+      {% assign all_tags = "" | split: "" %}
+      {% for writeup in site.writeups %}
+        {% for tag in writeup.tags %}
+          {% unless all_tags contains tag %}
+            {% assign all_tags = all_tags | push: tag %}
+          {% endunless %}
+        {% endfor %}
+      {% endfor %}
+      {% assign sorted_tags = all_tags | sort %}
+      {% for tag in sorted_tags %}
+      <button class="filter-tag" data-tag="{{ tag | slugify }}">{{ tag }}</button>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="writeup-grid" id="writeups-grid">
     {% assign sorted_writeups = site.writeups | sort: 'date' | reverse %}
     {% for writeup in sorted_writeups %}
-    <a href="{{ writeup.url }}" class="writeup-card">
+    <a href="{{ writeup.url }}" class="writeup-card" data-tags="{% for tag in writeup.tags %}{{ tag | slugify }} {% endfor %}">
       <div class="card-content">
         {% if writeup.box_icon %}
         <div class="card-icon">
@@ -46,3 +66,35 @@ layout: default
 
   {{ content }}
 </div>
+
+<script>
+// Tag filtering functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const filterButtons = document.querySelectorAll('.filter-tag');
+  const cards = document.querySelectorAll('#writeups-grid .writeup-card');
+  
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const selectedTag = this.getAttribute('data-tag');
+      
+      // Update active button
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      
+      // Filter cards
+      cards.forEach(card => {
+        if (selectedTag === 'all') {
+          card.style.display = 'block';
+        } else {
+          const cardTags = card.getAttribute('data-tags');
+          if (cardTags && cardTags.includes(selectedTag)) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        }
+      });
+    });
+  });
+});
+</script>
