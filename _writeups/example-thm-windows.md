@@ -3,7 +3,7 @@ layout: writeup
 title: "Windows Forensics 1"
 platform: "TryHackMe"
 difficulty: "Easy"
-box_icon: "https://tryhackme-images.s3.amazonaws.com/room-icons/6ce169f0d5e93a5e9f914ec4001d06bb.png"
+box_icon: "https://via.placeholder.com/200x200/88cc14/0d1117?text=THM+Forensics"
 pdf_file: "/assets/writeups/example-writeup.pdf"
 date: 2026-01-10
 tags: [forensics, windows, registry]
