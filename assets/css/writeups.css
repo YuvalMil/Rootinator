@@ -1,8 +1,9 @@
 /* Writeup Gallery Styles */
 .writeup-gallery-page {
-  max-width: 1200px;
+  max-width: 95%;
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 2rem 2rem;
 }
 
 .gallery-header {
@@ -19,7 +20,7 @@
 .gallery-description {
   font-size: 1.1rem;
   color: var(--text-secondary);
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -193,9 +194,10 @@
 
 /* Individual Writeup Page */
 .writeup-page {
-  max-width: 1400px;
+  max-width: 95%;
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 2rem 2rem;
 }
 
 .back-link {
@@ -331,5 +333,10 @@
   .pdf-container {
     height: calc(100vh - 400px);
     min-height: 600px;
+  }
+  
+  .writeup-gallery-page,
+  .writeup-page {
+    padding: 1rem;
   }
 }
