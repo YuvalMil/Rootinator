@@ -196,6 +196,10 @@ chmod +x ./linpeas.sh
 ./linpeas.sh
 ```
 
+<div class="divider divider-success">
+    <span class="divider-title">Shell</span>
+    <span class="divider-content">Successfully gained shell as [username]</span>
+</div>
 ### Lateral Movement (if applicable)
 
 > [!info] Moving to [next user]
