@@ -13,12 +13,32 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_writeups/Test.md",
+                "file": "_writeups/divider-test.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Test"
+              "title": "divider-test"
+            }
+          }
+        ]
+      },
+      {
+        "id": "b5ddab99c0c5e05e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6cfc1b3cc1d71c05",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "assets/writeups/templates/Writeup Template.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Writeup Template"
             }
           }
         ]
@@ -184,14 +204,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "980365d452640efe",
+  "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
-    "assets/css/obsidian-dividers.css",
     "_writeups/divider-test.md",
-    "_includes/obsidian-dividers.css",
     "assets/writeups/templates/Writeup Template.md",
     "_writeups/Test.md",
-    "_writeups/Test.md",
+    "assets/css/obsidian-dividers.css",
+    "_includes/obsidian-dividers.css",
     "assets/images/{{.md",
     "assets/images",
     "Invalid date.md",

