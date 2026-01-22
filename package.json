@@ -1,0 +1,15 @@
+{
+  "name": "rootinator",
+  "version": "1.0.0",
+  "description": "CTF Writeups & Bug Bounty Research Blog",
+  "scripts": {
+    "build": "bundle exec jekyll build",
+    "serve": "bundle exec jekyll serve",
+    "deploy": "wrangler pages deploy _site --project-name=rootinator"
+  },
+  "keywords": ["ctf", "bug-bounty", "infosec", "security"],
+  "author": "YuvalMil",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}
