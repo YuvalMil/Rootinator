@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_writeups/Test.md",
+                "file": "assets/writeups/templates/Writeup Template.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Test"
+              "title": "Writeup Template"
             }
           }
         ]
@@ -186,9 +186,10 @@
   },
   "active": "946d0dd1d966de4a",
   "lastOpenFiles": [
-    "_writeups/hackthebox-cobblestone.md",
-    "_writeups/Test.md",
+    "Invalid date.md",
     "assets/writeups/templates/Writeup Template.md",
+    "_writeups/Test.md",
+    "_writeups/hackthebox-cobblestone.md",
     "_writeups/Untitled.base",
     "index.md",
     "assets/writeups/templates",

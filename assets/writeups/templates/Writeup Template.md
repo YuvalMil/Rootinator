@@ -1,11 +1,13 @@
 ---
 layout: writeup
-title: "{{title}}"
-platform: "HackTheBox"
-difficulty: "Medium"
-box_icon: "/assets/images/{{title:lower}}-icon.png"
-date: {{date:YYYY-MM-DD}}
-tags: [web, linux]
+title: "{{title | lower}}"
+platform: HackTheBox
+difficulty: Medium
+box_icon: /assets/images/{{title:lower}}-icon.png
+date: 1990-12-12
+tags:
+  - web
+  - linux
 ---
 
 ## Box Information
