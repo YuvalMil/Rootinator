@@ -75,9 +75,10 @@ gobuster dir -u http://10.10.11.x -w /usr/share/wordlists/dirb/common.txt
 
 ### Port XXX Enumeration
 
-> [!tip] Discovery
-> Describe what you found on this port/service
-
+<div class="divider divider-info">
+    <span class="divider-title">Discovery</span>
+    <span class="divider-content">Describe what you found on this port/service</span>
+</div>
 ---
 
 ## Initial Foothold
