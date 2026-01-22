@@ -1,13 +1,13 @@
 /* Markdown Writeup Content Styles */
 
 .markdown-content {
-  max-width: 95%;
+  max-width: 100%;
   width: 100%;
-  margin: 0 auto;
-  padding: 2rem 3rem;
-  background-color: var(--bg-secondary);
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
+  margin: 0;
+  padding: 2rem 0;
+  background-color: transparent;
+  border-radius: 0;
+  border: none;
   line-height: 1.7;
 }
 
@@ -240,8 +240,7 @@
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .markdown-content {
-    padding: 1rem;
-    max-width: 100%;
+    padding: 1rem 0;
   }
   
   .markdown-content h1 {
