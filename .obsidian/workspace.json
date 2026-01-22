@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2026-01-15-my-first-bug-bounty.md",
+                "file": "_writeups/Test.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-01-15-my-first-bug-bounty"
+              "title": "Test"
             }
           }
         ]
@@ -186,6 +186,8 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "_posts/2026-01-15-my-first-bug-bounty.md",
+    "assets/css/tag-filters.css",
     "assets/css/syntax-highlighting.css",
     "_writeups/Test.md",
     "_writeups/Machine.md",
@@ -203,7 +205,6 @@
     "assets/css/posts.css",
     "_posts/2026-01-20-understanding-sql-injection.md",
     "_posts/2026-01-18-setting-up-home-lab.md",
-    "_posts/2026-01-15-my-first-bug-bounty.md",
     "_posts/2026-01-10-top-recon-tools-2026.md",
     "_layouts/post-gallery.html",
     "posts.md",
@@ -218,8 +219,6 @@
     "assets/writeups/icons/google015f31dfdd0422cd.html",
     "assets/writeups/icons/Unconfirmed 730386.crdownload",
     "2026-01-22.md",
-    "assets/css/obsidian-dividers.css",
-    "_includes/obsidian-dividers.css",
     "Invalid date.md",
     "_posts/2026-01-22-welcome.md",
     "OBSIDIAN-SETUP.md",
