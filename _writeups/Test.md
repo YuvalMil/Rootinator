@@ -3,7 +3,7 @@ layout: writeup
 title: Test
 platform: HackTheBox
 difficulty: Medium
-box_icon: /assets/images/{{ title | lower }}-icon.png
+box_icon:
 date: 1990-12-12
 tags:
   - web

@@ -11,12 +11,14 @@
             "id": "6cfc1b3cc1d71c05",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "assets/images/R-icon.png"
+                "file": "_writeups/Test.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "R-icon"
+              "icon": "lucide-file",
+              "title": "Test"
             }
           }
         ]
@@ -184,6 +186,22 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "_writeups/Machine.md",
+    "_writeups/hackthebox-cobblestone.md",
+    "_writeups/Test.md",
+    "_writeups/example-thm-windows.md",
+    "_writeups/example-picoctf.md",
+    "_writeups/example-htb-usage.md",
+    "_writeups/example-ctf.md",
+    "_writeups/example-complete-writeup.md",
+    "_writeups/divider-test.md",
+    "assets/images/R-icon.png",
+    "assets/css/posts.css",
+    "_posts/2026-01-20-understanding-sql-injection.md",
+    "_posts/2026-01-18-setting-up-home-lab.md",
+    "_posts/2026-01-15-my-first-bug-bounty.md",
+    "_posts/2026-01-10-top-recon-tools-2026.md",
+    "_layouts/post-gallery.html",
     "posts.md",
     "index.md",
     "assets/images/{{.md",
@@ -192,14 +210,9 @@
     "WRITEUP-GUIDE.md",
     "writeups.md",
     "assets/writeups/templates/Writeup Template.md",
-    "assets/images/R-icon.png",
-    "_writeups/Machine.md",
     "google015f31dfdd0422cd.html",
     "assets/writeups/icons/google015f31dfdd0422cd.html",
     "assets/writeups/icons/Unconfirmed 730386.crdownload",
-    "_writeups/Test.md",
-    "_writeups/hackthebox-cobblestone.md",
-    "_writeups/divider-test.md",
     "2026-01-22.md",
     "assets/css/obsidian-dividers.css",
     "_includes/obsidian-dividers.css",
@@ -207,13 +220,9 @@
     "Invalid date.md",
     "_writeups/Untitled.base",
     "assets/writeups/templates",
-    "assets/writeups/example-writeup.pdf",
     "_posts/2026-01-22-welcome.md",
     "OBSIDIAN-SETUP.md",
     "DEPLOYMENT.md",
-    "_writeups/example-htb-usage.md",
-    "assets/writeups/icons/cobblestone.jpg",
-    "assets/writeups/icons/Unconfirmed 130005.crdownload",
-    "_writeups/example-complete-writeup.md"
+    "assets/writeups/icons/cobblestone.jpg"
   ]
 }
