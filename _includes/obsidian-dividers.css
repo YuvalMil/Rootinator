@@ -1,0 +1,78 @@
+/* Obsidian-style Section Dividers */
+.divider {
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-left: 4px solid;
+    border-radius: 4px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+/* Success/Shell Access Divider */
+.divider-success {
+    background-color: #1a3a2e;
+    border-left-color: #4caf50;
+    color: #a5d6a7;
+}
+
+.divider-success::before {
+    content: "✓ ";
+    color: #4caf50;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+/* Root Access Divider */
+.divider-root {
+    background-color: #1e2f1e;
+    border-left-color: #66bb6a;
+    color: #c8e6c9;
+}
+
+.divider-root::before {
+    content: "✓ ";
+    color: #66bb6a;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+/* Info Divider */
+.divider-info {
+    background-color: #1a2a3a;
+    border-left-color: #2196f3;
+    color: #90caf9;
+}
+
+.divider-info::before {
+    content: "ℹ ";
+    color: #2196f3;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+/* Warning Divider */
+.divider-warning {
+    background-color: #3a2e1a;
+    border-left-color: #ff9800;
+    color: #ffcc80;
+}
+
+.divider-warning::before {
+    content: "⚠ ";
+    color: #ff9800;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+/* Divider Title */
+.divider-title {
+    font-weight: bold;
+    font-size: 1.05em;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Divider Content */
+.divider-content {
+    font-size: 0.95em;
+    margin-top: 5px;
+}
