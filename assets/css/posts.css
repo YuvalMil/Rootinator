@@ -1,0 +1,65 @@
+.post-gallery-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.gallery-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.gallery-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #66bb6a;
+}
+
+.gallery-description {
+  font-size: 1.1rem;
+  color: #888;
+}
+
+.post-card .card-icon-placeholder {
+  background: linear-gradient(135deg, #1e2f1e 0%, #2a4a2a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.post-card .card-icon img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.post-icon-text {
+  font-size: 4rem;
+}
+
+.date-badge {
+  background: #2a4a2a;
+  color: #c8e6c9;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.category-badge {
+  background: #1a3a3a;
+  color: #80deea;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-left: 0.5rem;
+}
+
+.card-excerpt {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
