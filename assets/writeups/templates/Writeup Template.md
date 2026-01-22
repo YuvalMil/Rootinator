@@ -264,49 +264,15 @@ flag{root_flag_here}
 **Completion time:** X hours
 
 ---
-
-## Lessons Learned
-
-### Vulnerabilities Identified
-
-1. **[Vulnerability 1]**
-   - Impact: High/Medium/Low
-   - Affected component: 
-   - Exploitation difficulty: Easy/Medium/Hard
-
-2. **[Vulnerability 2]**
-   - Impact: 
-   - Affected component: 
-   - Exploitation difficulty: 
-
-### Mitigation Recommendations
-
-**For [Vulnerability 1]:**
-- Recommendation 1
-- Recommendation 2
-- Recommendation 3
-
-**For [Vulnerability 2]:**
-- Recommendation 1
-- Recommendation 2
-
-### Key Techniques Used
-
-- Technique 1 with brief explanation
-- Technique 2 with brief explanation
-- Technique 3 with brief explanation
-
----
-
 ## Tools Used
 
-| Tool | Purpose | Command/Usage |
-|------|---------|---------------|
-| nmap | Port scanning | `nmap -sC -sV target` |
-| gobuster | Directory enumeration | `gobuster dir -u URL -w wordlist` |
-| burpsuite | Web traffic analysis | Interactive |
-| linpeas | Linux enumeration | `./linpeas.sh` |
-| custom exploit | Specific vulnerability | `python3 exploit.py` |
+| Tool           | Purpose                | Command/Usage                     |
+| -------------- | ---------------------- | --------------------------------- |
+| nmap           | Port scanning          | `nmap -sC -sV target`             |
+| gobuster       | Directory enumeration  | `gobuster dir -u URL -w wordlist` |
+| burpsuite      | Web traffic analysis   | Interactive                       |
+| linpeas        | Linux enumeration      | `./linpeas.sh`                    |
+| custom exploit | Specific vulnerability | `python3 exploit.py`              |
 
 ---
 
