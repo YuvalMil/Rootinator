@@ -1,4 +1,118 @@
-/* Tag Filter Styles */
+/* Multi-Category Filter Styles */
+.multi-filter-section {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.filter-category {
+  margin-bottom: 1.5rem;
+}
+
+.filter-category:last-of-type {
+  margin-bottom: 1rem;
+}
+
+.filter-category-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-link);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-btn {
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.filter-btn:hover {
+  background-color: var(--bg-primary);
+  border-color: var(--text-link);
+  color: var(--text-link);
+  transform: translateY(-2px);
+}
+
+.filter-btn.active {
+  background-color: var(--text-link);
+  color: #ffffff;
+  border-color: var(--text-link);
+  font-weight: 600;
+}
+
+.filter-btn.active:hover {
+  background-color: var(--text-link-hover);
+  border-color: var(--text-link-hover);
+  transform: translateY(-2px);
+}
+
+/* Filter Results Bar */
+.filter-results {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  margin-top: 1rem;
+}
+
+#results-count {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.clear-filters-btn {
+  background-color: transparent;
+  color: var(--text-link);
+  border: 1px solid var(--text-link);
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-filters-btn:hover {
+  background-color: var(--text-link);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* OS Badge */
+.os-badge-container {
+  margin: 0.5rem 0;
+}
+
+.os-badge {
+  background-color: rgba(100, 116, 139, 0.2);
+  color: #94a3b8;
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid #475569;
+}
+
+/* Single Tag Filter (for posts page) */
 .tag-filter-section {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
@@ -57,20 +171,38 @@
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
+  .multi-filter-section,
   .tag-filter-section {
     padding: 1rem;
   }
   
+  .filter-category-label,
   .filter-label {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
   
+  .filter-buttons,
   .tag-filters {
     gap: 0.4rem;
   }
   
+  .filter-btn,
   .filter-tag {
     padding: 0.4rem 0.8rem;
     font-size: 0.85rem;
+  }
+  
+  .filter-results {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  
+  #results-count {
+    font-size: 0.85rem;
+  }
+  
+  .clear-filters-btn {
+    width: 100%;
   }
 }

@@ -10,30 +10,93 @@ layout: default
     {% endif %}
   </header>
 
-  <!-- Tag Filter Section -->
-  <div class="tag-filter-section">
-    <div class="filter-label">Filter by tag:</div>
-    <div class="tag-filters">
-      <button class="filter-tag active" data-tag="all">All</button>
-      {% assign all_tags = "" | split: "" %}
-      {% for writeup in site.writeups %}
-        {% for tag in writeup.tags %}
-          {% unless all_tags contains tag %}
-            {% assign all_tags = all_tags | push: tag %}
+  <!-- Multi-Category Filter Section -->
+  <div class="multi-filter-section">
+    <!-- Difficulty Filter -->
+    <div class="filter-category">
+      <div class="filter-category-label">Difficulty:</div>
+      <div class="filter-buttons">
+        <button class="filter-btn difficulty-filter active" data-filter="all">All</button>
+        <button class="filter-btn difficulty-filter" data-filter="easy">Easy</button>
+        <button class="filter-btn difficulty-filter" data-filter="medium">Medium</button>
+        <button class="filter-btn difficulty-filter" data-filter="hard">Hard</button>
+        <button class="filter-btn difficulty-filter" data-filter="insane">Insane</button>
+      </div>
+    </div>
+
+    <!-- Platform Filter -->
+    <div class="filter-category">
+      <div class="filter-category-label">Platform:</div>
+      <div class="filter-buttons">
+        <button class="filter-btn platform-filter active" data-filter="all">All</button>
+        {% assign platforms = "" | split: "" %}
+        {% for writeup in site.writeups %}
+          {% unless platforms contains writeup.platform %}
+            {% assign platforms = platforms | push: writeup.platform %}
           {% endunless %}
         {% endfor %}
-      {% endfor %}
-      {% assign sorted_tags = all_tags | sort %}
-      {% for tag in sorted_tags %}
-      <button class="filter-tag" data-tag="{{ tag | slugify }}">{{ tag }}</button>
-      {% endfor %}
+        {% assign sorted_platforms = platforms | sort %}
+        {% for platform in sorted_platforms %}
+        <button class="filter-btn platform-filter" data-filter="{{ platform | slugify }}">{{ platform }}</button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- OS Filter -->
+    <div class="filter-category">
+      <div class="filter-category-label">OS:</div>
+      <div class="filter-buttons">
+        <button class="filter-btn os-filter active" data-filter="all">All</button>
+        {% assign operating_systems = "" | split: "" %}
+        {% for writeup in site.writeups %}
+          {% if writeup.os %}
+            {% unless operating_systems contains writeup.os %}
+              {% assign operating_systems = operating_systems | push: writeup.os %}
+            {% endunless %}
+          {% endif %}
+        {% endfor %}
+        {% assign sorted_os = operating_systems | sort %}
+        {% for os in sorted_os %}
+        <button class="filter-btn os-filter" data-filter="{{ os | slugify }}">{{ os }}</button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Tag Filter -->
+    <div class="filter-category">
+      <div class="filter-category-label">Tag:</div>
+      <div class="filter-buttons">
+        <button class="filter-btn tag-filter active" data-filter="all">All</button>
+        {% assign all_tags = "" | split: "" %}
+        {% for writeup in site.writeups %}
+          {% for tag in writeup.tags %}
+            {% unless all_tags contains tag %}
+              {% assign all_tags = all_tags | push: tag %}
+            {% endunless %}
+          {% endfor %}
+        {% endfor %}
+        {% assign sorted_tags = all_tags | sort %}
+        {% for tag in sorted_tags %}
+        <button class="filter-btn tag-filter" data-filter="{{ tag | slugify }}">{{ tag }}</button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="filter-results">
+      <span id="results-count"></span>
+      <button class="clear-filters-btn" id="clear-filters">Clear All Filters</button>
     </div>
   </div>
 
   <div class="writeup-grid" id="writeups-grid">
     {% assign sorted_writeups = site.writeups | sort: 'date' | reverse %}
     {% for writeup in sorted_writeups %}
-    <a href="{{ writeup.url }}" class="writeup-card" data-tags="{% for tag in writeup.tags %}{{ tag | slugify }} {% endfor %}">
+    <a href="{{ writeup.url }}" 
+       class="writeup-card" 
+       data-difficulty="{{ writeup.difficulty | downcase }}"
+       data-platform="{{ writeup.platform | slugify }}"
+       data-os="{{ writeup.os | slugify }}"
+       data-tags="{% for tag in writeup.tags %}{{ tag | slugify }} {% endfor %}">
       <div class="card-content">
         {% if writeup.box_icon %}
         <div class="card-icon">
@@ -52,6 +115,12 @@ layout: default
           </span>
         </div>
         
+        {% if writeup.os %}
+        <div class="os-badge-container">
+          <span class="os-badge">{{ writeup.os }}</span>
+        </div>
+        {% endif %}
+        
         {% if writeup.tags %}
         <div class="card-tags">
           {% for tag in writeup.tags limit:3 %}
@@ -68,33 +137,124 @@ layout: default
 </div>
 
 <script>
-// Tag filtering functionality
+// Multi-category filtering functionality
 document.addEventListener('DOMContentLoaded', function() {
-  const filterButtons = document.querySelectorAll('.filter-tag');
   const cards = document.querySelectorAll('#writeups-grid .writeup-card');
+  const resultsCount = document.getElementById('results-count');
+  const clearFiltersBtn = document.getElementById('clear-filters');
   
-  filterButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const selectedTag = this.getAttribute('data-tag');
+  let activeFilters = {
+    difficulty: 'all',
+    platform: 'all',
+    os: 'all',
+    tag: 'all'
+  };
+  
+  function filterCards() {
+    let visibleCount = 0;
+    
+    cards.forEach(card => {
+      const cardDifficulty = card.getAttribute('data-difficulty');
+      const cardPlatform = card.getAttribute('data-platform');
+      const cardOS = card.getAttribute('data-os') || 'none';
+      const cardTags = card.getAttribute('data-tags') || '';
       
-      // Update active button
-      filterButtons.forEach(btn => btn.classList.remove('active'));
-      this.classList.add('active');
+      let showCard = true;
       
-      // Filter cards
-      cards.forEach(card => {
-        if (selectedTag === 'all') {
-          card.style.display = 'block';
-        } else {
-          const cardTags = card.getAttribute('data-tags');
-          if (cardTags && cardTags.includes(selectedTag)) {
-            card.style.display = 'block';
-          } else {
-            card.style.display = 'none';
-          }
+      // Check difficulty filter
+      if (activeFilters.difficulty !== 'all' && cardDifficulty !== activeFilters.difficulty) {
+        showCard = false;
+      }
+      
+      // Check platform filter
+      if (activeFilters.platform !== 'all' && cardPlatform !== activeFilters.platform) {
+        showCard = false;
+      }
+      
+      // Check OS filter
+      if (activeFilters.os !== 'all') {
+        if (cardOS === 'none' || cardOS !== activeFilters.os) {
+          showCard = false;
         }
-      });
+      }
+      
+      // Check tag filter
+      if (activeFilters.tag !== 'all' && !cardTags.includes(activeFilters.tag)) {
+        showCard = false;
+      }
+      
+      if (showCard) {
+        card.style.display = 'block';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    
+    // Update results count
+    resultsCount.textContent = `Showing ${visibleCount} of ${cards.length} writeups`;
+  }
+  
+  // Difficulty filter
+  document.querySelectorAll('.difficulty-filter').forEach(button => {
+    button.addEventListener('click', function() {
+      document.querySelectorAll('.difficulty-filter').forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      activeFilters.difficulty = this.getAttribute('data-filter');
+      filterCards();
     });
   });
+  
+  // Platform filter
+  document.querySelectorAll('.platform-filter').forEach(button => {
+    button.addEventListener('click', function() {
+      document.querySelectorAll('.platform-filter').forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      activeFilters.platform = this.getAttribute('data-filter');
+      filterCards();
+    });
+  });
+  
+  // OS filter
+  document.querySelectorAll('.os-filter').forEach(button => {
+    button.addEventListener('click', function() {
+      document.querySelectorAll('.os-filter').forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      activeFilters.os = this.getAttribute('data-filter');
+      filterCards();
+    });
+  });
+  
+  // Tag filter
+  document.querySelectorAll('.tag-filter').forEach(button => {
+    button.addEventListener('click', function() {
+      document.querySelectorAll('.tag-filter').forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      activeFilters.tag = this.getAttribute('data-filter');
+      filterCards();
+    });
+  });
+  
+  // Clear all filters
+  clearFiltersBtn.addEventListener('click', function() {
+    activeFilters = {
+      difficulty: 'all',
+      platform: 'all',
+      os: 'all',
+      tag: 'all'
+    };
+    
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.getAttribute('data-filter') === 'all') {
+        btn.classList.add('active');
+      }
+    });
+    
+    filterCards();
+  });
+  
+  // Initial count
+  filterCards();
 });
 </script>
