@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "assets/writeups/templates/Writeup Template.md",
+                "file": "index.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Writeup Template"
+              "title": "index"
             }
           }
         ]
@@ -186,6 +186,13 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "assets/images/{{.md",
+    "index.md",
+    "about.md",
+    "README.md",
+    "WRITEUP-GUIDE.md",
+    "writeups.md",
+    "assets/writeups/templates/Writeup Template.md",
     "assets/images/R-icon.png",
     "_writeups/Machine.md",
     "google015f31dfdd0422cd.html",
@@ -194,21 +201,16 @@
     "_writeups/Test.md",
     "_writeups/hackthebox-cobblestone.md",
     "_writeups/divider-test.md",
-    "assets/writeups/templates/Writeup Template.md",
     "2026-01-22.md",
     "assets/css/obsidian-dividers.css",
     "_includes/obsidian-dividers.css",
-    "assets/images/{{.md",
     "assets/images",
     "Invalid date.md",
     "_writeups/Untitled.base",
-    "index.md",
     "assets/writeups/templates",
     "assets/writeups/example-writeup.pdf",
     "_posts/2026-01-22-welcome.md",
     "OBSIDIAN-SETUP.md",
-    "WRITEUP-GUIDE.md",
-    "about.md",
     "DEPLOYMENT.md",
     "_writeups/example-htb-usage.md",
     "assets/writeups/icons/cobblestone.jpg",
