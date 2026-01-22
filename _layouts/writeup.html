@@ -37,17 +37,7 @@ layout: default
     </div>
   </div>
 
-  {% if page.pdf_file %}
-  <div class="pdf-container">
-    <embed src="{{ page.pdf_file }}" type="application/pdf" width="100%" height="100%" />
-    <div class="pdf-fallback">
-      <p>Your browser doesn't support embedded PDFs.</p>
-      <a href="{{ page.pdf_file }}" class="download-link" download>Download PDF</a>
-    </div>
-  </div>
-  {% else %}
-  <div class="post-content">
+  <div class="markdown-content">
     {{ content }}
   </div>
-  {% endif %}
 </article>
