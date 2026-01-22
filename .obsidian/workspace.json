@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "index.md",
+                "file": "assets/writeups/templates/Untitled.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "Untitled"
             }
           }
         ]
@@ -184,15 +184,17 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "946d0dd1d966de4a",
+  "active": "980365d452640efe",
   "lastOpenFiles": [
+    "index.md",
+    "assets/writeups/templates/Untitled.md",
+    "assets/writeups/templates",
+    "assets/writeups/example-writeup.pdf",
     "_posts/2026-01-22-welcome.md",
     "OBSIDIAN-SETUP.md",
     "WRITEUP-GUIDE.md",
     "_writeups/hackthebox-cobblestone.md",
-    "index.md",
     "about.md",
-    "assets/writeups/example-writeup.pdf",
     "DEPLOYMENT.md",
     "_writeups/example-htb-usage.md",
     "assets/writeups/icons/cobblestone.jpg",
