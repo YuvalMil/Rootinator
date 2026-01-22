@@ -9,8 +9,9 @@
   <link rel="stylesheet" href="{{ '/assets/css/obsidian-dividers.css' | relative_url }}">
   
   <!-- Mermaid for diagrams -->
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-  <script>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    
     mermaid.initialize({
       startOnLoad: true,
       theme: 'dark',
@@ -22,6 +23,21 @@
         secondaryColor: '#1a3a2e',
         tertiaryColor: '#1a2a3a'
       }
+    });
+    
+    // Convert Jekyll's Rouge code blocks to Mermaid diagrams
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('code.language-mermaid').forEach(function(element) {
+        const pre = element.parentElement;
+        const code = element.textContent;
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = code;
+        pre.replaceWith(div);
+      });
+      
+      // Re-render Mermaid after conversion
+      mermaid.run();
     });
   </script>
   
