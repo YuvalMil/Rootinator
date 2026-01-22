@@ -3,6 +3,17 @@
 
 @import "minima";
 
+/* OVERRIDE MINIMA THEME WIDTH CONSTRAINTS */
+.wrapper {
+  max-width: 1600px !important;
+  padding-right: 3rem !important;
+  padding-left: 3rem !important;
+}
+
+.page-content {
+  padding: 2rem 0 !important;
+}
+
 /* Dark Theme for Rootinator */
 :root {
   --bg-primary: #0d1117;
