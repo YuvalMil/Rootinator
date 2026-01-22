@@ -36,8 +36,8 @@ defaults:
 
 # Navigation
 header_pages:
-  - writeups.md
   - about.md
+  - posts.md
 
 # Plugins
 plugins:
