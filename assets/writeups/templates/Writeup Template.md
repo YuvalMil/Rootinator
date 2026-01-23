@@ -7,7 +7,7 @@ box_icon: /assets/images/{{ title | lower }}-icon.png
 date: 1990-12-12
 tags:
   - web
-  - linux
+os:
 ---
 <link rel="stylesheet" href="{{ '/assets/css/obsidian-dividers.css' | relative_url }}">
 ## Box Information

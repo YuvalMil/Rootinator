@@ -1,7 +1,7 @@
 ---
 layout: writeup
 title: Buffer Overflow 3
-platform: PicoCTF
+platform: Proving Grounds
 difficulty: Hard
 box_icon: assets/writeups/icons/Acute.png
 pdf_file: /assets/writeups/example-writeup.pdf
@@ -12,4 +12,4 @@ tags:
   - rop
 ---
 
-This is a placeholder for a PicoCTF challenge. Replace the pdf_file path with your actual PDF writeup.
+This is a placeholder for a Proving Grounds challenge

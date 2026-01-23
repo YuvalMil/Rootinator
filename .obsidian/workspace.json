@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_writeups/example-complete-writeup.md",
+                "file": "_writeups/example-picoctf.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "example-complete-writeup"
+              "title": "example-picoctf"
             }
           }
         ]
@@ -187,6 +187,8 @@
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
     "_writeups/example-htb-usage.md",
+    "assets/writeups/templates/Writeup Template.md",
+    "_writeups/example-complete-writeup.md",
     "_writeups/example-picoctf.md",
     "_writeups/example-thm-windows.md",
     "_writeups/hackthebox-cobblestone.md",
@@ -194,7 +196,6 @@
     "_writeups/test-linux.md",
     "_writeups/test-windows.md",
     "_writeups/Test.md",
-    "_writeups/example-complete-writeup.md",
     "_writeups/example-ctf.md",
     "_writeups/divider-test.md",
     "assets/writeups/icons/cobblestone.jpg",
@@ -207,7 +208,6 @@
     "assets/writeups/icons/Administrator.png",
     "assets/writeups/icons/Acute.png",
     "assets/writeups/icons/Active.png",
-    "assets/writeups/templates/Writeup Template.md",
     "_posts/2026-01-20-understanding-sql-injection.md",
     "assets/images/site.webmanifest",
     "assets/images/favicon.ico",
