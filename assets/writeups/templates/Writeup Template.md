@@ -75,10 +75,7 @@ gobuster dir -u http://10.10.11.x -w /usr/share/wordlists/dirb/common.txt
 
 ### Port XXX Enumeration
 
-<div class="divider divider-info">
-    <span class="divider-title">Discovery</span>
-    <span class="divider-content">Describe what you found on this port/service</span>
-</div>
+
 ---
 
 ## Initial Foothold
@@ -198,8 +195,11 @@ chmod +x ./linpeas.sh
 
 ### Lateral Movement (if applicable)
 
-> [!info] Moving to [next user]
-> Explanation of how to move laterally
+
+<div class="divider divider-info">
+    <span class="divider-title">Discovery</span>
+    <span class="divider-content">Explanation of how to move laterally</span>
+</div>
 
 **Exploitation:**
 ```bash
@@ -240,9 +240,6 @@ chmod +x ./linpeas.sh
     <span class="divider-content">Successfully escalated privileges to root</span>
 </div>
 
-> [!success] Root Access
-> Successfully escalated privileges to **root**
-
 ### Root Flag
 
 ```bash
@@ -260,9 +257,6 @@ flag{root_flag_here}
 **Flags:**
 - User: `flag{user_flag_here}`
 - Root: `flag{root_flag_here}`
-
-**Completion time:** X hours
-
 ---
 ## Tools Used
 

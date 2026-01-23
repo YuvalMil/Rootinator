@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_writeups/Test.md",
+                "file": "assets/writeups/templates/Writeup Template.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Test"
+              "title": "Writeup Template"
             }
           }
         ]
@@ -186,9 +186,9 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "_writeups/Test.md",
     "_writeups/test-linux.md",
     "_posts/2026-01-20-understanding-sql-injection.md",
-    "_writeups/Test.md",
     "assets/images/site.webmanifest",
     "assets/images/web-app-manifest-512x512.png",
     "assets/images/web-app-manifest-192x192.png",
