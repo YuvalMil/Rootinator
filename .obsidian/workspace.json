@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_writeups/Blackfield.md",
+                "file": "_writeups/AI.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Blackfield"
+              "title": "AI"
             }
           }
         ]
@@ -186,11 +186,13 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "assets/writeups/templates/Writeup Template Linux.md",
+    "_writeups/AI.md",
+    "_writeups/Blackfield.md",
     "about.md",
     "assets/images/Pasted image 20260123172056.png",
     "posts.md",
     "README.md",
-    "_writeups/Blackfield.md",
     "WRITEUP_EDITING_GUIDELINES.md",
     "assets/images/Pasted image 20260123195429.png",
     "().md",
@@ -221,8 +223,6 @@
     "_writeups/o2-temp.2026-01-23-hackthebox-cobblestone.md",
     "_writeups/o2-temp.2026-01-23-Machine.md",
     "_writeups/o2-temp.2026-01-23-test-linux.md",
-    "_writeups/o2-temp.2026-01-23-test-windows.md",
-    "_writeups/o2-temp.2026-01-23-Blackfield.md",
     "assets/images/site.webmanifest",
     "assets/images/favicon.ico",
     "assets/css/tag-filters.css",
