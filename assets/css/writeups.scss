@@ -71,15 +71,15 @@
 
 /* Card Icon */
 .card-icon {
-  width: 120px;
-  height: 120px;
+  width: 180px;
+  height: 180px;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
   background-color: var(--bg-tertiary);
-  padding: 1rem;
+  padding: 1.25rem;
 }
 
 .card-icon img {
@@ -326,6 +326,11 @@
   .box-icon-large {
     width: 120px;
     height: 120px;
+  }
+  
+  .card-icon {
+    width: 150px;
+    height: 150px;
   }
   
   .pdf-container {
