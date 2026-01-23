@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_writeups/Machine.md",
+                "file": "_writeups/Test.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Machine"
+              "title": "Test"
             }
           }
         ]
@@ -186,11 +186,11 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "_writeups/Machine.md",
     "_writeups/Test.md",
     "_posts/2026-01-15-my-first-bug-bounty.md",
     "assets/css/tag-filters.css",
     "assets/css/syntax-highlighting.css",
-    "_writeups/Machine.md",
     "assets/css/custom.css",
     "_includes/header.html",
     "_includes/footer.html",
