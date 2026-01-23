@@ -186,6 +186,8 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "_writeups/test-windows.md",
+    "_writeups/test-linux.md",
     "_writeups/Machine.md",
     "_writeups/Test.md",
     "_posts/2026-01-15-my-first-bug-bounty.md",
@@ -221,7 +223,6 @@
     "2026-01-22.md",
     "Invalid date.md",
     "_posts/2026-01-22-welcome.md",
-    "OBSIDIAN-SETUP.md",
     "assets/writeups/icons/cobblestone.jpg"
   ]
 }
