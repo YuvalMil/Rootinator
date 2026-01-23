@@ -1,4 +1,5 @@
 {
   "readableLineLength": false,
-  "showUnsupportedFiles": true
+  "showUnsupportedFiles": true,
+  "attachmentFolderPath": "assets/images"
 }
