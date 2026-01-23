@@ -72,6 +72,8 @@ nmap -p 389 --script ldap-rootdse 10.129.229.17
 
 ![](../assets/images/Pasted%20image%2020260123172944.png)
 
+![](../assets/images/Pasted%20image%2020260123172944.png)
+
 The target machine is `DC01` and the domain is `Blackfield.local`, need to update our `/etc/hosts` accordingly.
 
 ![image]({{ "/assets/images/2026-01-23-Blackfield/Pasted-image-20260123173303.png" | relative_url }})
