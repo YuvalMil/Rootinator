@@ -11,14 +11,12 @@
             "id": "6cfc1b3cc1d71c05",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "assets/writeups/templates/Writeup Template.md",
-                "mode": "source",
-                "source": false
+                "file": "assets/writeups/icons/cobblestone.jpg"
               },
-              "icon": "lucide-file",
-              "title": "Writeup Template"
+              "icon": "lucide-image",
+              "title": "cobblestone"
             }
           }
         ]
@@ -186,6 +184,7 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "assets/writeups/templates/Writeup Template.md",
     "_writeups/Test.md",
     "_writeups/test-linux.md",
     "_posts/2026-01-20-understanding-sql-injection.md",
@@ -223,7 +222,6 @@
     "README.md",
     "WRITEUP-GUIDE.md",
     "writeups.md",
-    "assets/writeups/templates/Writeup Template.md",
     "google015f31dfdd0422cd.html",
     "2026-01-22.md",
     "Invalid date.md",
