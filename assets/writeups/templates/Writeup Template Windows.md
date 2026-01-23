@@ -43,7 +43,7 @@ os: Windows
 ```bash
 nmap -vv -T5 -p- *TARGET_IP*
 
-nmap -vv -T5 -
+nmap -vv -T5 -p*DISOVERED_PORTS* -sC -sV *TARGET_IP*
 ```
 
 **Results:**

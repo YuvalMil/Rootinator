@@ -41,14 +41,16 @@ os: Linux
 
 **Initial scan:**
 ```bash
-nmap -sC -sV -oA nmap/{{ title | lower }} 10.10.11.x
+nmap -vv -T5 -p- *TARGET_IP*
+
+nmap -vv -T5 -p*DISOVERED_PORTS* -sC -sV *TARGET_IP*
 ```
 
 **Results:**
 
 | Port | Service | TCP/UDP |
 | ---- | ------- | ------- |
-|      |         |         |
+| 22   | SSH     | TCP     |
 |      |         |         |
 
 

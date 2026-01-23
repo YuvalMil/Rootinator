@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "assets/writeups/templates/Writeup Template Windows.md",
+                "file": "assets/writeups/templates/Writeup Template Linux.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Writeup Template Windows"
+              "title": "Writeup Template Linux"
             }
           }
         ]
@@ -186,8 +186,8 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
-    "assets/writeups/templates/Writeup Template Linux.md",
     "assets/writeups/templates/Writeup Template Windows.md",
+    "assets/writeups/templates/Writeup Template Linux.md",
     "_writeups/Blackfield.md",
     "_writeups/BestBox.md",
     "_writeups/TestTest.md",
