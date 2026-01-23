@@ -11,7 +11,6 @@ tags:
 os: Windows
 ---
 <link rel="stylesheet" href="{{ '/assets/css/obsidian-dividers.css' | relative_url }}">
-## Machine Information
 
 | Property       | Value         |
 | -------------- | ------------- |
@@ -19,7 +18,6 @@ os: Windows
 | **OS**         | Windows       |
 | **Difficulty** | Hard          |
 | **IP**         | 10.129.229.17 |
-
 
 ---
 
