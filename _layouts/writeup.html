@@ -20,12 +20,24 @@ layout: default
         <span class="difficulty-badge difficulty-{{ page.difficulty | downcase }}">
           {{ page.difficulty }}
         </span>
+        {% if page.os %}
+        <span class="os-badge os-{{ page.os | downcase }}">
+          {{ page.os }}
+        </span>
+        {% endif %}
         {% if page.date %}
         <span class="date-badge">
           {{ page.date | date: "%B %d, %Y" }}
         </span>
         {% endif %}
       </div>
+      
+      {% if page.ip %}
+      <div class="writeup-ip">
+        <span class="ip-label">Target IP:</span>
+        <span class="ip-value">{{ page.ip }}</span>
+      </div>
+      {% endif %}
       
       {% if page.tags %}
       <div class="writeup-tags">
