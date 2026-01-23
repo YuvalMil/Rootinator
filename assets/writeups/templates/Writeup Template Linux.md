@@ -12,12 +12,12 @@ os:
 <link rel="stylesheet" href="{{ '/assets/css/obsidian-dividers.css' | relative_url }}">
 ## Machine Information
 
-| Property         | Value                  |
-| ---------------- | ---------------------- |
-| **Name**         | {{title}}              |
-| **OS**           | Linux                  |
-| **Difficulty**   | Medium                 |
-| **IP**           | 10.10.11.x             |
+| Property       | Value      |
+| -------------- | ---------- |
+| **Name**       | {{title}}  |
+| **OS**         | Linux      |
+| **Difficulty** | Medium     |
+| **IP**         | 10.10.11.x |
 
 
 ---
