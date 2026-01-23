@@ -98,6 +98,35 @@ a:visited {
   color: var(--text-link-hover);
 }
 
+/* Mobile Navigation Menu */
+@media (max-width: 600px) {
+  .site-nav {
+    background-color: var(--bg-secondary) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 5px !important;
+  }
+  
+  .site-nav .menu-icon > svg {
+    fill: var(--text-primary) !important;
+  }
+  
+  .site-nav .trigger {
+    background-color: var(--bg-secondary) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 5px !important;
+  }
+  
+  .site-nav .page-link {
+    color: var(--text-primary) !important;
+    background-color: transparent !important;
+  }
+  
+  .site-nav .page-link:hover {
+    color: var(--text-link-hover) !important;
+    background-color: var(--bg-tertiary) !important;
+  }
+}
+
 /* Main Content */
 .page-content {
   background-color: var(--bg-primary);

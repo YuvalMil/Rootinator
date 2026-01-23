@@ -48,7 +48,7 @@ layout: default
         {% assign os_array = os_list | split: '|||' | uniq | sort %}
         {% for os in os_array %}
           {% if os != "" %}
-          <button class="filter-btn os-filter filter-os" data-filter="{{ os | slugify }}">{{ os }}</button>
+          <button class="filter-btn os-filter" data-filter="{{ os | slugify }}">{{ os }}</button>
           {% endif %}
         {% endfor %}
       </div>
@@ -88,7 +88,7 @@ layout: default
         
         {% if writeup.os %}
         <div class="os-badge-container">
-          <span class="os-badge">{{ writeup.os }}</span>
+          <span class="os-badge" data-os="{{ writeup.os }}">{{ writeup.os }}</span>
         </div>
         {% endif %}
         
