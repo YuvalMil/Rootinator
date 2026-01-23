@@ -3,5 +3,5 @@
   "showUnsupportedFiles": true,
   "attachmentFolderPath": "assets/images",
   "useMarkdownLinks": true,
-  "newLinkFormat": "absolute"
+  "newLinkFormat": "relative"
 }
