@@ -1,0 +1,17 @@
+{
+  "obsidianPathSettings": {
+    "readyFolder": "ready",
+    "archiveFolder": "archive",
+    "attachmentsFolder": "/assets/images",
+    "isAutoArchive": false,
+    "isAutoCreateFolder": false
+  },
+  "jekyll": {
+    "_jekyllPath": "C:\\Users\\Yoval\\Rootinator",
+    "_jekyllRelativeResourcePath": "assets/images",
+    "_isEnableRelativeUrl": true
+  },
+  "docusaurus": {
+    "dateExtractionPattern": "FOLDER_NAMED_BY_DATE"
+  }
+}
