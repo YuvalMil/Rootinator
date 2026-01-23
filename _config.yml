@@ -19,7 +19,7 @@ highlighter: rouge
 collections:
   writeups:
     output: true
-    permalink: /writeups/:name/
+    permalink: /:name/
 
 # Defaults
 defaults:
