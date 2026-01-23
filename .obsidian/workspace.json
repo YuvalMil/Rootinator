@@ -11,12 +11,14 @@
             "id": "6cfc1b3cc1d71c05",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "assets/writeups/icons/cobblestone.jpg"
+                "file": "_writeups/example-thm-windows.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "cobblestone"
+              "icon": "lucide-file",
+              "title": "example-thm-windows"
             }
           }
         ]
@@ -184,33 +186,37 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "_writeups/hackthebox-cobblestone.md",
+    "_writeups/example-thm-windows.md",
+    "_writeups/Machine.md",
+    "_writeups/divider-test.md",
+    "assets/writeups/icons/cobblestone.jpg",
+    "assets/writeups/icons/AirTouch.png",
+    "assets/writeups/icons/AI.png",
+    "assets/writeups/icons/Agile.png",
+    "assets/writeups/icons/Aero.png",
+    "assets/writeups/icons/AdmirerToo.png",
+    "assets/writeups/icons/Admirer.png",
+    "assets/writeups/icons/Administrator.png",
+    "assets/writeups/icons/Acute.png",
+    "assets/writeups/icons/Active.png",
     "assets/writeups/templates/Writeup Template.md",
     "_writeups/Test.md",
     "_writeups/test-linux.md",
     "_posts/2026-01-20-understanding-sql-injection.md",
     "assets/images/site.webmanifest",
-    "assets/images/web-app-manifest-512x512.png",
-    "assets/images/web-app-manifest-192x192.png",
-    "assets/images/apple-touch-icon.png",
     "assets/images/favicon.ico",
-    "assets/images/favicon-96x96.png",
-    "assets/images/favicon.svg",
     "_writeups/test-windows.md",
-    "_writeups/Machine.md",
     "_posts/2026-01-15-my-first-bug-bounty.md",
     "assets/css/tag-filters.css",
     "assets/css/syntax-highlighting.css",
     "assets/css/custom.css",
     "_includes/header.html",
     "_includes/footer.html",
-    "_writeups/hackthebox-cobblestone.md",
-    "_writeups/example-thm-windows.md",
     "_writeups/example-picoctf.md",
     "_writeups/example-htb-usage.md",
     "_writeups/example-ctf.md",
     "_writeups/example-complete-writeup.md",
-    "_writeups/divider-test.md",
-    "assets/images/R-icon.png",
     "assets/css/posts.css",
     "_posts/2026-01-18-setting-up-home-lab.md",
     "_posts/2026-01-10-top-recon-tools-2026.md",
@@ -224,7 +230,6 @@
     "writeups.md",
     "google015f31dfdd0422cd.html",
     "2026-01-22.md",
-    "Invalid date.md",
-    "assets/writeups/icons/cobblestone.jpg"
+    "Invalid date.md"
   ]
 }
