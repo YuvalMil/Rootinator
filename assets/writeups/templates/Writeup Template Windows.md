@@ -7,7 +7,7 @@ box_icon: /assets/writeups/icons/{{title}}.png
 date: 2026-01-23
 tags:
   - web
-os: Linux
+os: Windows
 ---
 <link rel="stylesheet" href="{{ '/assets/css/obsidian-dividers.css' | relative_url }}">
 ## Machine Information
@@ -15,7 +15,7 @@ os: Linux
 | Property       | Value      |
 | -------------- | ---------- |
 | **Name**       | {{title}}  |
-| **OS**         | Linux      |
+| **OS**         | Windows    |
 | **Difficulty** | Medium     |
 | **IP**         | 10.10.11.x |
 
@@ -41,16 +41,24 @@ os: Linux
 
 **Initial scan:**
 ```bash
-nmap -sC -sV -oA nmap/{{ title | lower }} 10.10.11.x
+nmap -vv -T5 -p- *TARGET_IP*
+
+nmap -vv -T5 -
 ```
 
 **Results:**
 
-| Port | Service | TCP/UDP |
-| ---- | ------- | ------- |
-|      |         |         |
-|      |         |         |
-
+| Port | Service  | TCP/UDP |
+| ---- | -------- | ------- |
+| 53   | DNS      | TCP     |
+| 88   | Kerberos | TCP     |
+| 135  | RPC      | TCP     |
+| 139  | Netbios  | TCP     |
+| 389  | LDAP     | TCP     |
+| 445  | SMB      | TCP     |
+| 593  | HTTP RPC | TCP     |
+| 3268 | LDAP     | TCP     |
+| 5985 | WinRM    | TCP     |
 
 **Key findings:**
 - Service 1: Description
