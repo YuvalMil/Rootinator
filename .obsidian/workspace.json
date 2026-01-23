@@ -186,6 +186,13 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "assets/images/site.webmanifest",
+    "assets/images/web-app-manifest-512x512.png",
+    "assets/images/web-app-manifest-192x192.png",
+    "assets/images/apple-touch-icon.png",
+    "assets/images/favicon.ico",
+    "assets/images/favicon-96x96.png",
+    "assets/images/favicon.svg",
     "_writeups/test-windows.md",
     "_writeups/test-linux.md",
     "_writeups/Machine.md",
@@ -219,10 +226,8 @@
     "assets/writeups/templates/Writeup Template.md",
     "google015f31dfdd0422cd.html",
     "assets/writeups/icons/google015f31dfdd0422cd.html",
-    "assets/writeups/icons/Unconfirmed 730386.crdownload",
     "2026-01-22.md",
     "Invalid date.md",
-    "_posts/2026-01-22-welcome.md",
     "assets/writeups/icons/cobblestone.jpg"
   ]
 }
