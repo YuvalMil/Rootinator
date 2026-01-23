@@ -1,15 +1,15 @@
 ---
 layout: writeup
-title: Blackfield
+title: "Blackfield"
 platform: HackTheBox
 difficulty: Hard
 box_icon: /assets/writeups/icons/Blackfield.png
 date: 2026-01-23
-tags:
-  - smb
-  - active-directory
+tags: [smb, active-directory]
 os: Windows
+mermaid: true
 ---
+
 <link rel="stylesheet" href="{{ '/assets/css/obsidian-dividers.css' | relative_url }}">
 ## Machine Information
 
@@ -74,14 +74,14 @@ nmap -p 389 --script ldap-rootdse 10.129.229.17
 
 The target machine is `DC01` and the domain is `Blackfield.local`, need to update our `/etc/hosts` accordingly.
 
-![[Pasted image 20260123173303.png]]
+![image]({{ "/assets/images/2026-01-23-Blackfield/Pasted-image-20260123173303.png" | relative_url }})
 
 In this case we also need to create a fitting `krb5.conf`, I used NXC for that:
 ```
 ❯ nxc smb 10.129.229.17 -u 'Guest' -p '' --generate-krb5-file krb5.conf
 ```
 
-![[Pasted image 20260123174847.png]]
+![image]({{ "/assets/images/2026-01-23-Blackfield/Pasted-image-20260123174847.png" | relative_url }})
 
 ```
 # working krb5 file:
@@ -112,7 +112,7 @@ In this case we also need to create a fitting `krb5.conf`, I used NXC for that:
 ❯ nxc smb 10.129.229.17 -u 'Guest' -p '' --shares
 ```
 
-![[Pasted image 20260123172218.png]]
+![image]({{ "/assets/images/2026-01-23-Blackfield/Pasted-image-20260123172218.png" | relative_url }})
 
 We have 'Read' permissions  for `profiles$` as `Guest`, which is a custom share and worth checking out
 
@@ -122,7 +122,7 @@ Try "help" to get a list of possible commands.
 smb: \> ls
 ```
 
-![[Pasted image 20260123172348.png]]
+![image]({{ "/assets/images/2026-01-23-Blackfield/Pasted-image-20260123172348.png" | relative_url }})
 Seems like we found a list of users, its possible to generate a list with the following command:
 ```
 smbclient -N \\\\10.129.229.17\\profiles$ -c ls | awk '{ print $1 }' > userlist.txt
@@ -266,8 +266,8 @@ chmod +x ./linpeas.sh
     <span class="divider-content">Detailed explanation of the privilege escalation vulnerability</span>
 </div>
 
-> [!warning] Exploitation Path
 > Detailed explanation of the privilege escalation vulnerability
+{: .prompt-warning}
 
 **Exploitation steps:**
 
