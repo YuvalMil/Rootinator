@@ -75,8 +75,33 @@ The target machine is `DC01` and the domain is `Blackfield.local`, need to updat
 
 ![[Pasted image 20260123173303.png]]
 
+In this case we also need to create a fitting `krb5.conf`, I used NXC for that:
+```
+❯ nxc smb 10.129.229.17 -u 'Guest' -p '' --generate-krb5-file krb5.conf
+```
 
+![[Pasted image 20260123174847.png]]
 
+```
+# working krb5 file:
+
+[libdefaults]
+    dns_lookup_kdc = false
+    dns_lookup_realm = false
+    default_realm = BLACKFIELD.LOCAL
+
+[realms]
+    BLACKFIELD.LOCAL = {
+        kdc = dc01.BLACKFIELD.local
+        admin_server = dc01.BLACKFIELD.local
+        default_domain = BLACKFIELD.local
+    }
+
+[domain_realm]
+    .BLACKFIELD.local = BLACKFIELD.LOCAL
+    BLACKFIELD.local = BLACKFIELD.LOCAL
+
+```
 ---
 
 ### 
