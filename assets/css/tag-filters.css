@@ -161,42 +161,47 @@
   color: #ffffff;
 }
 
-/* OS Filter Buttons */
-.filter-os {
+/* OS Filter Buttons - Default Gray */
+.os-filter {
   background-color: rgba(100, 116, 139, 0.2);
   color: #94a3b8;
   border: 1px solid #475569;
 }
 
-.filter-os.active {
+.os-filter.active {
   background-color: #94a3b8;
   color: #0d1117;
   border-color: #94a3b8;
 }
 
-/* Specific OS Filter Buttons */
-.filter-os[data-filter="linux"] {
-  background-color: rgba(255, 193, 7, 0.15);
-  color: #ffc107;
-  border: 1px solid #ff9800;
+/* Linux OS Filter - Yellow/Orange */
+.os-filter[data-filter="linux"],
+.filter-btn[data-filter="linux"] {
+  background-color: rgba(255, 193, 7, 0.15) !important;
+  color: #ffc107 !important;
+  border: 1px solid #ff9800 !important;
 }
 
-.filter-os[data-filter="linux"].active {
-  background-color: #ffc107;
-  color: #0d1117;
-  border-color: #ffc107;
+.os-filter[data-filter="linux"].active,
+.filter-btn[data-filter="linux"].active {
+  background-color: #ffc107 !important;
+  color: #0d1117 !important;
+  border-color: #ffc107 !important;
 }
 
-.filter-os[data-filter="windows"] {
-  background-color: rgba(0, 158, 224, 0.15);
-  color: #00a8e8;
-  border: 1px solid #0078d4;
+/* Windows OS Filter - Blue */
+.os-filter[data-filter="windows"],
+.filter-btn[data-filter="windows"] {
+  background-color: rgba(0, 158, 224, 0.15) !important;
+  color: #00a8e8 !important;
+  border: 1px solid #0078d4 !important;
 }
 
-.filter-os[data-filter="windows"].active {
-  background-color: #00a8e8;
-  color: #ffffff;
-  border-color: #00a8e8;
+.os-filter[data-filter="windows"].active,
+.filter-btn[data-filter="windows"].active {
+  background-color: #00a8e8 !important;
+  color: #ffffff !important;
+  border-color: #00a8e8 !important;
 }
 
 /* Filter Results Bar */
