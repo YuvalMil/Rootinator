@@ -255,22 +255,33 @@
 }
 
 .writeup-meta {
-  text-align: center;
   padding: 2rem;
   background-color: var(--bg-secondary);
   border-radius: 8px;
   border: 1px solid var(--border-color);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+/* Left side - Icon, title, badges, tags */
+.writeup-meta-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .box-icon-large {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   object-fit: contain;
   margin: 0 auto 1.5rem;
   display: block;
-  padding: 1rem;
-  background-color: var(--bg-tertiary);
-  border-radius: 8px;
+  padding: 0;
+  background: none;
+  border: none;
 }
 
 .writeup-title {
@@ -312,6 +323,41 @@
   font-size: 0.9rem;
   color: var(--text-secondary);
   border: 1px solid var(--border-color);
+}
+
+/* Right side - Machine info table */
+.writeup-meta-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.machine-info-table {
+  width: 100%;
+  max-width: 400px;
+}
+
+.machine-info-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.machine-info-table td {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.machine-info-table td:first-child {
+  background-color: var(--bg-tertiary);
+  font-weight: 600;
+  width: 40%;
+}
+
+.machine-info-table td:last-child {
+  background-color: var(--bg-secondary);
+  width: 60%;
 }
 
 /* PDF Container */
@@ -359,13 +405,18 @@
 }
 
 @media (max-width: 768px) {
+  .writeup-meta {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
   .writeup-title {
     font-size: 2rem;
   }
   
   .box-icon-large {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
   }
   
   .card-icon {

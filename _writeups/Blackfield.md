@@ -9,17 +9,9 @@ tags:
   - smb
   - active-directory
 os: Windows
+ip: 10.129.229.17
 ---
 <link rel="stylesheet" href="{{ '/assets/css/obsidian-dividers.css' | relative_url }}">
-
-| Property       | Value         |
-| -------------- | ------------- |
-| **Name**       | Blackfield    |
-| **OS**         | Windows       |
-| **Difficulty** | Hard          |
-| **IP**         | 10.129.229.17 |
-
----
 
 ## Summary
 

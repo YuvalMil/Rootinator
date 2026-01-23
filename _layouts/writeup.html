@@ -7,33 +7,62 @@ layout: default
     <a href="/writeups/" class="back-link">← Back to Writeups</a>
     
     <div class="writeup-meta">
-      {% if page.box_icon %}
-      <img src="{{ page.box_icon }}" alt="{{ page.title }} icon" class="box-icon-large">
-      {% endif %}
-      
-      <h1 class="writeup-title">{{ page.title }}</h1>
-      
-      <div class="writeup-info">
-        <span class="platform-badge platform-{{ page.platform | downcase | replace: ' ', '-' }}">
-          {{ page.platform }}
-        </span>
-        <span class="difficulty-badge difficulty-{{ page.difficulty | downcase }}">
-          {{ page.difficulty }}
-        </span>
-        {% if page.date %}
-        <span class="date-badge">
-          {{ page.date | date: "%B %d, %Y" }}
-        </span>
+      <!-- Left side: Icon, Title, Badges, Tags -->
+      <div class="writeup-meta-left">
+        {% if page.box_icon %}
+        <img src="{{ page.box_icon }}" alt="{{ page.title }} icon" class="box-icon-large">
+        {% endif %}
+        
+        <h1 class="writeup-title">{{ page.title }}</h1>
+        
+        <div class="writeup-info">
+          <span class="platform-badge platform-{{ page.platform | downcase | replace: ' ', '-' }}">
+            {{ page.platform }}
+          </span>
+          <span class="difficulty-badge difficulty-{{ page.difficulty | downcase }}">
+            {{ page.difficulty }}
+          </span>
+          {% if page.date %}
+          <span class="date-badge">
+            {{ page.date | date: "%B %d, %Y" }}
+          </span>
+          {% endif %}
+        </div>
+        
+        {% if page.tags %}
+        <div class="writeup-tags">
+          {% for tag in page.tags %}
+          <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
         {% endif %}
       </div>
       
-      {% if page.tags %}
-      <div class="writeup-tags">
-        {% for tag in page.tags %}
-        <span class="tag">{{ tag }}</span>
-        {% endfor %}
+      <!-- Right side: Machine Information Table -->
+      <div class="writeup-meta-right">
+        <div class="machine-info-table">
+          <table>
+            <tr>
+              <td><strong>Name</strong></td>
+              <td>{{ page.title }}</td>
+            </tr>
+            <tr>
+              <td><strong>OS</strong></td>
+              <td>{{ page.os }}</td>
+            </tr>
+            <tr>
+              <td><strong>Difficulty</strong></td>
+              <td>{{ page.difficulty }}</td>
+            </tr>
+            {% if page.ip %}
+            <tr>
+              <td><strong>IP</strong></td>
+              <td>{{ page.ip }}</td>
+            </tr>
+            {% endif %}
+          </table>
+        </div>
       </div>
-      {% endif %}
     </div>
   </div>
 
