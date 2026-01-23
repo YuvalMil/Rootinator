@@ -174,6 +174,19 @@
   border-color: #94a3b8;
 }
 
+/* OS Filter "All" Button - Override with Blue */
+.os-filter.filter-all {
+  background-color: rgba(88, 166, 255, 0.15) !important;
+  color: #58a6ff !important;
+  border: 1px solid #58a6ff !important;
+}
+
+.os-filter.filter-all.active {
+  background-color: #58a6ff !important;
+  color: #ffffff !important;
+  border-color: #58a6ff !important;
+}
+
 /* Linux OS Filter - Yellow/Orange */
 .os-filter[data-filter="linux"],
 .filter-btn[data-filter="linux"] {
