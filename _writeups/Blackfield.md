@@ -147,8 +147,6 @@ We create a new .txt file that contains the hash and attempt to crack with `john
 
 ![](../assets/images/Pasted%20image%2020260123185147.png)
 
-
-
 ---
 
 ### Vulnerability Discovery
@@ -156,27 +154,34 @@ We create a new .txt file that contains the hash and attempt to crack with `john
 **Vulnerability:** [Vulnerability Name]
 
 <div class="divider divider-info">
-    <span class="divider-title">Details</span>
-    <span class="divider-content">Explain the vulnerability - what it is, why it exists, how it works</span>
+    <span class="divider-title">UF_DONT_REQUIRE_PREAUTH</span>
+    <span class="divider-content">a misconfiguration in Kerberos authentication where the pre-authentication requirement is disabled for user accounts in Active Directory. This creates a security weakness that attackers can exploit through an attack called AS-REP Roasting.</span>
 </div>
 
-**Testing the vulnerability:**
-```bash
-# Commands used to test/verify the vulnerability
+Now we will confirm the credentials using NXC before moving on
+```
+❯ nxc smb 10.129.229.17 -u 'support' -p '#00^BlackKnight' --shares
 ```
 
-**Proof of Concept:**
-```python
-# Exploit code or script
-import requests
+![](../assets/images/Pasted%20image%2020260123185649.png)
 
-url = "http://10.10.11.x/vulnerable-endpoint"
-payload = {}
+---
+### Lateral Movement
 
-response = requests.post(url, data=payload)
-print(response.text)
+Now that we have valid credentials, we will use bloodhound-ce-py to enumerate the domain
+
 ```
 
+```
+
+
+
+
+
+
+
+
+---
 ### Exploitation
 
 **Step 1:** [Action taken]
