@@ -3,7 +3,7 @@ layout: writeup
 title: Machine
 platform: HackTheBox
 difficulty: Medium
-box_icon:
+box_icon: assets/writeups/icons/Analysis.png
 date: 1990-12-12
 tags:
   - web

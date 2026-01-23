@@ -1,11 +1,15 @@
 ---
 layout: writeup
-title: "Example Box"
-platform: "HackTheBox"
-difficulty: "Medium"
-box_icon: "https://via.placeholder.com/200x200/9fef00/0d1117?text=Example"
+title: Example Box
+platform: HackTheBox
+difficulty: Medium
+box_icon: assets/writeups/icons/Altered.png
 date: 2026-01-22
-tags: [web, linux, sql-injection, sudo]
+tags:
+  - web
+  - linux
+  - sql-injection
+  - sudo
 ---
 
 ## Box Information

@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_writeups/example-thm-windows.md",
+                "file": "_writeups/example-complete-writeup.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "example-thm-windows"
+              "title": "example-complete-writeup"
             }
           }
         ]
@@ -186,9 +186,16 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
-    "_writeups/hackthebox-cobblestone.md",
+    "_writeups/example-htb-usage.md",
+    "_writeups/example-picoctf.md",
     "_writeups/example-thm-windows.md",
+    "_writeups/hackthebox-cobblestone.md",
     "_writeups/Machine.md",
+    "_writeups/test-linux.md",
+    "_writeups/test-windows.md",
+    "_writeups/Test.md",
+    "_writeups/example-complete-writeup.md",
+    "_writeups/example-ctf.md",
     "_writeups/divider-test.md",
     "assets/writeups/icons/cobblestone.jpg",
     "assets/writeups/icons/AirTouch.png",
@@ -201,22 +208,15 @@
     "assets/writeups/icons/Acute.png",
     "assets/writeups/icons/Active.png",
     "assets/writeups/templates/Writeup Template.md",
-    "_writeups/Test.md",
-    "_writeups/test-linux.md",
     "_posts/2026-01-20-understanding-sql-injection.md",
     "assets/images/site.webmanifest",
     "assets/images/favicon.ico",
-    "_writeups/test-windows.md",
     "_posts/2026-01-15-my-first-bug-bounty.md",
     "assets/css/tag-filters.css",
     "assets/css/syntax-highlighting.css",
     "assets/css/custom.css",
     "_includes/header.html",
     "_includes/footer.html",
-    "_writeups/example-picoctf.md",
-    "_writeups/example-htb-usage.md",
-    "_writeups/example-ctf.md",
-    "_writeups/example-complete-writeup.md",
     "assets/css/posts.css",
     "_posts/2026-01-18-setting-up-home-lab.md",
     "_posts/2026-01-10-top-recon-tools-2026.md",
