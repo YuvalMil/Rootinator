@@ -1,7 +1,7 @@
 {
   "readableLineLength": false,
   "showUnsupportedFiles": true,
-  "attachmentFolderPath": "../../assets/images",
+  "attachmentFolderPath": "assets/images",
   "useMarkdownLinks": true,
   "newLinkFormat": "relative",
   "alwaysUpdateLinks": true
