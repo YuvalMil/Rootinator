@@ -354,5 +354,6 @@ graph LR
 ---
 
 **Pwned on:** 05/10/2025
+
 **Difficulty Rating:** ⭐⭐⭐⭐ (Personal rating)  
 **Fun Factor:** ⭐⭐⭐ (How enjoyable was it?)
