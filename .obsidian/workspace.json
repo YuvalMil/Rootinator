@@ -186,9 +186,11 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "_writeups/BestBox.md",
+    "assets/writeups/templates/Writeup Template.md",
+    "_writeups/TestTest.md",
     "_writeups/example-picoctf.md",
     "_writeups/example-htb-usage.md",
-    "assets/writeups/templates/Writeup Template.md",
     "_writeups/example-complete-writeup.md",
     "_writeups/example-thm-windows.md",
     "_writeups/hackthebox-cobblestone.md",
@@ -229,7 +231,6 @@
     "WRITEUP-GUIDE.md",
     "writeups.md",
     "google015f31dfdd0422cd.html",
-    "2026-01-22.md",
-    "Invalid date.md"
+    "2026-01-22.md"
   ]
 }

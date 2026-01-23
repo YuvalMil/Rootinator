@@ -1,16 +1,16 @@
 ---
 layout: writeup
-title: BoxName
+title: "{{title}}"
 platform: HackTheBox
 difficulty: Medium
-box_icon: /assets/writeups/icons/.png
+box_icon: /assets/writeups/icons/{{title}}.png
 date: 2026-01-23
 tags:
   - web
 os:
 ---
 <link rel="stylesheet" href="{{ '/assets/css/obsidian-dividers.css' | relative_url }}">
-## Box Information
+## Machine Information
 
 | Property         | Value                  |
 | ---------------- | ---------------------- |
