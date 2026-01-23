@@ -195,6 +195,41 @@
   border: 1px solid var(--border-color);
 }
 
+/* OS Badge on Cards */
+.os-badge-container {
+  margin: 0.5rem 0;
+}
+
+.os-badge {
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Default OS badge */
+.os-badge {
+  background-color: rgba(100, 116, 139, 0.2);
+  color: #94a3b8;
+  border: 1px solid #475569;
+}
+
+/* Linux OS Badge - Yellow/Orange */
+.os-badge[data-os="Linux"],
+.os-badge[data-os="linux"] {
+  background-color: rgba(255, 193, 7, 0.15);
+  color: #ffc107;
+  border: 1px solid #ff9800;
+}
+
+/* Windows OS Badge - Blue */
+.os-badge[data-os="Windows"],
+.os-badge[data-os="windows"] {
+  background-color: rgba(0, 158, 224, 0.15);
+  color: #00a8e8;
+  border: 1px solid #0078d4;
+}
+
 /* Individual Writeup Page */
 .writeup-page {
   max-width: 1600px;
