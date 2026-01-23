@@ -73,6 +73,7 @@ nmap -p 389 --script ldap-rootdse 10.129.229.17
 ![[Pasted image 20260123172944.png]]
 The target machine is `DC01` and the domain is `Blackfield.local`, need to update our `/etc/hosts` accordingly.
 
+![[Pasted image 20260123173303.png]]
 
 
 
