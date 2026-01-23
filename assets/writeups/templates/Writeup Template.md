@@ -1,10 +1,10 @@
 ---
 layout: writeup
-title: "{{ title | lower }}"
+title: BoxName
 platform: HackTheBox
 difficulty: Medium
-box_icon: /assets/images/{{ title | lower }}-icon.png
-date: 1990-12-12
+box_icon: /assets/writeups/icons/.png
+date: 2026-01-23
 tags:
   - web
 os:
