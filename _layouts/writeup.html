@@ -34,6 +34,30 @@ layout: default
         {% endfor %}
       </div>
       {% endif %}
+      
+      <!-- Machine Information Table -->
+      <div class="machine-info-table">
+        <table>
+          <tr>
+            <td><strong>Name</strong></td>
+            <td>{{ page.title }}</td>
+          </tr>
+          <tr>
+            <td><strong>OS</strong></td>
+            <td>{{ page.os }}</td>
+          </tr>
+          <tr>
+            <td><strong>Difficulty</strong></td>
+            <td>{{ page.difficulty }}</td>
+          </tr>
+          {% if page.ip %}
+          <tr>
+            <td><strong>IP</strong></td>
+            <td>{{ page.ip }}</td>
+          </tr>
+          {% endif %}
+        </table>
+      </div>
     </div>
   </div>
 
