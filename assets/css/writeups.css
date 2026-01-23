@@ -202,9 +202,9 @@
 }
 
 .os-badge {
-  padding: 3px 10px;
-  border-radius: 8px;
-  font-size: 0.8rem;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
   font-weight: 500;
 }
 
@@ -216,6 +216,7 @@
 }
 
 /* Linux OS Badge - Yellow/Orange */
+.os-badge.os-linux,
 .os-badge[data-os="Linux"],
 .os-badge[data-os="linux"] {
   background-color: rgba(255, 193, 7, 0.15);
@@ -224,6 +225,7 @@
 }
 
 /* Windows OS Badge - Blue */
+.os-badge.os-windows,
 .os-badge[data-os="Windows"],
 .os-badge[data-os="windows"] {
   background-color: rgba(0, 158, 224, 0.15);
@@ -256,7 +258,7 @@
 
 .writeup-meta {
   text-align: center;
-  padding: 2rem;
+  padding: 2.5rem 2rem;
   background-color: var(--bg-secondary);
   border-radius: 8px;
   border: 1px solid var(--border-color);
@@ -297,12 +299,36 @@
   border: 1px solid var(--border-color);
 }
 
+/* IP Address Display */
+.writeup-ip {
+  margin: 1.25rem 0;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--bg-tertiary);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  display: inline-block;
+  font-family: 'Monaco', 'Courier New', monospace;
+}
+
+.ip-label {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-right: 0.5rem;
+  font-weight: 500;
+}
+
+.ip-value {
+  color: var(--text-link);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
 .writeup-tags {
   display: flex;
   gap: 0.5rem;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 1rem;
+  margin-top: 1.25rem;
 }
 
 .writeup-tags .tag {
