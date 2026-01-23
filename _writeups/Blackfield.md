@@ -209,6 +209,23 @@ SMB         10.129.229.17   445    DC01             profiles$       READ
 SMB         10.129.229.17   445    DC01             SYSVOL          READ            Logon server share 
 ```
 
+We can now enumerate the `forensic` SMB share.
+
+![](../assets/images/Pasted%20image%2020260123192742.png)
+
+We find an interesting folder `memory_analysis` and inside it `lsass.zip` since `lsass` is very commonly targeted for credentials, it makes sense to start by taking a look inside.
+
+![](../assets/images/Pasted%20image%2020260123192957.png)
+
+Seems to be a memory dump of lsass, this is useful, as we can now use `pypykatz` to retrieve hashes from the dump.
+
+![](../assets/images/Pasted%20image%2020260123193130.png)
+
+Lets try to authenticate with the `NT` hash
+
+![](../assets/images/Pasted%20image%2020260123193247.png)
+
+Authentication works! and this user is very likely to 
 **Getting a shell:**
 ```bash
 # Reverse shell command
