@@ -64,6 +64,20 @@ nmap -vv -T5 -p*DISOVERED_PORTS* -sC -sV *TARGET_IP*
 **Key findings:**
 - SMB: Allowed to authenticate as `Guest` and to enumerate active shares
 
+### LDAP Enumeration
+
+```
+nmap -p 389 --script ldap-rootdse 10.129.229.17
+```
+
+![[Pasted image 20260123172944.png]]
+The target machine is `DC01` and the domain is `Blackfield.local`, need to update our `/etc/hosts` accordingly.
+
+
+
+
+---
+
 ### 
 ### SMB Enumeration
 
@@ -73,8 +87,19 @@ nmap -vv -T5 -p*DISOVERED_PORTS* -sC -sV *TARGET_IP*
 
 ![[Pasted image 20260123172218.png]]
 
-We have 'Read' permissions  for `profile`
+We have 'Read' permissions  for `profiles$` as `Guest`, which is a custom share and worth checking out
 
+```
+❯ smbclient //10.129.229.17/profiles$ -U "Guest"%
+Try "help" to get a list of possible commands.
+smb: \> ls
+```
+
+![[Pasted image 20260123172348.png]]
+Seems like we found a list of users, its possible to generate a list with the following command:
+```
+smbclient -N \\\\10.129.229.17\\profiles$ -c ls | awk '{ print $1 }' > userlist.txt
+```
 ---
 
 ## Initial Foothold
