@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "about.md",
+                "file": "_writeups/Blackfield.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "about"
+              "title": "Blackfield"
             }
           }
         ]
@@ -186,6 +186,7 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "about.md",
     "assets/images/Pasted image 20260123172056.png",
     "posts.md",
     "README.md",
@@ -201,7 +202,6 @@
     "assets/images/Pasted image 20260123192737.png",
     "assets/images/Pasted image 20260123190918.png",
     "assets/images/Pasted image 20260123185649.png",
-    "assets/images/Pasted image 20260123185147.png",
     "_writeups/example-complete-writeup.md",
     "_writeups/example-htb-usage.md",
     "_posts/2026-01-23-Blackfield.md",
