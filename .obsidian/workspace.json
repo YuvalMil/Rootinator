@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2026-01-23-Blackfield.md",
+                "file": "_writeups/Blackfield.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-01-23-Blackfield"
+              "title": "Blackfield"
             }
           }
         ]
@@ -186,8 +186,9 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
-    "_posts/2026-01-23-example-complete-writeup.md",
     "_posts/2026-01-23-Blackfield.md",
+    "_posts/2026-01-23-test-windows.md",
+    "_posts/2026-01-23-example-complete-writeup.md",
     "_writeups/Blackfield.md",
     "_writeups/example-htb-usage.md",
     "assets/images/2026-01-23-Blackfield/Pasted-image-20260123174847.png",
@@ -195,7 +196,6 @@
     "assets/images/2026-01-23-Blackfield/Pasted-image-20260123172348.png",
     "assets/images/2026-01-23-Blackfield/Pasted-image-20260123172218.png",
     "assets/images/2026-01-23-Blackfield",
-    "_posts/2026-01-23-test-windows.md",
     "_posts/2026-01-23-test-linux.md",
     "_posts/2026-01-23-Machine.md",
     "_posts/2026-01-23-hackthebox-cobblestone.md",

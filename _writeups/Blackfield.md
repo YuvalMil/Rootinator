@@ -13,12 +13,12 @@ os: Windows
 <link rel="stylesheet" href="{{ '/assets/css/obsidian-dividers.css' | relative_url }}">
 ## Machine Information
 
-| Property       | Value      |
-| -------------- | ---------- |
-| **Name**       | Blackfield  |
-| **OS**         | Windows    |
-| **Difficulty** | Medium     |
-| **IP**         | 10.10.11.x |
+| Property       | Value         |
+| -------------- | ------------- |
+| **Name**       | Blackfield    |
+| **OS**         | Windows       |
+| **Difficulty** | Hard          |
+| **IP**         | 10.129.229.17 |
 
 
 ---
@@ -74,14 +74,14 @@ nmap -p 389 --script ldap-rootdse 10.129.229.17
 
 The target machine is `DC01` and the domain is `Blackfield.local`, need to update our `/etc/hosts` accordingly.
 
-![[Pasted image 20260123173303.png]]
+![](../assets/images/Pasted%20image%2020260123173303.png)
 
 In this case we also need to create a fitting `krb5.conf`, I used NXC for that:
 ```
 ❯ nxc smb 10.129.229.17 -u 'Guest' -p '' --generate-krb5-file krb5.conf
 ```
 
-![[Pasted image 20260123174847.png]]
+![](../assets/images/Pasted%20image%2020260123174847.png)
 
 ```
 # working krb5 file:
@@ -112,7 +112,7 @@ In this case we also need to create a fitting `krb5.conf`, I used NXC for that:
 ❯ nxc smb 10.129.229.17 -u 'Guest' -p '' --shares
 ```
 
-![[Pasted image 20260123172218.png]]
+![](../assets/images/Pasted%20image%2020260123172218.png)
 
 We have 'Read' permissions  for `profiles$` as `Guest`, which is a custom share and worth checking out
 
@@ -122,14 +122,25 @@ Try "help" to get a list of possible commands.
 smb: \> ls
 ```
 
-![[Pasted image 20260123172348.png]]
+![](../assets/images/Pasted%20image%2020260123172348.png)
 Seems like we found a list of users, its possible to generate a list with the following command:
 ```
-smbclient -N \\\\10.129.229.17\\profiles$ -c ls | awk '{ print $1 }' > userlist.txt
+❯ smbclient -N \\\\10.129.229.17\\profiles$ -c ls | awk '{ print $1 }' > userlist.txt
+
 ```
 ---
 
 ## Initial Foothold
+
+With the acquired user list, we can attempt to run `Impacket-GetNPUsers` to find users without pre-auth
+```
+❯ impacket-GetNPUsers blackfield.local/ -no-pass -usersfile userlist.txt -dc-ip 10.129.229.17
+```
+
+
+
+
+---
 
 ### Vulnerability Discovery
 
