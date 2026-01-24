@@ -1,0 +1,2 @@
+1. the privesc was about abusing a sudo permission `(ALL : ALL) NOPASSWD: /usr/sbin/adduser ^[a-zA-Z0-9]+$` 
+	it wasnt the usual abuse tho, i had to know that in ubuntu there is a default user and group called `admin` and this user gets full sudo permissions by default, if i knew that and had checked passwd, id notice that this user doesnt exist, and upon creation, automatically receives full sudo privileges.

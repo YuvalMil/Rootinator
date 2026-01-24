@@ -1,0 +1,3 @@
+this actually wasnt that hard, i failed it because i didnt know the impacket-GetNPUsers script, in case you have a list of users, its always worth running (find users with 'do not require kerberos preauth)
+
+also i failed the priv esc to administrator because i didnt know the SAM hive is only for local users, and in case where i aim for DA and not local admin, i need NTDS.dit, not the SAM hive, i found a nice tool on github that automates the whole thing if i get a user in backup operators 

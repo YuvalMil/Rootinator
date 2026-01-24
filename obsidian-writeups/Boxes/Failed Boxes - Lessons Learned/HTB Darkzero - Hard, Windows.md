@@ -1,0 +1,3 @@
+pretty fun machine, even though i didnt have the necessary knowledge / skills to pwn it, i feel like it was a very educational box
+1. i didnt bother to check the OS in the VM - i successfully got a foothold inside a VM machine on the host, and i did run winPEAS to look for ways to escalate to NT authority, but i didnt even bother looking at the running OS, so i missed the priv esc exploit vector
+2. im still very newbish with rubeus, and dont know when or where it might be the opportunity to try using it, in this box, after gaining system access on the VM, its not very hard to figure out you can hijack a ticket with rubeus by making the MSSQL server on the main host authenticate to the VM host with xp_dirtree and a fake UNC path

@@ -1,0 +1,3 @@
+1. thought about trying to reuse the password from the compromised account with all other users, but didnt.
+2. In Windows, many files get automatically "executed" when they are placed inside a directory and that directory gets accessed. These files may point to a network share for a resource, forcing the machine to authenticate to access the resource. In fact, there is a tool called ntl_theft that creates several files that could potentially be used to steal the NTLMv2 hash of a user just by accessing a folder.
+3. `Services that run as virtual accounts access network resources by using the credentials of the computer account in the format <domain_name>\<computer_name>$.`
