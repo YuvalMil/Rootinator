@@ -1,0 +1,145 @@
+name: Convert Obsidian Images to Jekyll
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '_writeups/*.md'
+  workflow_dispatch:
+
+jobs:
+  convert-images:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          
+      - name: Fetch obsidian-notes branch
+        run: |
+          git fetch origin obsidian-notes:obsidian-notes
+          
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: Convert writeup images
+        run: |
+          python3 << 'PYTHON_SCRIPT'
+          import os
+          import re
+          import subprocess
+          from pathlib import Path
+          
+          def process_writeups():
+              writeups_dir = Path("_writeups")
+              
+              for writeup_file in writeups_dir.glob("*.md"):
+                  print(f"\n=== Processing {writeup_file.name} ===")
+                  
+                  with open(writeup_file, 'r', encoding='utf-8') as f:
+                      content = f.read()
+                  
+                  # Extract date from filename (format: YYYY-MM-DD or date field in frontmatter)
+                  date_match = re.search(r'date:\s*(\d{4}-\d{2}-\d{2})', content)
+                  if not date_match:
+                      print(f"No date found in {writeup_file.name}, skipping...")
+                      continue
+                  
+                  date_str = date_match.group(1)
+                  writeup_name = writeup_file.stem
+                  
+                  # Create image directory for this writeup
+                  image_dir = Path(f"assets/images/{date_str}-{writeup_name}")
+                  image_dir.mkdir(parents=True, exist_ok=True)
+                  
+                  # Find all Obsidian-style images: ![[image.png]]
+                  obsidian_images = re.findall(r'!\[\[([^\]]+\.(?:png|jpg|jpeg|gif|svg))\]\]', content, re.IGNORECASE)
+                  
+                  if not obsidian_images:
+                      print(f"No Obsidian images found in {writeup_file.name}")
+                      continue
+                  
+                  print(f"Found {len(obsidian_images)} images to convert")
+                  
+                  # Track which images were successfully copied
+                  copied_images = []
+                  
+                  for image_name in obsidian_images:
+                      # Source path in obsidian-notes branch
+                      source_path = f"obsidian-notes:obsidian-writeups/Assets/Attachments/{image_name}"
+                      dest_path = image_dir / image_name
+                      
+                      try:
+                          # Use git show to extract file from obsidian-notes branch
+                          result = subprocess.run(
+                              ['git', 'show', source_path],
+                              capture_output=True,
+                              check=True
+                          )
+                          
+                          # Write the binary content to destination
+                          with open(dest_path, 'wb') as f:
+                              f.write(result.stdout)
+                          
+                          print(f"✓ Copied: {image_name}")
+                          copied_images.append(image_name)
+                          
+                      except subprocess.CalledProcessError:
+                          print(f"✗ Failed to copy: {image_name} (not found in obsidian-notes branch)")
+                          continue
+                  
+                  if not copied_images:
+                      print(f"No images were successfully copied for {writeup_file.name}")
+                      continue
+                  
+                  # Update markdown content to use Jekyll-style image links
+                  updated_content = content
+                  
+                  for image_name in copied_images:
+                      # Replace Obsidian syntax with Jekyll syntax
+                      obsidian_pattern = re.escape(f"![[{image_name}]]")
+                      jekyll_link = f"![{image_name}](/assets/images/{date_str}-{writeup_name}/{image_name})"
+                      updated_content = re.sub(obsidian_pattern, jekyll_link, updated_content)
+                  
+                  # Also handle GitHub raw URLs if they exist
+                  github_raw_pattern = r'!\[\]\(https://raw\.githubusercontent\.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/([^\)]+)\)'
+                  
+                  def replace_github_urls(match):
+                      img_name = match.group(1)
+                      if img_name in copied_images:
+                          return f"![{img_name}](/assets/images/{date_str}-{writeup_name}/{img_name})"
+                      return match.group(0)
+                  
+                  updated_content = re.sub(github_raw_pattern, replace_github_urls, updated_content)
+                  
+                  # Write updated content back to file
+                  with open(writeup_file, 'w', encoding='utf-8') as f:
+                      f.write(updated_content)
+                  
+                  print(f"✓ Updated {writeup_file.name} with {len(copied_images)} image links")
+          
+          if __name__ == "__main__":
+              process_writeups()
+              print("\n=== Conversion complete! ===")
+          PYTHON_SCRIPT
+          
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add assets/images/
+          git add _writeups/
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-convert Obsidian images to Jekyll format [skip ci]"
+            git push origin main
+          fi
