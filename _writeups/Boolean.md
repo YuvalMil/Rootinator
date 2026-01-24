@@ -87,9 +87,9 @@ Attempted various injection techniques:
 
 **Step 1:** Intercept email update request in Burp Suite
 
-![[Pasted image 20251103184526.png]]
+![Pasted image 20251103184526.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103184526.png)
 
-![[Pasted image 20251103184759.png]]
+![Pasted image 20251103184759.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103184759.png)
 
 Request reveals parameter structure: `user[email]`
 
@@ -102,9 +102,9 @@ Request reveals parameter structure: `user[email]`
 
 Changed `user[email]` to `user[id]` in the request:
 
-![[Pasted image 20251103184700.png]]
+![Pasted image 20251103184700.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103184700.png)
 
-![[Pasted image 20251103184815.png]]
+![Pasted image 20251103184815.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103184815.png)
 
 The field order changed in the response, confirming parameter manipulation works.
 
@@ -112,7 +112,7 @@ The field order changed in the response, confirming parameter manipulation works
 
 Changed parameter to `user[confirmed]`:
 
-![[Pasted image 20251103184852.png]]
+![Pasted image 20251103184852.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103184852.png)
 
 Successfully changed `confirmed` value from `false` to `true`!
 
@@ -127,19 +127,19 @@ Successfully changed `confirmed` value from `false` to `true`!
 
 **Step 4:** Access unlocked functionality
 
-![[Pasted image 20251103185005.png]]
+![Pasted image 20251103185005.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103185005.png)
 
 With confirmed account, gained access to file manager interface.
 
 **Step 5:** Test file upload functionality
 
-![[Pasted image 20251103185055.png]]
+![Pasted image 20251103185055.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103185055.png)
 
 Uploaded test file to understand behavior and restrictions.
 
 **Step 6:** Analyze file download mechanism
 
-![[Pasted image 20251103185127.png]]
+![Pasted image 20251103185127.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103185127.png)
 
 Clicking downloaded file reveals URL parameters:
 - `file` - filename parameter
@@ -158,13 +158,13 @@ Clicking downloaded file reveals URL parameters:
 
 Tested various path traversal payloads in `cwd` parameter:
 
-![[Pasted image 20251103185330.png]]
+![Pasted image 20251103185330.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103185330.png)
 
 Successfully displayed `/etc/passwd` using path traversal!
 
 **Step 8:** Discover directory listing capability
 
-![[Pasted image 20251103185432.png]]
+![Pasted image 20251103185432.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103185432.png)
 
 When `file` parameter is empty, application displays directory contents.
 
@@ -176,13 +176,13 @@ When `file` parameter is empty, application displays directory contents.
 
 Checked home directory for users:
 
-![[Pasted image 20251103185526.png]]
+![Pasted image 20251103185526.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103185526.png)
 
 **Step 10:** Check user's .ssh directory
 
-![[Pasted image 20251103185538.png]]
+![Pasted image 20251103185538.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103185538.png)
 
-![[Pasted image 20251103185644.png]]
+![Pasted image 20251103185644.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103185644.png)
 
 Found `.ssh` directory for user `remi` but no `authorized_keys` file exists.
 
@@ -201,13 +201,13 @@ ssh-keygen -t rsa -b 4096 -f boolean_key
 mv boolean_key.pub authorized_keys
 ```
 
-![[Pasted image 20251103185910.png]]
+![Pasted image 20251103185910.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103185910.png)
 
 Successfully uploaded `authorized_keys` to `/home/remi/.ssh/`!
 
 **Step 12:** SSH as remi
 
-![[Pasted image 20251103185942.png]]
+![Pasted image 20251103185942.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103185942.png)
 
 <div class="divider divider-root">
     <span class="divider-title">User Access</span>
@@ -222,19 +222,19 @@ Successfully uploaded `authorized_keys` to `/home/remi/.ssh/`!
 
 **Step 1:** Explore .ssh directory further
 
-![[Pasted image 20251103190035.png]]
+![Pasted image 20251103190035.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103190035.png)
 
 Found interesting file: `root` - likely a private SSH key for root!
 
 **Step 2:** Check for SSH aliases
 
-![[Pasted image 20251103190117.png]]
+![Pasted image 20251103190117.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103190117.png)
 
 Discovered alias suggesting SSH to root@localhost using the found key.
 
 **Step 3:** Attempt to use the alias
 
-![[Pasted image 20251103190133.png]]
+![Pasted image 20251103190133.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103190133.png)
 
 Alias failed to work as expected.
 
@@ -259,7 +259,7 @@ Use the `-o "IdentitiesOnly=yes"` option to force SSH to use only the specified 
 ssh -o "IdentitiesOnly=yes" -i ~/.ssh/keys/root root@127.0.0.1
 ```
 
-![[Pasted image 20251103190541.png]]
+![Pasted image 20251103190541.png](/assets/images/2025-11-03-Boolean/Pasted image 20251103190541.png)
 
 <div class="divider divider-root">
     <span class="divider-title">Root Access</span>
