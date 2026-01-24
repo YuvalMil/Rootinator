@@ -186,6 +186,16 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "assets/images/2025-10-25-Cap/Pasted image 20251025170409.png",
+    "assets/images/2025-10-25-Cap/Pasted image 20251025170423.png",
+    "assets/images/2025-10-25-Cap/Pasted image 20251025170318.png",
+    "assets/images/2025-10-25-Cap/Pasted image 20251025170239.png",
+    "assets/images/2025-10-25-Cap/Pasted image 20251025170206.png",
+    "assets/images/2025-10-25-Cap/Pasted image 20251025170134.png",
+    "assets/images/2025-10-25-Cap/Pasted image 20251025170054.png",
+    "assets/images/2025-10-25-Cap",
+    "_writeups/Sau.md",
+    "_writeups/Cap.md",
     "_writeups/Magic.md",
     "_writeups/Unconfirmed 590752.crdownload",
     "_writeups/Boolean.md",
@@ -201,13 +211,7 @@
     "assets/images/2025-11-06-Lavita/Pasted image 20251106211058.png",
     "assets/images/2025-11-06-Lavita/Pasted image 20251106210734.png",
     "assets/images/2025-11-06-Lavita/Pasted image 20251106210621.png",
-    "assets/images/2025-11-06-Lavita/Pasted image 20251106210608.png",
-    "assets/images/2025-11-06-Lavita/Pasted image 20251106210224.png",
-    "assets/images/2025-11-06-Lavita/Pasted image 20251106205908.png",
-    "assets/images/2025-11-06-Lavita/Pasted image 20251106205928.png",
-    "assets/images/2025-11-06-Lavita/Pasted image 20251106205744.png",
     "assets/images/2025-11-06-Lavita",
-    "assets/images/2025-09-17-Magic/Pasted image 20250917183109.png",
     "assets/images/2025-09-17-Magic",
     "assets/writeups/icons/Unconfirmed 508578.crdownload",
     "assets/writeups/icons/Unconfirmed 466449.crdownload",
@@ -215,7 +219,6 @@
     "assets/writeups/icons/Unconfirmed 807980.crdownload",
     "assets/writeups/icons/Unconfirmed 407193.crdownload",
     "assets/images/2025-11-03-Boolean",
-    "assets/images/2025-10-28-Pelican",
     "_writeups/test-windows.md",
     "_writeups/AI.md",
     "_writeups/example-complete-writeup.md",
@@ -228,8 +231,6 @@
     "obsidian-writeups/Boxes/Windows/Medium/HTB StreamIO (Windows).md",
     "obsidian-writeups/Boxes/Windows/Medium/HTB Monteverde (Windows).md",
     "obsidian-writeups/Boxes/Windows/Medium/HTB Resolute (Windows).md",
-    "obsidian-writeups/Boxes/Windows/Medium/HTB Media (Windows).md",
-    "obsidian-writeups/Boxes/Windows/Medium/HTB Manager (Windows).md",
-    "obsidian-writeups/Boxes/Windows/Medium/HTB Escape (Windows).md"
+    "obsidian-writeups/Boxes/Windows/Medium/HTB Media (Windows).md"
   ]
 }
