@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_writeups/Blackfield.md",
+                "file": "_writeups/DarkZero.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Blackfield"
+              "title": "DarkZero"
             }
           }
         ]
@@ -186,6 +186,8 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "_writeups/Exfiltrated.md",
+    "_writeups/Blackfield.md",
     "assets/images/2025-10-25-Cap/Pasted image 20251025170409.png",
     "assets/images/2025-10-25-Cap/Pasted image 20251025170423.png",
     "assets/images/2025-10-25-Cap/Pasted image 20251025170318.png",
@@ -201,16 +203,13 @@
     "_writeups/Boolean.md",
     "_writeups/Cobblestone.md",
     "_writeups/DarkZero.md",
-    "_writeups/Exfiltrated.md",
     "_writeups/Flight.md",
     "_writeups/Lavita.md",
     "_writeups/Astronaut.md",
-    "_writeups/Blackfield.md",
     "_writeups/Pelican.md",
     "assets/images/2025-11-06-Lavita/Pasted image 20251106211115.png",
     "assets/images/2025-11-06-Lavita/Pasted image 20251106211058.png",
     "assets/images/2025-11-06-Lavita/Pasted image 20251106210734.png",
-    "assets/images/2025-11-06-Lavita/Pasted image 20251106210621.png",
     "assets/images/2025-11-06-Lavita",
     "assets/images/2025-09-17-Magic",
     "assets/writeups/icons/Unconfirmed 508578.crdownload",

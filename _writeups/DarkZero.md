@@ -288,8 +288,6 @@ impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:[ADMIN_HASH] Administra
 
 ---
 
-## Post-Exploitation
-
 **Attack Chain Summary:**
 1. MSSQL access with provided credentials
 2. Discovery of linked MSSQL server with DB admin privileges
