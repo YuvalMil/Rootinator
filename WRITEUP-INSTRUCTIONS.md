@@ -104,6 +104,90 @@ Rootinator/
 
 ---
 
+## Simulating Terminal Output
+
+### When Screenshots Are Missing
+
+**Important:** When the original Obsidian notes are missing screenshots for commands, **simulate realistic terminal output** based on:
+- The command being executed
+- The context of the attack
+- Expected behavior of the tool/command
+- Standard output format from official HTB writeups
+
+### How to Simulate Output
+
+**Example 1: Nmap scan output**
+```bash
+❯ nmap -vv -T5 -p- 10.129.229.17
+
+Starting Nmap 7.94 ( https://nmap.org )
+Scanning 10.129.229.17 [65535 ports]
+Discovered open port 445/tcp on 10.129.229.17
+Discovered open port 53/tcp on 10.129.229.17
+Discovered open port 88/tcp on 10.129.229.17
+Completed SYN Stealth Scan at 14:25, 42.31s elapsed (65535 total ports)
+Nmap scan report for 10.129.229.17
+PORT      STATE SERVICE
+53/tcp    open  domain
+88/tcp    open  kerberos-sec
+135/tcp   open  msrpc
+139/tcp   open  netbios-ssn
+445/tcp   open  microsoft-ds
+```
+
+**Example 2: SMB enumeration**
+```bash
+❯ nxc smb 10.129.229.17 -u 'Guest' -p '' --shares
+SMB         10.129.229.17   445    DC01             [*] Windows 10 / Server 2019 Build 17763 x64
+SMB         10.129.229.17   445    DC01             [+] BLACKFIELD.local\Guest: 
+SMB         10.129.229.17   445    DC01             [*] Enumerated shares
+SMB         10.129.229.17   445    DC01             Share           Permissions     Remark
+SMB         10.129.229.17   445    DC01             -----           -----------     ------
+SMB         10.129.229.17   445    DC01             ADMIN$                          Remote Admin
+SMB         10.129.229.17   445    DC01             C$                              Default share
+SMB         10.129.229.17   445    DC01             profiles$       READ            
+```
+
+**Example 3: Hash cracking**
+```bash
+❯ john hash.txt --wordlist=/usr/share/wordlists/rockyou.txt
+Using default input encoding: UTF-8
+Loaded 1 password hash (krb5asrep, Kerberos 5 AS-REP etype 23 [MD4 HMAC-MD5 RC4])
+Will run 4 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+#00^BlackKnight   ($krb5asrep$support@BLACKFIELD.LOCAL)
+1g 0:00:00:08 DONE (2026-01-23 18:51) 0.1234g/s 1234Kp/s 1234Kc/s 1234KC/s
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed
+```
+
+### Guidelines for Simulation
+
+1. **Use realistic hostnames, IPs, and usernames** from the box
+2. **Match the tool's actual output format** (nmap, nxc, john, etc.)
+3. **Show relevant information** that would appear in real output
+4. **Use appropriate timestamps and timing** data
+5. **Include both commands and output** in the same code block
+6. **Add comments** with `#` to separate commands from output when needed
+7. **Use the `❯` prompt** for consistency (or `$` for regular user, `#` for root)
+8. **Keep it concise** - show only relevant output, truncate with `...` if needed
+
+### When to Simulate vs Use Screenshots
+
+**Use screenshots (`![[image.png]]`) when:**
+- Visual confirmation is important (web interfaces, GUIs)
+- Output contains complex formatting or colors
+- Original screenshot exists in Obsidian notes
+- Showing exploit PoC working
+
+**Simulate terminal output when:**
+- Screenshot is missing from Obsidian notes
+- Command output is standard/predictable
+- Terminal text can be easily formatted in markdown
+- Output would be too verbose as an image
+
+---
+
 ## Image Handling
 
 ### Automated Conversion (Recommended)
@@ -240,6 +324,7 @@ nmap -vv -T5 -p53,88,135,139,389,445,593,3268,5985 -sC -sV 10.129.229.17
 - Table format with Port | Service | TCP/UDP columns
 - Keep service names simple and consistent
 - Add "Key findings" bullet points
+- **If screenshot missing:** Simulate realistic nmap output in code block
 
 ### 4. Section Organization
 
@@ -299,8 +384,9 @@ command --flags arguments
 **Guidelines:**
 - Always specify language
 - Include comments for complex commands
-- Show command output when relevant
+- **Show simulated output when screenshot is missing**
 - Use `# Commands` or `# Output` to separate
+- Use `❯` prompt for consistency
 
 ### 7. Tables
 
@@ -333,6 +419,7 @@ Use tables for structured data following Blackfield's format:
    - Understand the full attack chain
    - Identify all vulnerabilities
    - Note all image references
+   - **Identify missing screenshots that need simulated output**
 
 2. **Choose Template**
    - Windows: `assets/writeups/templates/Writeup Template Windows.md`
@@ -350,20 +437,21 @@ Use tables for structured data following Blackfield's format:
 5. **Process Enumeration**
    - Convert nmap output to **Blackfield-style table format**
    - Use two-command nmap format (full scan + targeted)
+   - **Simulate nmap output if screenshot missing**
    - Add "Key findings" bullets
    - Include all service-specific enumeration
 
 6. **Document Exploitation**
    - Use info dividers for vulnerability explanations
    - Show commands with proper formatting
-   - Include relevant output
+   - **Include simulated output where screenshots are missing**
    - Use warning dividers for exploitation paths
 
-7. **Handle Images**
+7. **Handle Images and Output**
    - **Leave images in Obsidian format**: `![[Pasted image TIMESTAMP.png]]`
    - The GitHub Actions workflow will automatically convert them
-   - Images will be copied from obsidian-notes branch to proper location
-   - Syntax will be updated to Jekyll format automatically
+   - **For missing screenshots:** Simulate realistic terminal output
+   - Base simulations on the command context and expected tool behavior
 
 8. **Add Flags**
    - Show how flags were obtained
@@ -387,6 +475,7 @@ Use tables for structured data following Blackfield's format:
     - Verify code blocks have languages
     - Ensure dividers are properly formatted
     - Confirm nmap section follows Blackfield format
+    - **Verify simulated output looks realistic**
 
 ---
 
@@ -401,9 +490,10 @@ Use tables for structured data following Blackfield's format:
 - [ ] **Nmap section follows Blackfield format** (two commands + table)
 - [ ] Code blocks have language specified
 - [ ] **Images left in Obsidian format** `![[image.png]]` for auto-conversion
+- [ ] **Missing screenshots replaced with simulated terminal output**
 - [ ] Custom dividers used appropriately
 - [ ] Vulnerability explanations in dividers
-- [ ] Commands show input and relevant output
+- [ ] Commands show input and relevant output (real or simulated)
 - [ ] Flags documented with commands
 - [ ] References section complete
 - [ ] Footer includes date and ratings
@@ -423,16 +513,20 @@ Use tables for structured data following Blackfield's format:
 - Include excessive command output
 - Skip TL;DR or key vulnerabilities
 - Forget to specify code block languages
+- Leave commands without output when screenshot is missing
+- Use unrealistic or generic simulated output
 
 ### ✅ Do:
 - Start from official templates
 - Leave images in Obsidian format: `![[image.png]]`
 - Follow Blackfield's nmap format exactly
+- **Simulate realistic terminal output for missing screenshots**
 - Include custom dividers for visual appeal
 - Use markdown headers (`##`, `###`)
-- Show only relevant output
+- Show only relevant output (real or simulated)
 - Keep TL;DR concise
 - Specify language for every code block
+- Match actual tool output formats when simulating
 
 ---
 
@@ -474,6 +568,7 @@ Check the workflow logs in GitHub Actions. The workflow should create a commit w
 **Example Writeups:**
 - `_writeups/Blackfield.md` - **Primary reference** for format
 - `_writeups/Flight.md` - Shows automated workflow in action
+- `_writeups/Astronaut.md` - Shows simulated terminal output
 
 **Templates:**
 - `assets/writeups/templates/Writeup Template Windows.md`
@@ -481,6 +576,10 @@ Check the workflow logs in GitHub Actions. The workflow should create a commit w
 
 **Workflow:**
 - `.github/workflows/convert-writeup-images.yml`
+
+**Official HTB Resources:**
+- [HTB Writeup Guidelines](https://forum.hackthebox.com/t/writeup-guidelines/24)
+- [HTB Business CTF Writeups](https://github.com/hackthebox/business-ctf-2025)
 
 ---
 
@@ -495,11 +594,16 @@ When converting writeups:
    - Table structures
    - Divider usage
 4. **Leave images in Obsidian format**: `![[image.png]]` - the workflow handles conversion
-5. **Preserve all commands** exactly as in notes
-6. **Use dividers generously** for visual hierarchy
-7. **Explain techniques** with info dividers
-8. **Keep TL;DR tight** - 2-3 sentences max
-9. **Follow Blackfield's nmap format exactly** - this is critical for consistency
+5. **Simulate terminal output** when screenshots are missing:
+   - Use realistic output based on the command and tool
+   - Match standard output formats (nmap, nxc, john, etc.)
+   - Include relevant details from the context
+   - Use `❯` prompt for consistency
+6. **Preserve all commands** exactly as in notes
+7. **Use dividers generously** for visual hierarchy
+8. **Explain techniques** with info dividers
+9. **Keep TL;DR tight** - 2-3 sentences max
+10. **Follow Blackfield's nmap format exactly** - this is critical for consistency
 
 ---
 
