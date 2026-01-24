@@ -186,6 +186,14 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "assets/writeups/icons/Pelican.png",
+    "assets/writeups/icons/Unconfirmed 466449.crdownload",
+    "assets/writeups/icons/Boolean.png",
+    "assets/writeups/icons/Unconfirmed 851241.crdownload",
+    "assets/writeups/icons/Exfiltrate.png",
+    "assets/writeups/icons/Unconfirmed 807980.crdownload",
+    "assets/writeups/icons/Astronaut.png",
+    "assets/writeups/icons/Unconfirmed 407193.crdownload",
     "assets/images/2025-11-03-Boolean/Pasted image 20251103190541.png",
     "assets/images/2025-11-03-Boolean/Pasted image 20251103190133.png",
     "assets/images/2025-11-03-Boolean/Pasted image 20251103190035.png",
@@ -193,10 +201,6 @@
     "assets/images/2025-11-03-Boolean/Pasted image 20251103185942.png",
     "assets/images/2025-11-03-Boolean/Pasted image 20251103185644.png",
     "assets/images/2025-11-03-Boolean/Pasted image 20251103185910.png",
-    "assets/images/2025-11-03-Boolean/Pasted image 20251103185538.png",
-    "assets/images/2025-11-03-Boolean/Pasted image 20251103185330.png",
-    "assets/images/2025-11-03-Boolean/Pasted image 20251103185526.png",
-    "assets/images/2025-11-03-Boolean/Pasted image 20251103185127.png",
     "assets/images/2025-11-03-Boolean",
     "assets/images/2025-10-28-Pelican",
     "_writeups/Pelican.md",
@@ -227,10 +231,6 @@
     "obsidian-writeups/Boxes/Windows/Medium/HTB Manager (Windows).md",
     "obsidian-writeups/Boxes/Windows/Medium/HTB Escape (Windows).md",
     "obsidian-writeups/Boxes/Windows/Medium/HTB Job (Windows).md",
-    "obsidian-writeups/Boxes/Windows/Medium/HTB Jeeves (Windows).md",
-    "obsidian-writeups/Boxes/Windows/Medium",
-    "obsidian-writeups/Boxes/Windows/Hard",
-    "obsidian-writeups/Boxes/Windows/Easy",
-    "obsidian-writeups/Boxes/Windows"
+    "obsidian-writeups/Boxes/Windows/Medium/HTB Jeeves (Windows).md"
   ]
 }
