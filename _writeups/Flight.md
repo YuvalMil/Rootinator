@@ -16,6 +16,7 @@ tags:
 os: Windows
 ip: 10.129.95.212
 ---
+
 <link rel="stylesheet" href="{{ '/assets/css/obsidian-dividers.css' | relative_url }}">
 
 ## Summary
