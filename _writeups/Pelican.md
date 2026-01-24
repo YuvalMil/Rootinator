@@ -73,13 +73,13 @@ Quick SMB check confirmed no immediate access or useful shares.
 
 **Step 1:** Detailed nmap scan reveals interesting information
 
-![[Pasted image 20251028195403.png]]
+![Pasted image 20251028195403.png](/assets/images/2025-10-28-Pelican/Pasted image 20251028195403.png)
 
 HTTP service on port 8081 redirects to Exhibitor endpoint at port 8080.
 
 **Step 2:** Explore the Exhibitor Web UI
 
-![[Pasted image 20251028195507.png]]
+![Pasted image 20251028195507.png](/assets/images/2025-10-28-Pelican/Pasted image 20251028195507.png)
 
 <div class="divider divider-info">
     <span class="divider-title">ZooKeeper & Exhibitor</span>
@@ -90,7 +90,7 @@ Application identified as **ZooKeeper Exhibitor Web UI**.
 
 **Step 3:** Check version information
 
-![[Pasted image 20251028195601.png]]
+![Pasted image 20251028195601.png](/assets/images/2025-10-28-Pelican/Pasted image 20251028195601.png)
 
 Build date: **2014** (11 years old!) - highly likely to have vulnerabilities.
 
@@ -106,7 +106,7 @@ Searching for ZooKeeper Exhibitor exploits revealed:
 
 [Exhibitor Web UI 1.7.1 - Remote Code Execution - ExploitDB](https://www.exploit-db.com/exploits/48654)
 
-![[Pasted image 20251028195719.png]]
+![Pasted image 20251028195719.png](/assets/images/2025-10-28-Pelican/Pasted image 20251028195719.png)
 
 <div class="divider divider-warning">
     <span class="divider-title">Exhibitor RCE</span>
@@ -119,9 +119,9 @@ Searching for ZooKeeper Exhibitor exploits revealed:
 
 **Step 1:** Use the Exhibitor RCE exploit
 
-![[Pasted image 20251028195752.png]]
+![Pasted image 20251028195752.png](/assets/images/2025-10-28-Pelican/Pasted image 20251028195752.png)
 
-![[Pasted image 20251028195802.png]]
+![Pasted image 20251028195802.png](/assets/images/2025-10-28-Pelican/Pasted image 20251028195802.png)
 
 <div class="divider divider-root">
     <span class="divider-title">Shell Access</span>
@@ -148,7 +148,7 @@ Flag obtained!
 
 **Step 1:** Check sudo permissions
 
-![[Pasted image 20251028195854.png]]
+![Pasted image 20251028195854.png](/assets/images/2025-10-28-Pelican/Pasted image 20251028195854.png)
 
 ```bash
 sudo -l
@@ -167,7 +167,7 @@ User charles can run `/usr/bin/gcore` as root without password!
 
 **Step 2:** Check GTFOBins for gcore exploitation
 
-![[Pasted image 20251028195914.png]]
+![Pasted image 20251028195914.png](/assets/images/2025-10-28-Pelican/Pasted image 20251028195914.png)
 
 GTFOBins confirms gcore can be used to read process memory, potentially exposing sensitive data.
 
@@ -177,7 +177,7 @@ GTFOBins confirms gcore can be used to read process memory, potentially exposing
 
 **Step 3:** Identify root processes
 
-![[Pasted image 20251028200036.png]]
+![Pasted image 20251028200036.png](/assets/images/2025-10-28-Pelican/Pasted image 20251028200036.png)
 
 ```bash
 ps aux | grep root
@@ -197,7 +197,7 @@ sudo /usr/bin/gcore 485
 
 **Step 5:** Extract strings from memory dump
 
-![[Pasted image 20251028200228.png]]
+![Pasted image 20251028200228.png](/assets/images/2025-10-28-Pelican/Pasted image 20251028200228.png)
 
 ```bash
 strings core.485 | less
@@ -211,9 +211,9 @@ Search through the strings output for credentials.
 
 **Step 6:** Find root credentials in dump
 
-![[Pasted image 20251028200303.png]]
+![Pasted image 20251028200303.png](/assets/images/2025-10-28-Pelican/Pasted image 20251028200303.png)
 
-![[Pasted image 20251028200328.png]]
+![Pasted image 20251028200328.png](/assets/images/2025-10-28-Pelican/Pasted image 20251028200328.png)
 
 Found root password in process memory dump!
 
