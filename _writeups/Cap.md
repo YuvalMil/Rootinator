@@ -80,13 +80,13 @@ Inspecting the URL structure reveals a potential IDOR vulnerability.
 - `http://10.129.x.x/data/1` -> Contains 626 packets
 - `http://10.129.x.x/data/2` -> Contains 0 packets
 
-![[Pasted image 20251025170054.png]]
+![Pasted image 20251025170054.png](/assets/images/2025-10-25-Cap/Pasted image 20251025170054.png)
 
-![[Pasted image 20251025170134.png]]
+![Pasted image 20251025170134.png](/assets/images/2025-10-25-Cap/Pasted image 20251025170134.png)
 
 Testing `http://10.129.x.x/data/0` reveals a different dataset with capture data.
 
-![[Pasted image 20251025170206.png]]
+![Pasted image 20251025170206.png](/assets/images/2025-10-25-Cap/Pasted image 20251025170206.png)
 
 <div class="divider divider-warning">
     <span class="divider-title">IDOR Vulnerability</span>
@@ -97,7 +97,7 @@ Testing `http://10.129.x.x/data/0` reveals a different dataset with capture data
 
 Downloaded the PCAP file from ID 0. Analyzing it in Wireshark reveals plaintext FTP credentials.
 
-![[Pasted image 20251025170239.png]]
+![Pasted image 20251025170239.png](/assets/images/2025-10-25-Cap/Pasted image 20251025170239.png)
 
 ```text
 User: nathan
@@ -114,7 +114,7 @@ Pass: buckhead
 
 Logged in via FTP using the found credentials.
 
-![[Pasted image 20251025170318.png]]
+![Pasted image 20251025170318.png](/assets/images/2025-10-25-Cap/Pasted image 20251025170318.png)
 
 Found the user flag in `user.txt`.
 
@@ -143,7 +143,7 @@ Given the box name "Cap", I checked for Linux Capabilities.
 getcap -r / 2>/dev/null
 ```
 
-![[Pasted image 20251025170409.png]]
+![Pasted image 20251025170409.png](/assets/images/2025-10-25-Cap/Pasted image 20251025170409.png)
 
 Found `cap_setuid` set on the Python binary:
 `/usr/bin/python3.8 = cap_setuid,cap_net_bind_service+eip`
@@ -163,7 +163,7 @@ Exploited the capability using Python to set the UID to 0 (root) and spawn a she
 /usr/bin/python3.8 -c 'import os; os.setuid(0); os.system("/bin/bash")'
 ```
 
-![[Pasted image 20251025170423.png]]
+![Pasted image 20251025170423.png](/assets/images/2025-10-25-Cap/Pasted image 20251025170423.png)
 
 <div class="divider divider-root">
     <span class="divider-title">Root Access</span>
