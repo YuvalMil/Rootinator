@@ -186,6 +186,7 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "obsidian-writeups",
     "_writeups/AI.md",
     "_writeups/DarkZero.md",
     "assets/writeups/templates/Writeup Template Linux.md",
@@ -222,7 +223,6 @@
     "_writeups/o2-temp.2026-01-23-example-htb-usage.md",
     "_writeups/o2-temp.2026-01-23-example-thm-windows.md",
     "_writeups/o2-temp.2026-01-23-hackthebox-cobblestone.md",
-    "_writeups/o2-temp.2026-01-23-Machine.md",
     "assets/images/site.webmanifest",
     "assets/images/favicon.ico",
     "assets/css/tag-filters.css",
