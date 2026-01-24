@@ -555,7 +555,7 @@ User developer may run the following commands on updown:
     (ALL) NOPASSWD: /usr/bin/easy_install
 ```
 
-![[Pasted image 20250910194313.png]]
+![Pasted image 20250910194313.png](/assets/images/2025-09-10-UpDown/Pasted image 20250910194313.png)
 
 <div class="divider divider-warning">
     <span class="divider-title">Sudo easy_install Exploitation</span>
