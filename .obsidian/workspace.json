@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_writeups/Flight.md",
+                "file": "_writeups/example-picoctf.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Flight"
+              "title": "example-picoctf"
             }
           }
         ]
@@ -186,9 +186,9 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "_writeups/Flight.md",
     "_writeups/Blackfield.md",
     "_writeups/DarkZero.md",
-    "_writeups/Flight.md",
     "_writeups/example-picoctf.md",
     "assets/images/2025-10-21-Flight/Pasted image 20251021220644.png",
     "assets/images/2025-10-21-Flight/Pasted image 20251021220744.png",
