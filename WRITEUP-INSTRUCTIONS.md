@@ -10,6 +10,39 @@ Writeups should follow the established format demonstrated in `_writeups/Blackfi
 
 ---
 
+## Automated Workflow
+
+### GitHub Actions Automation
+
+**The repository includes an automated workflow** that handles image conversion from Obsidian to Jekyll format.
+
+**Workflow file:** `.github/workflows/convert-writeup-images.yml`
+
+**What it does:**
+1. Monitors for changes to files in `_writeups/*.md`
+2. Detects Obsidian-style image syntax: `![[image.png]]`
+3. Copies images from `obsidian-notes` branch (`obsidian-writeups/Assets/Attachments/`) to `main` branch (`assets/images/YYYY-MM-DD-MachineName/`)
+4. Converts image syntax to Jekyll format: `![image.png](/assets/images/YYYY-MM-DD-MachineName/image.png)`
+5. Commits changes automatically
+
+**How to use:**
+1. Write your writeup in `_writeups/` using Obsidian-style image links: `![[Pasted image 20251021170110.png]]`
+2. Push to main branch
+3. The workflow automatically:
+   - Copies all referenced images from obsidian-notes branch
+   - Converts the image syntax to proper Jekyll format
+   - Creates a directory: `assets/images/YYYY-MM-DD-MachineName/`
+   - Commits the changes with message: "Auto-convert Obsidian images to Jekyll format [skip ci]"
+
+**Manual trigger:** You can also trigger the workflow manually from the Actions tab on GitHub.
+
+**Requirements:**
+- Images must exist in the `obsidian-notes` branch at `obsidian-writeups/Assets/Attachments/`
+- Writeup must have a valid `date:` field in the frontmatter
+- Image filenames must match exactly between Obsidian notes and the branch
+
+---
+
 ## Templates
 
 Use the official templates located in `assets/writeups/templates/`:
@@ -51,9 +84,12 @@ Rootinator/
 │   └── ...
 ├── assets/
 │   ├── images/
-│   │   ├── Pasted image 20251021170110.png
-│   │   ├── Pasted image 20251021170146.png
-│   │   └── ...
+│   │   ├── 2025-10-21-Flight/
+│   │   │   ├── Pasted image 20251021170110.png
+│   │   │   ├── Pasted image 20251021170146.png
+│   │   │   └── ...
+│   │   └── 2026-01-23-Blackfield/
+│   │       └── ...
 │   └── writeups/
 │       ├── icons/
 │       │   ├── Blackfield.png
@@ -61,16 +97,30 @@ Rootinator/
 │       └── templates/
 │           ├── Writeup Template Linux.md
 │           └── Writeup Template Windows.md
-└── obsidian-writeups/
-    └── Attachments/
-        └── (original Obsidian screenshots)
+└── .github/
+    └── workflows/
+        └── convert-writeup-images.yml
 ```
 
 ---
 
 ## Image Handling
 
-### Understanding the Image Structure
+### Automated Conversion (Recommended)
+
+**Simply use Obsidian-style syntax in your writeups:**
+```markdown
+![[Pasted image 20251021170110.png]]
+```
+
+The GitHub Actions workflow will automatically:
+1. Copy the image from `obsidian-notes` branch
+2. Place it in `assets/images/YYYY-MM-DD-MachineName/`
+3. Update the markdown to Jekyll format: `![Pasted image 20251021170110.png](/assets/images/2025-10-21-Flight/Pasted image 20251021170110.png)`
+
+### Manual Conversion (If Needed)
+
+If the workflow doesn't run or you need to manually convert:
 
 **Obsidian Format** (in source notes):
 ```markdown
@@ -79,37 +129,14 @@ Rootinator/
 
 **Jekyll/Website Format** (in _writeups):
 ```markdown
-![](../assets/images/Pasted image 20251021170110.png)
+![Pasted image 20251021170110.png](/assets/images/2025-10-21-Flight/Pasted image 20251021170110.png)
 ```
-
-### Image Path Conversion
-
-1. **Identify the timestamp ID** in Obsidian format: `![[Pasted image YYYYMMDDHHMMSS.png]]`
-2. **Convert to relative path**: `../assets/images/Pasted image YYYYMMDDHHMMSS.png`
-3. **URL encode spaces**: Spaces become `%20` in URLs (but not in markdown path)
 
 ### Image Location
 
-- **Source**: `obsidian-writeups/Attachments/Pasted image TIMESTAMP.png`
-- **Destination**: `assets/images/Pasted image TIMESTAMP.png`
-- **Reference in _writeups**: `../assets/images/Pasted image TIMESTAMP.png`
-
-**Important**: Images should already exist in `assets/images/` with the same timestamp as Obsidian. If not, they need to be copied from `obsidian-writeups/Attachments/` first.
-
-### Example Conversion
-
-**Obsidian note:**
-```markdown
-The scan reveals:
-![[Pasted image 20251021170110.png]]
-```
-
-**Converted writeup:**
-```markdown
-The scan reveals:
-
-![](../assets/images/Pasted image 20251021170110.png)
-```
+- **Source**: `obsidian-notes` branch at `obsidian-writeups/Assets/Attachments/Pasted image TIMESTAMP.png`
+- **Destination**: `main` branch at `assets/images/YYYY-MM-DD-MachineName/Pasted image TIMESTAMP.png`
+- **Reference in writeup**: `/assets/images/YYYY-MM-DD-MachineName/Pasted image TIMESTAMP.png`
 
 ---
 
@@ -159,22 +186,7 @@ Always include immediately after frontmatter:
 <link rel="stylesheet" href="{{ '/assets/css/obsidian-dividers.css' | relative_url }}">
 ```
 
-### 2. Machine Information Table (Optional)
-
-For boxes where you want to display structured info:
-
-```markdown
-## Machine Information
-
-| Property       | Value      |
-| -------------- | ---------- |
-| **Name**       | Flight     |
-| **OS**         | Windows    |
-| **Difficulty** | Hard       |
-| **IP**         | 10.10.11.x |
-```
-
-### 3. Summary Section
+### 2. Summary Section
 
 ```markdown
 ## Summary
@@ -189,6 +201,45 @@ For boxes where you want to display structured info:
 - Vulnerability 2
 - Vulnerability 3
 ```
+
+### 3. Nmap Scan Format (Standardized)
+
+**Follow the Blackfield format exactly:**
+
+```markdown
+### Nmap Scan
+
+**Initial scan:**
+```bash
+nmap -vv -T5 -p- 10.129.229.17
+
+nmap -vv -T5 -p53,88,135,139,389,445,593,3268,5985 -sC -sV 10.129.229.17
+```
+
+**Results:**
+
+| Port | Service  | TCP/UDP |
+| ---- | -------- | ------- |
+| 53   | DNS      | TCP     |
+| 88   | Kerberos | TCP     |
+| 135  | RPC      | TCP     |
+| 139  | Netbios  | TCP     |
+| 389  | LDAP     | TCP     |
+| 445  | SMB      | TCP     |
+| 593  | HTTP RPC | TCP     |
+| 3268 | LDAP     | TCP     |
+| 5985 | WinRM    | TCP     |
+
+**Key findings:**
+- Finding 1
+- Finding 2
+```
+
+**Important:** 
+- Use two scan commands (full port scan, then targeted scan)
+- Table format with Port | Service | TCP/UDP columns
+- Keep service names simple and consistent
+- Add "Key findings" bullet points
 
 ### 4. Section Organization
 
@@ -206,10 +257,9 @@ Follow this standard order (from templates):
 6. **Privilege Escalation**
 7. **Root Flag**
 8. **Post-Exploitation** (optional)
-9. **Tools Used** (table - optional)
-10. **References**
-11. **Timeline** (Mermaid diagram - optional)
-12. **Footer** (Pwned date + ratings)
+9. **References**
+10. **Timeline** (Mermaid diagram - optional)
+11. **Footer** (Pwned date + ratings)
 
 ### 5. Custom Dividers
 
@@ -254,7 +304,7 @@ command --flags arguments
 
 ### 7. Tables
 
-Use tables for structured data:
+Use tables for structured data following Blackfield's format:
 
 **Port/Service Information:**
 ```markdown
@@ -266,10 +316,10 @@ Use tables for structured data:
 
 **SMB Shares:**
 ```markdown
-| Share    | Permissions | Description         |
-| -------- | ----------- | ------------------- |
-| Shared   | READ, WRITE | Custom share        |
-| Users    | READ        | Standard users dir  |
+| Share    | Permissions | Remark                  |
+| -------- | ----------- | ----------------------- |
+| Shared   | READ, WRITE | Custom share            |
+| Users    | READ        | Standard users dir      |
 ```
 
 ---
@@ -298,7 +348,8 @@ Use tables for structured data:
    - List 3-5 key vulnerabilities
 
 5. **Process Enumeration**
-   - Convert nmap output to table format
+   - Convert nmap output to **Blackfield-style table format**
+   - Use two-command nmap format (full scan + targeted)
    - Add "Key findings" bullets
    - Include all service-specific enumeration
 
@@ -309,9 +360,10 @@ Use tables for structured data:
    - Use warning dividers for exploitation paths
 
 7. **Handle Images**
-   - Find image timestamp in Obsidian notes
-   - Convert to relative path: `../assets/images/Pasted image TIMESTAMP.png`
-   - Verify image exists in `assets/images/`
+   - **Leave images in Obsidian format**: `![[Pasted image TIMESTAMP.png]]`
+   - The GitHub Actions workflow will automatically convert them
+   - Images will be copied from obsidian-notes branch to proper location
+   - Syntax will be updated to Jekyll format automatically
 
 8. **Add Flags**
    - Show how flags were obtained
@@ -331,10 +383,10 @@ Use tables for structured data:
     - Fun factor rating (⭐)
 
 12. **Review**
-    - Check all image paths
+    - Check frontmatter is valid YAML
     - Verify code blocks have languages
-    - Validate YAML frontmatter
     - Ensure dividers are properly formatted
+    - Confirm nmap section follows Blackfield format
 
 ---
 
@@ -346,10 +398,9 @@ Use tables for structured data:
 - [ ] TL;DR is 2-3 sentences max
 - [ ] Key vulnerabilities listed (3-5 items)
 - [ ] Sections follow template order
-- [ ] Nmap results in table format
+- [ ] **Nmap section follows Blackfield format** (two commands + table)
 - [ ] Code blocks have language specified
-- [ ] Images use correct relative paths (`../assets/images/...`)
-- [ ] Images verified to exist in assets/images/
+- [ ] **Images left in Obsidian format** `![[image.png]]` for auto-conversion
 - [ ] Custom dividers used appropriately
 - [ ] Vulnerability explanations in dividers
 - [ ] Commands show input and relevant output
@@ -365,9 +416,9 @@ Use tables for structured data:
 
 ### ❌ Don't:
 - Create new templates - use existing ones
-- Use raw GitHub URLs for images
+- Manually convert image paths - let the workflow do it
 - Skip the CSS stylesheet link
-- Leave image references as `![[Pasted image...]]`
+- Use different nmap format - follow Blackfield exactly
 - Use numbered headers
 - Include excessive command output
 - Skip TL;DR or key vulnerabilities
@@ -375,9 +426,9 @@ Use tables for structured data:
 
 ### ✅ Do:
 - Start from official templates
-- Use relative paths: `../assets/images/...`
+- Leave images in Obsidian format: `![[image.png]]`
+- Follow Blackfield's nmap format exactly
 - Include custom dividers for visual appeal
-- Convert Obsidian image syntax properly
 - Use markdown headers (`##`, `###`)
 - Show only relevant output
 - Keep TL;DR concise
@@ -385,34 +436,51 @@ Use tables for structured data:
 
 ---
 
-## Image Troubleshooting
+## Troubleshooting
 
-### Issue: Image not displaying
+### Issue: Workflow didn't run
 
 **Check:**
-1. Does image exist in `assets/images/` with exact timestamp?
-2. Is path format correct: `../assets/images/Pasted image TIMESTAMP.png`?
-3. Is the markdown syntax correct: `![](path)` not `![[path]]`?
+1. Did you push changes to a file in `_writeups/`?
+2. Is the file named correctly (`_writeups/MachineName.md`)?
+3. Check GitHub Actions tab for workflow status
 
 **Solution:**
-If image is missing from `assets/images/`, copy from `obsidian-writeups/Attachments/` first.
+Make a small change to the writeup file (add a space) and push again to trigger the workflow.
 
-### Issue: Image path has special characters
+### Issue: Images not copied
+
+**Check:**
+1. Do images exist in `obsidian-notes` branch at `obsidian-writeups/Assets/Attachments/`?
+2. Are image filenames exactly the same in the writeup and in the branch?
+3. Does the writeup have a valid `date:` field in frontmatter?
 
 **Solution:**
-Spaces in filenames are fine in the path itself. URL encoding (`%20`) is only needed in actual URLs, not in markdown relative paths.
+Verify images exist in obsidian-notes branch with correct names. Check workflow logs in GitHub Actions for specific errors.
+
+### Issue: Image syntax not converted
+
+**Check:**
+1. Did the workflow complete successfully?
+2. Check for a commit from `github-actions[bot]` after your push
+
+**Solution:**
+Check the workflow logs in GitHub Actions. The workflow should create a commit with message "Auto-convert Obsidian images to Jekyll format".
 
 ---
 
 ## References
 
 **Example Writeups:**
-- `_writeups/Blackfield.md` - Complete example with all features
-- `_writeups/DarkZero.md` - Another reference
+- `_writeups/Blackfield.md` - **Primary reference** for format
+- `_writeups/Flight.md` - Shows automated workflow in action
 
 **Templates:**
 - `assets/writeups/templates/Writeup Template Windows.md`
 - `assets/writeups/templates/Writeup Template Linux.md`
+
+**Workflow:**
+- `.github/workflows/convert-writeup-images.yml`
 
 ---
 
@@ -422,13 +490,16 @@ When converting writeups:
 
 1. **Always use existing templates** from `assets/writeups/templates/`
 2. **Read source Obsidian notes** for accuracy
-3. **Match Blackfield.md style** for consistency
-4. **Convert image syntax**: `![[image]]` → `![](../assets/images/image)`
+3. **Match Blackfield.md style** for consistency, especially:
+   - Nmap format (two commands + table with Port | Service | TCP/UDP)
+   - Table structures
+   - Divider usage
+4. **Leave images in Obsidian format**: `![[image.png]]` - the workflow handles conversion
 5. **Preserve all commands** exactly as in notes
 6. **Use dividers generously** for visual hierarchy
 7. **Explain techniques** with info dividers
 8. **Keep TL;DR tight** - 2-3 sentences max
-9. **Verify image timestamps** match between Obsidian and assets/images
+9. **Follow Blackfield's nmap format exactly** - this is critical for consistency
 
 ---
 
