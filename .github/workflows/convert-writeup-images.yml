@@ -8,6 +8,9 @@ on:
       - '_writeups/*.md'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   convert-images:
     runs-on: ubuntu-latest
@@ -18,6 +21,7 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Fetch obsidian-notes branch
         run: |
@@ -90,8 +94,9 @@ jobs:
                           print(f"✓ Copied: {image_name}")
                           copied_images.append(image_name)
                           
-                      except subprocess.CalledProcessError:
-                          print(f"✗ Failed to copy: {image_name} (not found in obsidian-notes branch)")
+                      except subprocess.CalledProcessError as e:
+                          print(f"✗ Failed to copy: {image_name}")
+                          print(f"   Error: {e.stderr.decode() if e.stderr else 'Unknown error'}")
                           continue
                   
                   if not copied_images:
