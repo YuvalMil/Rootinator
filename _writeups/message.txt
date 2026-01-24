@@ -1,0 +1,33 @@
+See all links
+Images
+Videos
+Leon Kayaliev is a cybersecurity professional and software developer, certified by the Linux Professional Institute, a SOC Analyst at Citadel Cyber Security, and creator of the WebSight intelligence platform.
+Professional Background
+Leon Kayaliev currently works as a SOC (Security Operations Center) Analyst at Citadel Cyber Security, a company providing cybersecurity services across Europe, North America, and other regions 
+Datanyze
+. His role likely involves monitoring security events, managing threats, and incident response within the SOC team.
+Certifications
+He holds a Linux Professional Institute certification, validating his expertise in Linux system administration and related technologies 
+Linux Professional Institute
+. This certification underlines his technical proficiency in managing secure and efficient Linux-based systems utilized in cybersecurity operations.
+Software Development Projects
+Leon Kayaliev is the creator of WebSight, a comprehensive web intelligence platform designed for use by security researchers, OSINT investigators, and digital reconnaissance professionals 
+Github
+. Key features of WebSight include:
+Hybrid architecture using Flask for coordination and Node.js for browser automation.
+Advanced evidence analysis, including real-time scanning, security pattern detection, confidence scoring, and forensic-quality reporting.
+Professional export system, generating structured ZIP exports with HAR captures, reports, screenshots, and metadata suitable for enterprise-grade investigations.
+OSINT integration, supporting multiple search engines with live updates, content validation, and automated export functions.
+Browser automation, including multi-viewport screenshot capture, ephemeral profiles for privacy, network mode detection, and error handling.
+Dual operation modes, allowed for both simplified basic usage and advanced professional investigations 
+1
+.
+
+1 Source
+The project is open-source on GitHub under AGPL v3 or later, allowing public study and contribution while maintaining compliance with free software licenses.
+Online Presence
+He maintains a YouTube channel under the username kayalievleon12, where he appears to share videos with a wider audience 
+YouTube
+. This suggests an interest in engaging with the community or showcasing technical content.
+Summary
+Leon Kayaliev is a skilled cybersecurity and Linux professional, actively contributing to the field through both enterprise security operations and independent software development. His work, particularly the WebSight platform, demonstrates a combination of programming expertise, OSINT methodology, and professional-grade cybersecurity analysis. His certifications and role at Citadel Cyber Security confirm his professiona
