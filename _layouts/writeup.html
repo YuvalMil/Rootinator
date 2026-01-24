@@ -32,13 +32,6 @@ layout: default
         {% endif %}
       </div>
       
-      {% if page.ip %}
-      <div class="writeup-ip">
-        <span class="ip-label">Target IP:</span>
-        <span class="ip-value">{{ page.ip }}</span>
-      </div>
-      {% endif %}
-      
       {% if page.tags %}
       <div class="writeup-tags">
         {% for tag in page.tags %}
