@@ -171,7 +171,7 @@ find / -perm -u=s -type f 2>/dev/null
 
 Running `strings` on `/bin/sysinfo` reveals it calls system binaries using **relative paths** (e.g., `lshw`, `fdisk`, `cat`) instead of absolute paths (e.g., `/usr/bin/lshw`).
 
-![[Pasted image 20250917182858.png]]
+![Pasted image 20250917182858.png](/assets/images/2025-09-17-Magic/Pasted image 20250917182858.png)
 
 <div class="divider divider-warning">
     <span class="divider-title">PATH Hijacking</span>
@@ -187,7 +187,7 @@ Running `strings` on `/bin/sysinfo` reveals it calls system binaries using **rel
 3.  Add the current directory to the `PATH`.
 4.  Run `sysinfo`.
 
-![[Pasted image 20250917183109.png]]
+![Pasted image 20250917183109.png](/assets/images/2025-09-17-Magic/Pasted image 20250917183109.png)
 
 ```bash
 cd /tmp
