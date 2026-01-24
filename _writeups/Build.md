@@ -237,7 +237,7 @@ This hook automatically checks out commits to Jenkins workspace!
 
 Searching for "Jenkinsfile shell command" reveals the `sh` step for pipeline scripts.
 
-![[Pasted image 20250921211923.png]]
+![Pasted image 20250921211923.png](/assets/images/2025-09-21-Build/Pasted image 20250921211923.png)
 
 **Step 2:** Create malicious Jenkinsfile
 
@@ -326,7 +326,7 @@ root@jenkins-container:/# mount | grep -v "tmpfs\|proc\|sys"
 overlay on / type overlay (rw,relatime,lowerdir=/var/lib/docker/overlay2/...)
 ```
 
-![[Pasted image 20250921212111.png]]
+![Pasted image 20250921212111.png](/assets/images/2025-09-21-Build/Pasted image 20250921212111.png)
 
 The `/root` directory is mounted from the host's ext4 filesystem!
 
@@ -351,7 +351,7 @@ root@jenkins-container:/# cat /root/.rhosts
 intern.build.vl buildadm
 ```
 
-![[Pasted image 20250921212304.png]]
+![Pasted image 20250921212304.png](/assets/images/2025-09-21-Build/Pasted image 20250921212304.png)
 
 <div class="divider divider-info">
     <span class="divider-title">.rhosts File Explanation</span>
@@ -466,7 +466,7 @@ MySQL [powerdnsadmin]> show tables;
 
 **Step 3:** Dump user table
 
-![[Pasted image 20250921212923.png]]
+![Pasted image 20250921212923.png](/assets/images/2025-09-21-Build/Pasted image 20250921212923.png)
 
 ```bash
 MySQL [powerdnsadmin]> select * from user;
@@ -501,7 +501,7 @@ Hash.Mode........: 3200 (bcrypt $2*$, Blowfish (Unix))
 
 **Step 5:** Check records table for web interface location
 
-![[Pasted image 20250921213228.png]]
+![Pasted image 20250921213228.png](/assets/images/2025-09-21-Build/Pasted image 20250921213228.png)
 
 ```bash
 MySQL [powerdnsadmin]> select * from records where type='A';
@@ -556,7 +556,7 @@ In PowerDNS Admin:
 4. Change content from `172.18.0.3` to `10.10.14.5` (your Kali IP)
 5. Save changes
 
-![[Pasted image 20250921213359.png]]
+![Pasted image 20250921213359.png](/assets/images/2025-09-21-Build/Pasted image 20250921213359.png)
 
 **Step 2:** Execute commands via rsh
 
@@ -568,7 +568,7 @@ root
 [REDACTED]
 ```
 
-![[Pasted image 20250921213445.png]]
+![Pasted image 20250921213445.png](/assets/images/2025-09-21-Build/Pasted image 20250921213445.png)
 
 **Step 3:** Get interactive root shell
 
