@@ -16,7 +16,7 @@ tags:
   - review
   - wpa2
   - wireless-protocols
-featured_image: /assets/images/OSWP.jpg
+featured_image: /assets/images/OSWP.svg
 ---
 
 ## Introduction
