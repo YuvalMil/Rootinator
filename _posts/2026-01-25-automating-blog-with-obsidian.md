@@ -1,9 +1,18 @@
 ---
 layout: post
-title: "How I Automated My Blog to Update from Obsidian Notes"
+title: How I Automated My Blog to Update from Obsidian Notes
 date: 2026-01-25 10:51:00 +0200
-categories: [tutorial, automation, obsidian]
-tags: [obsidian, github-actions, jekyll, automation, workflow]
+categories:
+  - tutorial
+  - automation
+  - obsidian
+tags:
+  - obsidian
+  - github-actions
+  - jekyll
+  - automation
+  - workflow
+featured_image: /assets/images/Obsidian.png
 ---
 
 ## Introduction

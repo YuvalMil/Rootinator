@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2026-01-25-oswp-certification-review.md",
+                "file": "_posts/2026-01-25-automating-blog-with-obsidian.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-01-25-oswp-certification-review"
+              "title": "2026-01-25-automating-blog-with-obsidian"
             }
           }
         ]
@@ -186,18 +186,20 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "_posts/2026-01-22-welcome.md",
+    "assets/images/Obsidian.png",
+    "assets/images/Unconfirmed 8738.crdownload",
+    "_posts/2026-01-25-oswp-certification-review.md",
     "_posts/2026-01-25-oscp-plus-certification-review.md",
     "assets/images/OSWP.svg",
     "assets/images/Unconfirmed 931529.crdownload",
     "_posts/2026-01-10-top-recon-tools-2026.md",
-    "_posts/2026-01-25-oswp-certification-review.md",
     "_posts/2026-01-20-understanding-sql-injection.md",
     "_posts/2026-01-18-setting-up-home-lab.md",
     "assets/images/OSCP.png",
     "assets/images/Unconfirmed 984736.crdownload",
     "assets/images/OSWP.jpg",
     "assets/images/Unconfirmed 674116.crdownload",
-    "_posts/2026-01-22-welcome.md",
     "_posts/2026-01-25-automating-blog-with-obsidian.md",
     "_posts/2026-01-15-my-first-bug-bounty.md",
     "_writeups/DarkZero.md",
@@ -209,7 +211,6 @@
     "assets/images/2025-09-21-Build/Pasted image 20250921212923.png",
     "assets/images/2025-09-21-Build/Pasted image 20250921212304.png",
     "assets/images/2025-09-21-Build/Pasted image 20250921212111.png",
-    "assets/images/2025-09-21-Build/Pasted image 20250921211923.png",
     "assets/images/2025-09-21-Build",
     "_writeups/Build.md",
     "assets/images/2025-09-10-UpDown",
@@ -222,7 +223,6 @@
     "_writeups/Sau.md",
     "_writeups/Cap.md",
     "_writeups/Magic.md",
-    "_writeups/Unconfirmed 590752.crdownload",
     "_writeups/Boolean.md",
     "_writeups/Cobblestone.md",
     "_writeups/Flight.md",
