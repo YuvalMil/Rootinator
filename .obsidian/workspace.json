@@ -184,8 +184,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "6cfc1b3cc1d71c05",
+  "active": "980365d452640efe",
   "lastOpenFiles": [
+    "_posts/2026-01-25-oswp-certification-review.md",
+    "_posts/2026-01-25-oscp-plus-certification-review.md",
+    "_posts/2026-01-25-automating-blog-with-obsidian.md",
     "_writeups/message.txt",
     "_writeups/Unconfirmed 352778.crdownload",
     "assets/images/2025-09-21-Build/Pasted image 20250921213445.png",
@@ -221,7 +224,6 @@
     "assets/images/2025-11-06-Lavita",
     "assets/images/2025-09-17-Magic",
     "assets/writeups/icons/Unconfirmed 508578.crdownload",
-    "assets/writeups/icons/Unconfirmed 466449.crdownload",
     "_writeups/test-windows.md",
     "_writeups/AI.md",
     "_writeups/example-complete-writeup.md",
@@ -229,8 +231,6 @@
     "WRITEUP-INSTRUCTIONS.md",
     "obsidian-writeups/Boxes/Windows/Medium/PB Resourced (Windows).md",
     "obsidian-writeups/Boxes/Windows/Medium/HTB Voleur (Windows).md",
-    "obsidian-writeups/Boxes/Windows/Medium/HTB Tombwatcher (Windows).md",
-    "obsidian-writeups/Boxes/Windows/Medium/HTB TheFrizz (Windows).md",
-    "obsidian-writeups/Boxes/Windows/Medium/HTB StreamIO (Windows).md"
+    "obsidian-writeups/Boxes/Windows/Medium/HTB Tombwatcher (Windows).md"
   ]
 }
