@@ -3,7 +3,7 @@ layout: post
 title: "OSWP Certification Review: Fast-Track to Wireless Penetration Testing"
 date: 2026-01-25 13:55:00 +0200
 categories: [certification, review, oswp]
-tags: [oswp, offensive-security, certification, wireless, wifi, penetration-testing, review, wpa2, 802.11]
+tags: [oswp, offensive-security, certification, wireless, wifi, penetration-testing, review, wpa2, wireless-protocols]
 ---
 
 ## Introduction
