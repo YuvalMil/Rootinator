@@ -2,8 +2,18 @@
 layout: post
 title: "OSCP+ Certification Review: My Journey from SOC Analyst to Offensive Security"
 date: 2026-01-25 13:34:00 +0200
-categories: [certification, review, oscp]
-tags: [oscp, oscp-plus, offensive-security, certification, penetration-testing, review]
+categories:
+  - certification
+  - review
+  - oscp
+tags:
+  - oscp
+  - oscp-plus
+  - offensive-security
+  - certification
+  - penetration-testing
+  - review
+featured_image: /assets/images/OSCP.png
 ---
 
 ## Introduction
