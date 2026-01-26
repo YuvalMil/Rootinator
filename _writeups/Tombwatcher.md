@@ -1,9 +1,9 @@
 ---
 layout: writeup
-title: "Tombwatcher"
+title: Tombwatcher
 platform: HackTheBox
 difficulty: Medium
-box_icon: /assets/writeups/icons/Tombwatcher.png
+box_icon: /assets/writeups/icons/TombWatcher.png
 date: 2025-10-11
 tags:
   - active-directory

@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2026-01-25-automating-blog-with-obsidian.md",
+                "file": "_writeups/Tombwatcher.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-01-25-automating-blog-with-obsidian"
+              "title": "Tombwatcher"
             }
           }
         ]
@@ -186,32 +186,34 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "_posts/2026-01-25-automating-blog-with-obsidian.md",
+    "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011154402.png",
+    "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011153954.png",
+    "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011153919.png",
+    "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011153310.png",
+    "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011153241.png",
+    "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011152932.png",
+    "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011152205.png",
+    "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011152019.png",
+    "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011151920.png",
+    "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011151658.png",
+    "assets/images/2025-10-11-Tombwatcher",
+    "_writeups/Tombwatcher.md",
     "_writeups/Cobblestone.md",
     "_posts/2026-01-25-oswp-certification-review.md",
     "_posts/2026-01-25-oscp-plus-certification-review.md",
-    "_posts/2026-01-25-automating-blog-with-obsidian.md",
     "_posts/2026-01-22-welcome.md",
-    "assets/images/Obsidian.png",
     "assets/images/Unconfirmed 8738.crdownload",
-    "assets/images/OSWP.svg",
     "assets/images/Unconfirmed 931529.crdownload",
     "_posts/2026-01-10-top-recon-tools-2026.md",
     "_posts/2026-01-20-understanding-sql-injection.md",
     "_posts/2026-01-18-setting-up-home-lab.md",
-    "assets/images/OSCP.png",
     "assets/images/Unconfirmed 984736.crdownload",
-    "assets/images/OSWP.jpg",
     "assets/images/Unconfirmed 674116.crdownload",
     "_posts/2026-01-15-my-first-bug-bounty.md",
     "_writeups/DarkZero.md",
     "_writeups/message.txt",
     "_writeups/Unconfirmed 352778.crdownload",
-    "assets/images/2025-09-21-Build/Pasted image 20250921213445.png",
-    "assets/images/2025-09-21-Build/Pasted image 20250921213359.png",
-    "assets/images/2025-09-21-Build/Pasted image 20250921213228.png",
-    "assets/images/2025-09-21-Build/Pasted image 20250921212923.png",
-    "assets/images/2025-09-21-Build/Pasted image 20250921212304.png",
-    "assets/images/2025-09-21-Build/Pasted image 20250921212111.png",
     "assets/images/2025-09-21-Build",
     "_writeups/Build.md",
     "assets/images/2025-09-10-UpDown",
@@ -220,7 +222,6 @@
     "_writeups/Intentions.md",
     "_writeups/Exfiltrated.md",
     "_writeups/Blackfield.md",
-    "assets/images/2025-10-25-Cap",
     "_writeups/Sau.md",
     "_writeups/Cap.md",
     "_writeups/Magic.md",
@@ -229,7 +230,6 @@
     "_writeups/Lavita.md",
     "_writeups/Astronaut.md",
     "_writeups/Pelican.md",
-    "_writeups/test-windows.md",
-    "_writeups/AI.md"
+    "_writeups/test-windows.md"
   ]
 }
