@@ -50,6 +50,7 @@ plugins:
 # Exclude from build
 exclude:
   - .github/
+  - .obsidian/
   - node_modules/
   - vendor/
   - Gemfile
@@ -58,4 +59,7 @@ exclude:
   - package-lock.json
   - DEPLOYMENT.md
   - OBSIDIAN-SETUP.md
-  - WRITEUP-GUIDE.md
+  - WRITEUP-INSTRUCTIONS.md
+  - WRITEUP_EDITING_GUIDELINES.md
+  - README.md
+  - .gitignore
