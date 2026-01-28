@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_writeups/Tombwatcher.md",
+                "file": "_writeups/Blackfield.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Tombwatcher"
+              "title": "Blackfield"
             }
           }
         ]
@@ -186,6 +186,7 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "_writeups/Tombwatcher.md",
     "_posts/2026-01-25-automating-blog-with-obsidian.md",
     "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011154402.png",
     "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011153954.png",
@@ -198,7 +199,6 @@
     "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011151920.png",
     "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011151658.png",
     "assets/images/2025-10-11-Tombwatcher",
-    "_writeups/Tombwatcher.md",
     "_writeups/Cobblestone.md",
     "_posts/2026-01-25-oswp-certification-review.md",
     "_posts/2026-01-25-oscp-plus-certification-review.md",
