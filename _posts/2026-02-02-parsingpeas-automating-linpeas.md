@@ -18,7 +18,7 @@ I got tired of manually transferring LinPEAS output between machines, so I built
 
 ## The Problem
 
-Running LinPEAS on 5 HTB boxes at once means:
+Running LinPEAS on multiple HTB boxes means:
 - Setting up HTTP servers
 - Copy-pasting thousands of lines of colored output
 - Losing track of which findings belong to which machine
@@ -117,16 +117,16 @@ python3 parser.py /path/to/linpeas_output.txt
 
 ## Why I Built This
 
-During a HTB session with 5 boxes running, I kept losing track of which LinPEAS output belonged to which machine. Copy-pasting terminal output into Obsidian was annoying and error-prone.
+During HTB sessions, I kept losing track of which LinPEAS output belonged to which machine. Copy-pasting terminal output into Obsidian was annoying and error-prone.
 
-Built the first version in 2 hours:
+Built the first version in a few hours:
 - Basic HTTP server
 - Upload endpoint
 - File storage
 
-Added HTML parsing next day:
+Added HTML parsing:
 - Regex-based section detection
-- 10 basic categories
+- Basic categorization
 - Preserved ANSI colors
 
 Then community feedback:
@@ -169,17 +169,6 @@ Invoke-RestMethod -Uri "http://$KaliIP:8000/upload" `
 
 Parser detects WinPEAS headers using cyan+green ANSI patterns.
 
-## Real Usage
-
-**HTB Soulmate:**
-Ran LinPEAS while enumerating web app. By the time I got foothold, HTML report was ready with all privesc vectors categorized. Saved ~10 minutes.
-
-**CTF with teammates:**
-Ran scans on 3 machines simultaneously. Everyone could view reports from dashboard without SSH to my Kali box. Easy to compare: "Box A has MySQL, Box B doesn't."
-
-**OSCP practice:**
-50+ reports from lab machines. Good reference for reviewing different privesc techniques.
-
 ## TODO
 
 **High priority:**
@@ -201,9 +190,6 @@ Ran scans on 3 machines simultaneously. Everyone could view reports from dashboa
 
 **Build what you need**
 I made this for myself. That's why it actually works.
-
-**Small savings compound**
-5 minutes × 50 boxes = 4+ hours saved.
 
 **Simple UX matters**
 The one-liner was the most appreciated feature. No one reads docs.
