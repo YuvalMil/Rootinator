@@ -11,7 +11,7 @@ tags:
   - oscp
   - ctf
   - python
-featured_image: /assets/images/parsingpeas-logo.png
+featured_image: /assets/images/ParsingPeas.png
 ---
 
 I wasted 2 hours on extra enumeration because I missed a finding in WinPEAS output. That was the breaking point. I built [ParsingPeas](https://github.com/YuvalMil/ParsingPeas) to fix this.

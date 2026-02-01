@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_writeups/Blackfield.md",
+                "file": "_posts/2026-02-02-parsingpeas-automating-linpeas.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Blackfield"
+              "title": "2026-02-02-parsingpeas-automating-linpeas"
             }
           }
         ]
@@ -186,6 +186,9 @@
   },
   "active": "6cfc1b3cc1d71c05",
   "lastOpenFiles": [
+    "_writeups/Blackfield.md",
+    "assets/images/ParsingPeas.png",
+    "assets/images/Unconfirmed 60677.crdownload",
     "_posts/2026-02-02-parsingpeas-automating-linpeas.md",
     "_writeups/Tombwatcher.md",
     "_posts/2026-01-25-automating-blog-with-obsidian.md",
@@ -198,7 +201,6 @@
     "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011152205.png",
     "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011152019.png",
     "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011151920.png",
-    "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011151658.png",
     "assets/images/2025-10-11-Tombwatcher",
     "_writeups/Cobblestone.md",
     "_posts/2026-01-25-oswp-certification-review.md",
@@ -219,10 +221,8 @@
     "_writeups/Build.md",
     "assets/images/2025-09-10-UpDown",
     "_writeups/UpDown.md",
-    "assets/images/2025-09-11-Intentions",
     "_writeups/Intentions.md",
     "_writeups/Exfiltrated.md",
-    "_writeups/Blackfield.md",
     "_writeups/Sau.md",
     "_writeups/Cap.md",
     "_writeups/Magic.md",
@@ -230,7 +230,6 @@
     "_writeups/Flight.md",
     "_writeups/Lavita.md",
     "_writeups/Astronaut.md",
-    "_writeups/Pelican.md",
-    "_writeups/test-windows.md"
+    "_writeups/Pelican.md"
   ]
 }
