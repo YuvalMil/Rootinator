@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2026-02-02-parsingpeas-automating-linpeas.md",
+                "file": "_writeups/Cant publish yet/DarkZero.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-02-02-parsingpeas-automating-linpeas"
+              "title": "DarkZero"
             }
           }
         ]
@@ -184,8 +184,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "6cfc1b3cc1d71c05",
+  "active": "980365d452640efe",
   "lastOpenFiles": [
+    "_writeups/Cant publish yet",
+    "_posts/2026-02-02-parsingpeas-automating-linpeas.md",
     "assets/images/startup.exe",
     "assets/images/Unconfirmed 567937.crdownload",
     "assets/images/secure_notes.zip",
@@ -193,7 +195,6 @@
     "_writeups/Blackfield.md",
     "assets/images/ParsingPeas.png",
     "assets/images/Unconfirmed 60677.crdownload",
-    "_posts/2026-02-02-parsingpeas-automating-linpeas.md",
     "_writeups/Tombwatcher.md",
     "_posts/2026-01-25-automating-blog-with-obsidian.md",
     "assets/images/2025-10-11-Tombwatcher/Pasted image 20251011154402.png",
@@ -218,8 +219,7 @@
     "assets/images/Unconfirmed 984736.crdownload",
     "assets/images/Unconfirmed 674116.crdownload",
     "_posts/2026-01-15-my-first-bug-bounty.md",
-    "_writeups/DarkZero.md",
-    "_writeups/message.txt",
+    "_writeups/Cant publish yet/DarkZero.md",
     "_writeups/Build.md",
     "_writeups/UpDown.md",
     "_writeups/Intentions.md",
