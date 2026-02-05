@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_writeups/Cant publish yet/DarkZero.md",
+                "file": "assets/Cant publish yet/DarkZero.md",
                 "mode": "source",
                 "source": false
               },
@@ -186,7 +186,7 @@
   },
   "active": "980365d452640efe",
   "lastOpenFiles": [
-    "_writeups/Cant publish yet",
+    "assets/Cant publish yet",
     "_posts/2026-02-02-parsingpeas-automating-linpeas.md",
     "assets/images/startup.exe",
     "assets/images/Unconfirmed 567937.crdownload",
@@ -219,7 +219,7 @@
     "assets/images/Unconfirmed 984736.crdownload",
     "assets/images/Unconfirmed 674116.crdownload",
     "_posts/2026-01-15-my-first-bug-bounty.md",
-    "_writeups/Cant publish yet/DarkZero.md",
+    "assets/Cant publish yet/DarkZero.md",
     "_writeups/Build.md",
     "_writeups/UpDown.md",
     "_writeups/Intentions.md",
